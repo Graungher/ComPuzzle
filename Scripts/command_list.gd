@@ -55,7 +55,8 @@ func _read_list():
 		else:
 			child.self_modulate = Color(0, 1, 0)
 			await doFunc(the_name)
-			child.self_modulate = Color(1, 1, 1)
+			if child:
+				child.self_modulate = Color(1, 1, 1)
 			
 		i += 1
 	running = false
@@ -109,7 +110,8 @@ func realLoop(num: int, button: TextureButton):
 				child.self_modulate = Color(1, 0, 0)
 				var loop_return = await realLoop(child.get_index(), child)
 				j = loop_return - num  # Adjust j based on where the loop ended	
-				child.self_modulate = Color(1, 1, 1)
+				if child:
+					child.self_modulate = Color(1, 1, 1)
 			else: 
 				child.self_modulate = Color(0, 1, 0)
 				await doFunc(the_name)
