@@ -5,8 +5,12 @@ extends Node2D
 @onready var current_map = $TileMap  # Initial TileMap
 @onready var cmdList = $ScrollContainer/Command_List
 var spawn_position = null
-var end_position = null
 var theRobot
+var start_tile
+var end_tile
+var current_tile
+var scaleX = 1
+var scaleY = 1
 signal goAway
 
 
@@ -17,7 +21,6 @@ func _ready() -> void:
 
 
 func switch_map():
-	print("MAP CHANGE")
 	if current_map:
 		current_map.queue_free()  # Remove the old TileMap
 
@@ -34,6 +37,7 @@ func switch_map():
 	spawnBot()
 	#robot.update_tilemap_reference()  # Make sure Robot gets the new TileMap
 
+
 func get_current_map():
 	return current_map
 
@@ -48,10 +52,12 @@ func spawnBot():
 		cmdList.turn_left_signal.connect(bot_instance._turnLeft)
 		cmdList.turn_right_signal.connect(bot_instance._turnRight)
 		goAway.connect(bot_instance.deleteRobot)
-		bot_instance.connect("tookStep", checkGoal)
+		bot_instance.connect("tookStep", botMoved)
 	
 		theRobot = bot_instance
+		theRobot.SetMapStuff(scaleX, scaleY)
 	pass
+
 
 func show_error(err: String):
 	#poppup.visible = true
@@ -69,33 +75,55 @@ func mapSetup():
 	var defaultY = 25
 	
 	var tile_size = current_map.tile_set.tile_size.x
-	var start_tile = current_map.get_start_tile()
-	var end_tile = current_map.get_end_tile()
+	start_tile = current_map.get_start_tile()
+	current_tile = start_tile
+	
+	end_tile = current_map.get_end_tile()
+	
+	
+	var tilemap_size = current_map.get_used_rect().size
+	var width_in_tiles = tilemap_size.x
+	var height_in_tiles = tilemap_size.y
+	
+	scaleX = float(defaultX) / float(width_in_tiles)
+	scaleY = float(defaultY) / float(height_in_tiles)
+	
+	current_map.scale = Vector2(scaleX, scaleY)
 	spawn_position = current_map.map_to_local(start_tile) + Vector2(0,tile_size/2 - 3)
-	end_position = current_map.map_to_local(end_tile) + Vector2(0,tile_size/2 - 3)
+	spawn_position *= current_map.scale
 	
-#	var tilemap_size = current_map.get_used_rect().size
-#	var width_in_tiles = tilemap_size.x
-#	var height_in_tiles = tilemap_size.y
+	print("TileMap width (in tiles): ", width_in_tiles)
+	print("TileMap height (in tiles): ", height_in_tiles)
 	
-#	var scaleX = float(defaultX) / float(width_in_tiles)
-#	var scaleY = float(defaultY) / float(height_in_tiles)
-	
-#	current_map.scale = Vector2(scaleX, scaleY)
-	
-	
-#	print("TileMap width (in tiles): ", width_in_tiles)
-#	print("TileMap height (in tiles): ", height_in_tiles)
-	
-#	print("Scale X: ", scaleX, " Scale Y: ", scaleY)
+	print("Scale X: ", scaleX, " Scale Y: ", scaleY)
 	pass
-	
+
+
+func botMoved():
+	var compass = theRobot.getFacing()
+	match compass:
+		"north":
+			current_tile += Vector2i(0,-1)
+			pass
+		"south":
+			current_tile += Vector2i(0,1)
+			pass
+		"east":
+			current_tile += Vector2i(1,0)
+			pass
+		"west":
+			current_tile += Vector2i(-1,0)
+			pass
+	checkGoal()
+	pass
+
+
 func checkGoal():
-	if theRobot.getCurrentPosition() == end_position:
+	if current_tile == end_tile:
 		cmdList.clearList()
 		switch_map()
 	pass
-	
+
 
 func close_error() -> void:
 	#poppup.visible = false

@@ -16,12 +16,13 @@ var loopcounter = 0
 var framelen = 40
 var cleared = false
 var running = false
-# Called when the node enters the scene tree for the first time.
+
+
 func _ready() -> void:
 	pass # Replace with function body.
 
 
-# Called every frame. 'delta' is the elapsed time since the previous frame.
+
 func _process(delta: float) -> void:
 	pass
 
@@ -105,7 +106,8 @@ func realLoop(num: int, button: TextureButton):
 	if totals == 0:
 		retspot = findEndLoop(num) # index then loop from here?
 	return retspot
-	
+
+
 func findEndLoop(num: int):
 	var the_name = ""
 	var i = 1
@@ -126,7 +128,8 @@ func findEndLoop(num: int):
 				totLoop -= 1
 	return retspot
 	pass
-	
+
+
 func clearList():
 	running = false
 	for child in get_children():
@@ -135,12 +138,14 @@ func clearList():
 	wait_frames(framelen+5)
 	pass
 
+
 func fakeClearList():
 	running = false
 	cleared = true
 	wait_frames(framelen+5)
 	pass
-	
+
+
 func validate():
 	cleared = false
 	var i = get_child_count()
@@ -158,10 +163,10 @@ func validate():
 	else:
 		_read_list()
 
+
 func wait_frames(frame_count: int):
 	for i in range(frame_count):
 		await get_tree().process_frame
-
 
 
 func deleteNode(node: TextureButton):
@@ -176,13 +181,14 @@ func deleteNode(node: TextureButton):
 		reIndex()
 	pass
 
+
 func reIndex():
 	var index = 1;
 	for child in get_children():
 		if child.has_node("index_label"):
 			child.get_node("index_label").text = str(index)
 			index += 1
-			
+
 
 func _on_make_node(the_name: String):
 	var button_instance 

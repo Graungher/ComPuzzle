@@ -13,20 +13,22 @@ signal deleteMe(button: TextureButton)
 
 var count := 0
 
-func _ready():
+func _ready() -> void:
 	if text:
 		$loopCount.custom_minimum_size = Vector2(38, 30)
 		$loopCount.size = Vector2(20, 13)
 	pass
 
-func _on_up_button_pressed():
+
+func _on_up_button_pressed() -> void:
 	emit_signal("mover", 1,self)
 
-func _on_down_button_pressed():
+
+func _on_down_button_pressed() -> void:
 	emit_signal("mover", -1,self)
 
 
-func _on_pressed():
+func _on_pressed() -> void:
 	emit_signal("makeMe", label.text)
 	pass # Replace with function body.
 
