@@ -114,6 +114,7 @@ func botMoved():
 		"west":
 			current_tile += Vector2i(-1,0)
 			pass
+	print(current_tile, " | ", end_tile)
 	checkGoal()
 	pass
 

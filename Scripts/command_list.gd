@@ -43,13 +43,19 @@ func _read_list():
 	emit_signal("showError", "NO ERROR")
 	running = true
 	while i < totals && !cleared:
+		
 		child = get_child(i)
 		the_name = child.get_node("Label").text
 		
 		if the_name == "LOOP":
+			child.self_modulate = Color(1, 0, 0)
 			i =  (await realLoop(child.get_index(), child) - 1)
+			child.self_modulate = Color(1, 1, 1)
 		else:
+			child.self_modulate = Color(0, 1, 0)
 			await doFunc(the_name)
+			child.self_modulate = Color(1, 1, 1)
+			
 		i += 1
 	running = false
 	pass
@@ -99,10 +105,14 @@ func realLoop(num: int, button: TextureButton):
 				retspot = child.get_index()
 				break
 			elif the_name == "LOOP":
+				child.self_modulate = Color(1, 0, 0)
 				var loop_return = await realLoop(child.get_index(), child)
 				j = loop_return - num  # Adjust j based on where the loop ended	
+				child.self_modulate = Color(1, 1, 1)
 			else: 
+				child.self_modulate = Color(0, 1, 0)
 				await doFunc(the_name)
+				child.self_modulate = Color(1, 1, 1)
 	if totals == 0:
 		retspot = findEndLoop(num) # index then loop from here?
 	return retspot
@@ -143,6 +153,8 @@ func fakeClearList():
 	running = false
 	cleared = true
 	wait_frames(framelen+5)
+	for child in get_children():
+		child.self_modulate = Color(1, 1, 1)
 	pass
 
 
@@ -151,17 +163,17 @@ func validate():
 	var i = get_child_count()
 	var loops = 0
 	var error = 0;
-	
-	for child in get_children():
-		var the_name = child.get_node("Label").text
-		if(the_name == "LOOP"):
-			loops += 1
-		if(the_name == "ENDLOOP"):
-			loops -= 1
-	if(loops != 0 || error):
-		emit_signal("showError", "NO END LOOP")
-	else:
-		_read_list()
+	if !running:
+		for child in get_children():
+			var the_name = child.get_node("Label").text
+			if(the_name == "LOOP"):
+				loops += 1
+			if(the_name == "ENDLOOP"):
+				loops -= 1
+		if(loops != 0 || error):
+			emit_signal("showError", "NO END LOOP")
+		else:
+			_read_list()
 
 
 func wait_frames(frame_count: int):
