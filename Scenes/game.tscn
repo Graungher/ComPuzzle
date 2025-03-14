@@ -90,6 +90,12 @@ offset_right = 214.0
 offset_bottom = 997.0
 text = "RESET"
 
+[node name="Button" type="Button" parent="."]
+offset_top = 897.0
+offset_right = 100.0
+offset_bottom = 997.0
+text = "QUIT"
+
 [connection signal="makeNode" from="Buttons" to="ScrollContainer/Command_List" method="_on_make_node"]
 [connection signal="pressed" from="Buttons/LoopButton" to="Buttons" method="_on_loop_button_pressed"]
 [connection signal="pressed" from="Buttons/WalkButton" to="Buttons" method="_on_walk_button_pressed"]
@@ -99,3 +105,4 @@ text = "RESET"
 [connection signal="showError" from="ScrollContainer/Command_List" to="." method="show_error"]
 [connection signal="pressed" from="TextureButton" to="ScrollContainer/Command_List" method="validate"]
 [connection signal="pressed" from="Reset_Button" to="." method="_on_button_2_pressed"]
+[connection signal="pressed" from="Button" to="." method="_on_quit_button_pressed"]

@@ -136,3 +136,7 @@ func _on_button_2_pressed() -> void:
 	cmdList.fakeClearList()
 	spawnBot()
 	pass # Replace with function body.
+
+
+func _on_quit_button_pressed() -> void:
+	get_tree().quit()
