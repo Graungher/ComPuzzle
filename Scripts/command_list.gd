@@ -50,7 +50,8 @@ func _read_list():
 		if the_name == "LOOP":
 			child.self_modulate = Color(1, 0, 0)
 			i =  (await realLoop(child.get_index(), child) - 1)
-			child.self_modulate = Color(1, 1, 1)
+			if child:
+				child.self_modulate = Color(1, 1, 1)
 		else:
 			child.self_modulate = Color(0, 1, 0)
 			await doFunc(the_name)
@@ -112,7 +113,8 @@ func realLoop(num: int, button: TextureButton):
 			else: 
 				child.self_modulate = Color(0, 1, 0)
 				await doFunc(the_name)
-				child.self_modulate = Color(1, 1, 1)
+				if child:
+					child.self_modulate = Color(1, 1, 1)
 	if totals == 0:
 		retspot = findEndLoop(num) # index then loop from here?
 	return retspot
