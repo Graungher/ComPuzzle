@@ -1,7 +1,7 @@
 [gd_scene load_steps=3 format=3 uid="uid://blltddyh63pjq"]
 
 [ext_resource type="TileSet" uid="uid://cfqepkqqbipcw" path="res://Miscellaneous/NewTileset.tres" id="1_p4eib"]
-[ext_resource type="Script" path="res://Scripts/Parentmap.gd" id="2_6segu"]
+[ext_resource type="Script" uid="uid://x1lst5u2re26" path="res://Scripts/Parentmap.gd" id="2_6segu"]
 
 [node name="TileMap" type="TileMap"]
 tile_set = ExtResource("1_p4eib")

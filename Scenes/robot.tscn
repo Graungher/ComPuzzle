@@ -1,6 +1,6 @@
 [gd_scene load_steps=12 format=3 uid="uid://dut7sncjon3br"]
 
-[ext_resource type="Script" path="res://Scripts/robot.gd" id="1_qlooc"]
+[ext_resource type="Script" uid="uid://dkoyg18sf0e5m" path="res://Scripts/robot.gd" id="1_qlooc"]
 [ext_resource type="Texture2D" uid="uid://dmswvqdqy4mms" path="res://ComPuzzle Assets/robot sprites/NormStand.png" id="2_3wn4g"]
 [ext_resource type="Texture2D" uid="uid://c0ba556d0p0ew" path="res://ComPuzzle Assets/robot sprites/Stand....png" id="3_1fmf0"]
 [ext_resource type="Texture2D" uid="uid://bpu4u4h5rcmm5" path="res://ComPuzzle Assets/robot sprites/downWalk1.png" id="3_gkgbp"]

@@ -1,10 +1,8 @@
-[gd_scene load_steps=5 format=3 uid="uid://c3s8rev7xyubi"]
+[gd_scene load_steps=4 format=3 uid="uid://c3s8rev7xyubi"]
 
-[ext_resource type="Script" path="res://Scripts/main.gd" id="1_u68rq"]
-[ext_resource type="Texture2D" path="res://ComPuzzle Assets/A5.png" id="2_tque7"]
+[ext_resource type="Script" uid="uid://b386pp4qtwud5" path="res://Scripts/main.gd" id="1_u68rq"]
 
 [sub_resource type="TileSetAtlasSource" id="TileSetAtlasSource_3jxl7"]
-texture = ExtResource("2_tque7")
 0:0/0 = 0
 1:0/0 = 0
 2:0/0 = 0
