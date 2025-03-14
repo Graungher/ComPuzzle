@@ -1,0 +1,101 @@
+[gd_scene load_steps=11 format=3 uid="uid://dd0kham0vgye6"]
+
+[ext_resource type="Script" path="res://Scripts/game.gd" id="1_ln1c5"]
+[ext_resource type="PackedScene" uid="uid://blltddyh63pjq" path="res://Scenes/ParentMap.tscn" id="2_dfe3b"]
+[ext_resource type="Texture2D" uid="uid://bxvklotg8dys1" path="res://ComPuzzle Assets/buttons/Loop.png" id="4_bygsc"]
+[ext_resource type="Script" path="res://Scripts/command_list.gd" id="5_awy3j"]
+[ext_resource type="Texture2D" uid="uid://bvlou0tu3hewl" path="res://ComPuzzle Assets/buttons/Walk.png" id="5_g1k74"]
+[ext_resource type="Script" path="res://Scripts/spawnButtons.gd" id="5_g6tuc"]
+[ext_resource type="Texture2D" uid="uid://c4ndikobv786d" path="res://ComPuzzle Assets/buttons/Turn_Left.png" id="6_48egg"]
+[ext_resource type="Texture2D" uid="uid://cm6gsxnkdiwxp" path="res://ComPuzzle Assets/buttons/Turn_Right.png" id="7_wjly5"]
+[ext_resource type="Texture2D" uid="uid://b7ivkis8nkl4" path="res://ComPuzzle Assets/buttons/End_Loop.png" id="8_dg372"]
+[ext_resource type="Texture2D" uid="uid://b5owuj6hfy8py" path="res://ComPuzzle Assets/buttons/Run_Button.png" id="10_su6ef"]
+
+[node name="Game" type="Node2D"]
+script = ExtResource("1_ln1c5")
+metadata/_edit_lock_ = true
+
+[node name="TextureRect" type="TextureRect" parent="."]
+offset_left = -78.0
+offset_top = -44.0
+offset_right = 1825.0
+offset_bottom = 1027.0
+
+[node name="TileMap" parent="." instance=ExtResource("2_dfe3b")]
+
+[node name="Camera2D" type="Camera2D" parent="."]
+position = Vector2(873, 491)
+scale = Vector2(2, 5)
+zoom = Vector2(1.01, 1.01)
+metadata/_edit_lock_ = true
+
+[node name="Buttons" type="HBoxContainer" parent="."]
+offset_left = 575.0
+offset_top = 879.0
+offset_right = 911.0
+offset_bottom = 943.0
+scale = Vector2(2, 2)
+size_flags_horizontal = 6
+size_flags_vertical = 6
+script = ExtResource("5_g6tuc")
+metadata/_edit_lock_ = true
+
+[node name="LoopButton" type="TextureButton" parent="Buttons"]
+layout_mode = 2
+texture_normal = ExtResource("4_bygsc")
+
+[node name="WalkButton" type="TextureButton" parent="Buttons"]
+layout_mode = 2
+texture_normal = ExtResource("5_g1k74")
+
+[node name="LeftButton" type="TextureButton" parent="Buttons"]
+layout_mode = 2
+texture_normal = ExtResource("6_48egg")
+
+[node name="RightButton" type="TextureButton" parent="Buttons"]
+layout_mode = 2
+texture_normal = ExtResource("7_wjly5")
+
+[node name="EndLoopButton" type="TextureButton" parent="Buttons"]
+layout_mode = 2
+texture_normal = ExtResource("8_dg372")
+
+[node name="ScrollContainer" type="ScrollContainer" parent="."]
+offset_left = 1679.0
+offset_right = 1758.0
+offset_bottom = 420.0
+scale = Vector2(2, 2)
+follow_focus = true
+metadata/_edit_lock_ = true
+
+[node name="Command_List" type="VBoxContainer" parent="ScrollContainer"]
+layout_mode = 2
+size_flags_horizontal = 2
+size_flags_vertical = 3
+script = ExtResource("5_awy3j")
+
+[node name="TextureButton" type="TextureButton" parent="."]
+offset_left = 1679.0
+offset_top = 879.0
+offset_right = 1743.0
+offset_bottom = 943.0
+scale = Vector2(2, 2)
+texture_normal = ExtResource("10_su6ef")
+metadata/_edit_lock_ = true
+
+[node name="Reset_Button" type="Button" parent="."]
+offset_left = 114.0
+offset_top = 897.0
+offset_right = 214.0
+offset_bottom = 997.0
+text = "RESET"
+
+[connection signal="makeNode" from="Buttons" to="ScrollContainer/Command_List" method="_on_make_node"]
+[connection signal="pressed" from="Buttons/LoopButton" to="Buttons" method="_on_loop_button_pressed"]
+[connection signal="pressed" from="Buttons/WalkButton" to="Buttons" method="_on_walk_button_pressed"]
+[connection signal="pressed" from="Buttons/LeftButton" to="Buttons" method="_on_left_button_pressed"]
+[connection signal="pressed" from="Buttons/RightButton" to="Buttons" method="_on_right_button_pressed"]
+[connection signal="pressed" from="Buttons/EndLoopButton" to="Buttons" method="_on_end_loop_button_pressed"]
+[connection signal="showError" from="ScrollContainer/Command_List" to="." method="show_error"]
+[connection signal="pressed" from="TextureButton" to="ScrollContainer/Command_List" method="validate"]
+[connection signal="pressed" from="Reset_Button" to="." method="_on_button_2_pressed"]
