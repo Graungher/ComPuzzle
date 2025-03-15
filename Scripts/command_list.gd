@@ -11,6 +11,7 @@ signal turn_left_signal
 signal turn_right_signal
 signal next_map
 signal showError(err: String)
+signal reset
 var totalmoves = 0
 var loopcounter = 0
 var framelen = 40
@@ -154,6 +155,7 @@ func clearList():
 
 
 func fakeClearList():
+	emit_signal("reset")
 	running = false
 	cleared = true
 	wait_frames(framelen+5)

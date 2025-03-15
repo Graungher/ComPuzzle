@@ -4,6 +4,7 @@ var currentMapIndex = 1
 
 var maps = [
 	"res://Scenes/map1.tscn",
+	"res://Scenes/map2.tscn",
 	"res://Scenes/ParentMap.tscn",
 	
 ]
@@ -14,6 +15,9 @@ func get_next_map():
 	return maps[currentMapIndex]
 	pass
 
+
+func getCurrentMap():
+	return currentMapIndex
 
 func select_map(map: int):
 	return maps[map]

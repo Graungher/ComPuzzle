@@ -1,7 +1,6 @@
-[gd_scene load_steps=11 format=3 uid="uid://dd0kham0vgye6"]
+[gd_scene load_steps=10 format=3 uid="uid://dd0kham0vgye6"]
 
 [ext_resource type="Script" uid="uid://cgptds56vy7k1" path="res://Scripts/game.gd" id="1_ln1c5"]
-[ext_resource type="PackedScene" uid="uid://blltddyh63pjq" path="res://Scenes/ParentMap.tscn" id="2_dfe3b"]
 [ext_resource type="Texture2D" uid="uid://bxvklotg8dys1" path="res://ComPuzzle Assets/buttons/Loop.png" id="4_bygsc"]
 [ext_resource type="Script" uid="uid://cwxre8kpmj7hi" path="res://Scripts/command_list.gd" id="5_awy3j"]
 [ext_resource type="Texture2D" uid="uid://bvlou0tu3hewl" path="res://ComPuzzle Assets/buttons/Walk.png" id="5_g1k74"]
@@ -20,8 +19,6 @@ offset_left = -78.0
 offset_top = -44.0
 offset_right = 1825.0
 offset_bottom = 1027.0
-
-[node name="TileMap" parent="." instance=ExtResource("2_dfe3b")]
 
 [node name="Camera2D" type="Camera2D" parent="."]
 position = Vector2(873, 491)
@@ -102,6 +99,7 @@ text = "QUIT"
 [connection signal="pressed" from="Buttons/LeftButton" to="Buttons" method="_on_left_button_pressed"]
 [connection signal="pressed" from="Buttons/RightButton" to="Buttons" method="_on_right_button_pressed"]
 [connection signal="pressed" from="Buttons/EndLoopButton" to="Buttons" method="_on_end_loop_button_pressed"]
+[connection signal="reset" from="ScrollContainer/Command_List" to="." method="_on_command_list_reset"]
 [connection signal="showError" from="ScrollContainer/Command_List" to="." method="show_error"]
 [connection signal="pressed" from="TextureButton" to="ScrollContainer/Command_List" method="validate"]
 [connection signal="pressed" from="Reset_Button" to="." method="_on_button_2_pressed"]

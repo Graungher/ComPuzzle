@@ -15,7 +15,7 @@ signal goAway
 
 
 func _ready() -> void:
-	mapSetup()
+	switch_map()
 	spawnBot()
 	pass
 
@@ -140,3 +140,8 @@ func _on_button_2_pressed() -> void:
 
 func _on_quit_button_pressed() -> void:
 	get_tree().quit()
+
+
+func _on_command_list_reset() -> void:
+	current_tile = start_tile
+	pass # Replace with function body.
