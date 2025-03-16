@@ -1,0 +1,17 @@
+[gd_scene load_steps=2 format=3 uid="uid://dnmxcu6txtpla"]
+
+[ext_resource type="Script" uid="uid://cwxre8kpmj7hi" path="res://Scripts/command_list.gd" id="1_3l2vg"]
+
+[node name="ScrollContainer" type="ScrollContainer"]
+offset_left = 1679.0
+offset_right = 1758.0
+offset_bottom = 420.0
+scale = Vector2(2, 2)
+follow_focus = true
+script = ExtResource("1_3l2vg")
+metadata/_edit_lock_ = true
+
+[node name="Command_List" type="VBoxContainer" parent="."]
+layout_mode = 2
+size_flags_horizontal = 2
+size_flags_vertical = 3

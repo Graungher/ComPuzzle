@@ -1,9 +1,11 @@
 extends Node2D
 
 @onready var robot = preload("res://Scenes/robot.tscn")
-#@onready var robot = $Robot  # Reference to Robot
 @onready var current_map = $TileMap  # Initial TileMap
 @onready var cmdList = $ScrollContainer/Command_List
+@onready var errorWindow = $AcceptDialog
+@onready var errorLabel = $AcceptDialog/Label
+
 var spawn_position = null
 var theRobot
 var start_tile
@@ -60,12 +62,14 @@ func spawnBot():
 
 
 func show_error(err: String):
-	#poppup.visible = true
-	#if err == "NO END LOOP":
-	#	errorLabel.text = "There is a loop without an 'END LOOP'"
-	#else:
-	#	errorLabel.text = ""
-	#poppup.visible = true
+	var error = 0
+	if err == "NO END LOOP":
+		errorLabel.text = "There is a loop without an 'END LOOP'!"
+	elif err == "EXTRA END LOOP":
+		errorLabel.text = "There are too many 'END LOOP's!"
+	elif err == "LOOP NAN":
+		errorLabel.text = "One of the loops had something that was not a number"
+	errorWindow.popup()
 	pass
 
 
@@ -92,10 +96,6 @@ func mapSetup():
 	spawn_position = current_map.map_to_local(start_tile) + Vector2(0,tile_size/2 - 3)
 	spawn_position *= current_map.scale
 	
-	print("TileMap width (in tiles): ", width_in_tiles)
-	print("TileMap height (in tiles): ", height_in_tiles)
-	
-	print("Scale X: ", scaleX, " Scale Y: ", scaleY)
 	pass
 
 
@@ -114,7 +114,6 @@ func botMoved():
 		"west":
 			current_tile += Vector2i(-1,0)
 			pass
-	print(current_tile, " | ", end_tile)
 	checkGoal()
 	pass
 
@@ -126,12 +125,7 @@ func checkGoal():
 	pass
 
 
-func close_error() -> void:
-	#poppup.visible = false
-	pass # Replace with function body.
-
-
-func _on_button_2_pressed() -> void:
+func _on_reset_button_pressed() -> void:
 	emit_signal("goAway")
 	cmdList.fakeClearList()
 	spawnBot()

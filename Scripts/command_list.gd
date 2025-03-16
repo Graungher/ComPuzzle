@@ -6,6 +6,7 @@ extends VBoxContainer
 @onready var LoopButton = preload("res://Scenes/button_loop.tscn")
 @onready var EndLoopButton = preload("res://Scenes/button_endloop.tscn")
 
+
 signal walk_signal
 signal turn_left_signal
 signal turn_right_signal
@@ -41,7 +42,6 @@ func _read_list():
 	var i = 0
 	var child
 	var totals = get_child_count()
-	emit_signal("showError", "NO ERROR")
 	running = true
 	while i < totals && !cleared:
 		
@@ -90,6 +90,8 @@ func realLoop(num: int, button: TextureButton):
 	var goLoop = true
 	if totals == 0:
 		goLoop = false
+	if !button.get_node("loopCount").text.is_valid_float():
+		emit_signal("showError", "LOOP NAN")
 	while i < totals && !cleared:
 		if cleared:
 			return 0
@@ -168,7 +170,6 @@ func validate():
 	cleared = false
 	var i = get_child_count()
 	var loops = 0
-	var error = 0;
 	if !running:
 		for child in get_children():
 			var the_name = child.get_node("Label").text
@@ -176,8 +177,10 @@ func validate():
 				loops += 1
 			if(the_name == "ENDLOOP"):
 				loops -= 1
-		if(loops != 0 || error):
+		if(loops > 0):
 			emit_signal("showError", "NO END LOOP")
+		elif(loops < 0):
+			emit_signal("showError", "EXTRA END LOOP")
 		else:
 			_read_list()
 

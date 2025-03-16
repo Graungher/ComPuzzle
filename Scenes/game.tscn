@@ -71,7 +71,7 @@ size_flags_horizontal = 2
 size_flags_vertical = 3
 script = ExtResource("5_awy3j")
 
-[node name="TextureButton" type="TextureButton" parent="."]
+[node name="Run_button" type="TextureButton" parent="."]
 offset_left = 1679.0
 offset_top = 879.0
 offset_right = 1743.0
@@ -87,11 +87,25 @@ offset_right = 214.0
 offset_bottom = 997.0
 text = "RESET"
 
-[node name="Button" type="Button" parent="."]
+[node name="Quit_Button" type="Button" parent="."]
 offset_top = 897.0
 offset_right = 100.0
 offset_bottom = 997.0
 text = "QUIT"
+
+[node name="AcceptDialog" type="AcceptDialog" parent="."]
+initial_position = 2
+size = Vector2i(129, 140)
+
+[node name="Label" type="Label" parent="AcceptDialog"]
+offset_left = 8.0
+offset_top = 8.0
+offset_right = 121.0
+offset_bottom = 91.0
+text = "this is an error"
+horizontal_alignment = 1
+vertical_alignment = 1
+autowrap_mode = 3
 
 [connection signal="makeNode" from="Buttons" to="ScrollContainer/Command_List" method="_on_make_node"]
 [connection signal="pressed" from="Buttons/LoopButton" to="Buttons" method="_on_loop_button_pressed"]
@@ -101,6 +115,6 @@ text = "QUIT"
 [connection signal="pressed" from="Buttons/EndLoopButton" to="Buttons" method="_on_end_loop_button_pressed"]
 [connection signal="reset" from="ScrollContainer/Command_List" to="." method="_on_command_list_reset"]
 [connection signal="showError" from="ScrollContainer/Command_List" to="." method="show_error"]
-[connection signal="pressed" from="TextureButton" to="ScrollContainer/Command_List" method="validate"]
-[connection signal="pressed" from="Reset_Button" to="." method="_on_button_2_pressed"]
-[connection signal="pressed" from="Button" to="." method="_on_quit_button_pressed"]
+[connection signal="pressed" from="Run_button" to="ScrollContainer/Command_List" method="validate"]
+[connection signal="pressed" from="Reset_Button" to="." method="_on_reset_button_pressed"]
+[connection signal="pressed" from="Quit_Button" to="." method="_on_quit_button_pressed"]
