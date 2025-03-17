@@ -12,6 +12,21 @@ func _process(delta: float) -> void:
 	pass
 
 
+func getTileData(theTile: Vector2i):
+	var tile_data = get_cell_tile_data(1, theTile)
+	return tile_data
+	pass
+
+func getTileType(theTile: Vector2i):
+	var objectType
+	var tile_data = getTileData(theTile)
+	if tile_data:
+		if tile_data.get_custom_data("Wall"):
+			objectType = "Wall"
+		elif tile_data.get_custom_data("Object"):
+			objectType = "Object"
+	return objectType
+
 func find_start_tile():
 	for cell in get_used_cells(1):
 		var tile_data = get_cell_tile_data(1, cell)

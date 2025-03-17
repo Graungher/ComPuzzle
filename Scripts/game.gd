@@ -11,10 +11,12 @@ var theRobot
 var start_tile
 var end_tile
 var current_tile
+var next_tile
 var scaleX = 1
 var scaleY = 1
-signal goAway
 
+signal goAway
+signal walk_signal
 
 func _ready() -> void:
 	switch_map()
@@ -50,7 +52,8 @@ func spawnBot():
 		bot_instance.global_position = spawn_position
 		add_child(bot_instance)  # Add bot to scene
 	
-		cmdList.walk_signal.connect(bot_instance._walk)
+		current_tile = start_tile
+		walk_signal.connect(bot_instance._walk)
 		cmdList.turn_left_signal.connect(bot_instance._turnLeft)
 		cmdList.turn_right_signal.connect(bot_instance._turnRight)
 		goAway.connect(bot_instance.deleteRobot)
@@ -93,8 +96,15 @@ func mapSetup():
 	scaleY = float(defaultY) / float(height_in_tiles)
 	
 	current_map.scale = Vector2(scaleX, scaleY)
-	spawn_position = current_map.map_to_local(start_tile) + Vector2(0,tile_size/2 - 3)
-	spawn_position *= current_map.scale
+	spawn_position = current_map.map_to_local(start_tile)
+	
+	spawn_position += Vector2(0, tile_size/2)
+	var foot_offset = (tile_size * scaleY) / 16.2
+	spawn_position.y -= foot_offset
+	spawn_position *= current_map.scale 
+	
+	#spawn_position = current_map.map_to_local(start_tile) + Vector2(0,(tile_size/2) - int(3*scaleY))
+	#spawn_position *= current_map.scale
 	
 	pass
 
@@ -104,17 +114,44 @@ func botMoved():
 	match compass:
 		"north":
 			current_tile += Vector2i(0,-1)
-			pass
 		"south":
 			current_tile += Vector2i(0,1)
-			pass
 		"east":
 			current_tile += Vector2i(1,0)
-			pass
 		"west":
 			current_tile += Vector2i(-1,0)
+	#print("CURRENT TILE: ", current_tile, "  | GOAL TILE: ", end_tile)
+	pass
+
+
+func botControl():
+	var compass = theRobot.getFacing()
+	var object
+	var walkable = true
+	match compass:
+		"north":
+			next_tile = current_tile + Vector2i(0,-1)
+		"south":
+			next_tile = current_tile + Vector2i(0,1)
+		"east":
+			next_tile = current_tile + Vector2i(1,0)
+		"west":
+			next_tile = current_tile + Vector2i(-1,0)
+	var tile_type = current_map.getTileType(next_tile)
+	
+	#print("CURRENT TILE: ", current_tile, "  | NEXT TILE", next_tile)
+	
+	match tile_type:
+		"Wall":
+			walkable = false
 			pass
-	checkGoal()
+		"Object":
+			walkable = false
+			pass
+	if walkable:
+		emit_signal("walk_signal")
+		current_tile = next_tile
+		pass
 	pass
 
 
@@ -122,6 +159,10 @@ func checkGoal():
 	if current_tile == end_tile:
 		cmdList.clearList()
 		switch_map()
+	else:
+		emit_signal("goAway")
+		spawnBot()
+		pass
 	pass
 
 

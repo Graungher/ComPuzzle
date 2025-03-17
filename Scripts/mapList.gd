@@ -1,16 +1,17 @@
 extends Node
 
-var currentMapIndex = 1
+var currentMapIndex = -1
 
 var maps = [
+	"res://Scenes/ParentMap.tscn",
 	"res://Scenes/map1.tscn",
 	"res://Scenes/map2.tscn",
-	"res://Scenes/ParentMap.tscn",
 	
 ]
 
 
 func get_next_map():
+	
 	currentMapIndex = (currentMapIndex + 1) % maps.size()
 	return maps[currentMapIndex]
 	pass

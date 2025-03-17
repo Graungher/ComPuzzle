@@ -13,14 +13,18 @@ signal turn_right_signal
 signal next_map
 signal showError(err: String)
 signal reset
+signal checkGoal
+
 var totalmoves = 0
 var loopcounter = 0
 var framelen = 40
 var cleared = false
 var running = false
+var scrollguy
 
 
 func _ready() -> void:
+	scrollguy = get_parent()
 	pass # Replace with function body.
 
 
@@ -47,36 +51,42 @@ func _read_list():
 		
 		child = get_child(i)
 		the_name = child.get_node("Label").text
-		
-		if the_name == "LOOP":
-			child.self_modulate = Color(1, 0, 0)
-			i =  (await realLoop(child.get_index(), child) - 1)
-			if child:
-				child.self_modulate = Color(1, 1, 1)
-		else:
-			child.self_modulate = Color(0, 1, 0)
-			await doFunc(the_name)
-			if child:
-				child.self_modulate = Color(1, 1, 1)
-			
 		i += 1
+		scrollguy.ensure_control_visible(child)
+		if the_name == "LOOP":
+			child.modulate = Color(1, 0, 0)
+			i =  (await realLoop(child.get_index(), child))
+			if child:
+				child.modulate = Color(1, 1, 1)
+		else:
+			child.modulate = Color(0, 1, 0)
+			await doFunc(the_name)
+			
+			if child:
+				child.modulate = Color(1, 1, 1)
+			
+		
+	
+	emit_signal("checkGoal")
 	running = false
 	pass
 
 
 func doFunc(the_name: String):
+	var matched = false
 	match the_name:
 			"WALK":
-				print("WALK EMITTED")
 				emit_signal("walk_signal")
-				await wait_frames(framelen)
+				matched = true
 			"LEFT":
-				totalmoves += 1
 				emit_signal("turn_left_signal")
-				await wait_frames(framelen)
+				matched = true
 			"RIGHT":
 				emit_signal("turn_right_signal")
-				await wait_frames(framelen)
+				matched = true
+		
+	if matched:
+		await wait_frames(framelen)
 
 
 func realLoop(num: int, button: TextureButton):
@@ -110,16 +120,18 @@ func realLoop(num: int, button: TextureButton):
 				retspot = child.get_index()
 				break
 			elif the_name == "LOOP":
-				child.self_modulate = Color(1, 0, 0)
+				scrollguy.ensure_control_visible(child)
+				child.modulate = Color(1, 0, 0)
 				var loop_return = await realLoop(child.get_index(), child)
 				j = loop_return - num  # Adjust j based on where the loop ended	
 				if child:
-					child.self_modulate = Color(1, 1, 1)
+					child.modulate = Color(1, 1, 1)
 			else: 
-				child.self_modulate = Color(0, 1, 0)
+				scrollguy.ensure_control_visible(child)
+				child.modulate = Color(0, 1, 0)
 				await doFunc(the_name)
 				if child:
-					child.self_modulate = Color(1, 1, 1)
+					child.modulate = Color(1, 1, 1)
 	if totals == 0:
 		retspot = findEndLoop(num) # index then loop from here?
 	return retspot

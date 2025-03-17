@@ -93,6 +93,20 @@ offset_right = 100.0
 offset_bottom = 997.0
 text = "QUIT"
 
+[node name="Quit_Button2" type="Button" parent="."]
+offset_left = 342.0
+offset_top = 897.0
+offset_right = 442.0
+offset_bottom = 997.0
+text = "NEXT MAP"
+
+[node name="Clear_List" type="Button" parent="."]
+offset_left = 228.0
+offset_top = 897.0
+offset_right = 328.0
+offset_bottom = 997.0
+text = "CLEAR LIST"
+
 [node name="AcceptDialog" type="AcceptDialog" parent="."]
 initial_position = 2
 size = Vector2i(129, 140)
@@ -113,8 +127,12 @@ autowrap_mode = 3
 [connection signal="pressed" from="Buttons/LeftButton" to="Buttons" method="_on_left_button_pressed"]
 [connection signal="pressed" from="Buttons/RightButton" to="Buttons" method="_on_right_button_pressed"]
 [connection signal="pressed" from="Buttons/EndLoopButton" to="Buttons" method="_on_end_loop_button_pressed"]
+[connection signal="checkGoal" from="ScrollContainer/Command_List" to="." method="checkGoal"]
 [connection signal="reset" from="ScrollContainer/Command_List" to="." method="_on_command_list_reset"]
 [connection signal="showError" from="ScrollContainer/Command_List" to="." method="show_error"]
+[connection signal="walk_signal" from="ScrollContainer/Command_List" to="." method="botControl"]
 [connection signal="pressed" from="Run_button" to="ScrollContainer/Command_List" method="validate"]
 [connection signal="pressed" from="Reset_Button" to="." method="_on_reset_button_pressed"]
 [connection signal="pressed" from="Quit_Button" to="." method="_on_quit_button_pressed"]
+[connection signal="pressed" from="Quit_Button2" to="." method="switch_map"]
+[connection signal="pressed" from="Clear_List" to="ScrollContainer/Command_List" method="clearList"]
