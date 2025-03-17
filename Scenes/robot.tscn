@@ -65,6 +65,7 @@ collision_layer = 2
 script = ExtResource("1_qlooc")
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+visible = false
 position = Vector2(-1.78814e-06, -6.75)
 scale = Vector2(0.484375, 0.664063)
 shape = SubResource("RectangleShape2D_oxtgi")
@@ -77,4 +78,5 @@ scale = Vector2(0.484375, 0.664063)
 sprite_frames = SubResource("SpriteFrames_kyys1")
 animation = &"Idle"
 autoplay = "Idle"
-frame_progress = 0.489148
+frame = 1
+frame_progress = 0.574535

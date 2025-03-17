@@ -6,22 +6,29 @@ extends VBoxContainer
 @onready var LoopButton = preload("res://Scenes/button_loop.tscn")
 @onready var EndLoopButton = preload("res://Scenes/button_endloop.tscn")
 
+
 signal walk_signal
 signal turn_left_signal
 signal turn_right_signal
 signal next_map
 signal showError(err: String)
+signal reset
+signal checkGoal
+
 var totalmoves = 0
 var loopcounter = 0
 var framelen = 40
 var cleared = false
 var running = false
-# Called when the node enters the scene tree for the first time.
+var scrollguy
+
+
 func _ready() -> void:
+	scrollguy = get_parent()
 	pass # Replace with function body.
 
 
-# Called every frame. 'delta' is the elapsed time since the previous frame.
+
 func _process(delta: float) -> void:
 	pass
 
@@ -39,34 +46,47 @@ func _read_list():
 	var i = 0
 	var child
 	var totals = get_child_count()
-	emit_signal("showError", "NO ERROR")
 	running = true
 	while i < totals && !cleared:
+		
 		child = get_child(i)
 		the_name = child.get_node("Label").text
-		
-		if the_name == "LOOP":
-			i =  (await realLoop(child.get_index(), child) - 1)
-		else:
-			await doFunc(the_name)
 		i += 1
+		scrollguy.ensure_control_visible(child)
+		if the_name == "LOOP":
+			child.modulate = Color(1, 0, 0)
+			i =  (await realLoop(child.get_index(), child))
+			if child:
+				child.modulate = Color(1, 1, 1)
+		else:
+			child.modulate = Color(0, 1, 0)
+			await doFunc(the_name)
+			
+			if child:
+				child.modulate = Color(1, 1, 1)
+			
+		
+	
+	emit_signal("checkGoal")
 	running = false
 	pass
 
 
 func doFunc(the_name: String):
+	var matched = false
 	match the_name:
 			"WALK":
-				print("WALK EMITTED")
 				emit_signal("walk_signal")
-				await wait_frames(framelen)
+				matched = true
 			"LEFT":
-				totalmoves += 1
 				emit_signal("turn_left_signal")
-				await wait_frames(framelen)
+				matched = true
 			"RIGHT":
 				emit_signal("turn_right_signal")
-				await wait_frames(framelen)
+				matched = true
+		
+	if matched:
+		await wait_frames(framelen)
 
 
 func realLoop(num: int, button: TextureButton):
@@ -80,6 +100,8 @@ func realLoop(num: int, button: TextureButton):
 	var goLoop = true
 	if totals == 0:
 		goLoop = false
+	if !button.get_node("loopCount").text.is_valid_float():
+		emit_signal("showError", "LOOP NAN")
 	while i < totals && !cleared:
 		if cleared:
 			return 0
@@ -98,14 +120,23 @@ func realLoop(num: int, button: TextureButton):
 				retspot = child.get_index()
 				break
 			elif the_name == "LOOP":
+				scrollguy.ensure_control_visible(child)
+				child.modulate = Color(1, 0, 0)
 				var loop_return = await realLoop(child.get_index(), child)
 				j = loop_return - num  # Adjust j based on where the loop ended	
+				if child:
+					child.modulate = Color(1, 1, 1)
 			else: 
+				scrollguy.ensure_control_visible(child)
+				child.modulate = Color(0, 1, 0)
 				await doFunc(the_name)
+				if child:
+					child.modulate = Color(1, 1, 1)
 	if totals == 0:
 		retspot = findEndLoop(num) # index then loop from here?
 	return retspot
-	
+
+
 func findEndLoop(num: int):
 	var the_name = ""
 	var i = 1
@@ -126,7 +157,8 @@ func findEndLoop(num: int):
 				totLoop -= 1
 	return retspot
 	pass
-	
+
+
 func clearList():
 	running = false
 	for child in get_children():
@@ -135,33 +167,39 @@ func clearList():
 	wait_frames(framelen+5)
 	pass
 
+
 func fakeClearList():
+	emit_signal("reset")
 	running = false
 	cleared = true
 	wait_frames(framelen+5)
+	for child in get_children():
+		child.self_modulate = Color(1, 1, 1)
 	pass
-	
+
+
 func validate():
 	cleared = false
 	var i = get_child_count()
 	var loops = 0
-	var error = 0;
-	
-	for child in get_children():
-		var the_name = child.get_node("Label").text
-		if(the_name == "LOOP"):
-			loops += 1
-		if(the_name == "ENDLOOP"):
-			loops -= 1
-	if(loops != 0 || error):
-		emit_signal("showError", "NO END LOOP")
-	else:
-		_read_list()
+	if !running:
+		for child in get_children():
+			var the_name = child.get_node("Label").text
+			if(the_name == "LOOP"):
+				loops += 1
+			if(the_name == "ENDLOOP"):
+				loops -= 1
+		if(loops > 0):
+			emit_signal("showError", "NO END LOOP")
+		elif(loops < 0):
+			emit_signal("showError", "EXTRA END LOOP")
+		else:
+			_read_list()
+
 
 func wait_frames(frame_count: int):
 	for i in range(frame_count):
 		await get_tree().process_frame
-
 
 
 func deleteNode(node: TextureButton):
@@ -176,13 +214,14 @@ func deleteNode(node: TextureButton):
 		reIndex()
 	pass
 
+
 func reIndex():
 	var index = 1;
 	for child in get_children():
 		if child.has_node("index_label"):
 			child.get_node("index_label").text = str(index)
 			index += 1
-			
+
 
 func _on_make_node(the_name: String):
 	var button_instance 
