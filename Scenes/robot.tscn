@@ -1,0 +1,79 @@
+[gd_scene load_steps=12 format=3 uid="uid://dut7sncjon3br"]
+
+[ext_resource type="Script" uid="uid://dshlm2q6kqvi3" path="res://Scenes/Scripts/robot.gd" id="1_qlooc"]
+[ext_resource type="Texture2D" uid="uid://ep4bic63fulb" path="res://ComPuzzle Assets/NormStand.png" id="2_3wn4g"]
+[ext_resource type="Texture2D" uid="uid://cv2l688xxvho6" path="res://ComPuzzle Assets/Stand....png" id="3_1fmf0"]
+[ext_resource type="Texture2D" uid="uid://dhio1u2n1oysu" path="res://ComPuzzle Assets/downWalk1.png" id="3_gkgbp"]
+[ext_resource type="Texture2D" uid="uid://duiqb8xxfuwt5" path="res://ComPuzzle Assets/downWalk2.png" id="4_jrdtd"]
+[ext_resource type="Texture2D" uid="uid://clhc6qktkhvgg" path="res://ComPuzzle Assets/upwalk.png" id="5_cd42x"]
+[ext_resource type="Texture2D" uid="uid://cfit146g2taoj" path="res://ComPuzzle Assets/upwalk2.png" id="6_u0663"]
+[ext_resource type="Texture2D" uid="uid://bubodignue41j" path="res://ComPuzzle Assets/SideView.png" id="7_0o5nm"]
+[ext_resource type="Texture2D" uid="uid://b4x3byivkpigu" path="res://ComPuzzle Assets/SideWalk2.png" id="8_vhtoj"]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_oxtgi"]
+size = Vector2(28.3871, 15.8118)
+
+[sub_resource type="SpriteFrames" id="SpriteFrames_kyys1"]
+animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": ExtResource("2_3wn4g")
+}, {
+"duration": 1.0,
+"texture": ExtResource("3_1fmf0")
+}],
+"loop": true,
+"name": &"Idle",
+"speed": 5.0
+}, {
+"frames": [{
+"duration": 1.0,
+"texture": ExtResource("3_gkgbp")
+}, {
+"duration": 1.0,
+"texture": ExtResource("4_jrdtd")
+}],
+"loop": true,
+"name": &"Walk down",
+"speed": 10.0
+}, {
+"frames": [{
+"duration": 1.0,
+"texture": ExtResource("5_cd42x")
+}, {
+"duration": 1.0,
+"texture": ExtResource("6_u0663")
+}],
+"loop": true,
+"name": &"Walk up",
+"speed": 10.0
+}, {
+"frames": [{
+"duration": 1.0,
+"texture": ExtResource("7_0o5nm")
+}, {
+"duration": 1.0,
+"texture": ExtResource("8_vhtoj")
+}],
+"loop": true,
+"name": &"walk",
+"speed": 10.0
+}]
+
+[node name="Robot" type="CharacterBody2D"]
+collision_layer = 2
+script = ExtResource("1_qlooc")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+position = Vector2(-1.78814e-06, -6.75)
+scale = Vector2(0.484375, 0.664063)
+shape = SubResource("RectangleShape2D_oxtgi")
+
+[node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="."]
+light_mask = 2
+texture_filter = 1
+position = Vector2(1, -19)
+scale = Vector2(0.484375, 0.664063)
+sprite_frames = SubResource("SpriteFrames_kyys1")
+animation = &"Idle"
+autoplay = "Idle"
