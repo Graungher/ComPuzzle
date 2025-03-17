@@ -1,6 +1,21 @@
-[gd_resource type="TileSet" load_steps=3 format=3 uid="uid://cfqepkqqbipcw"]
+[gd_resource type="TileSet" load_steps=7 format=3 uid="uid://cfqepkqqbipcw"]
 
+[ext_resource type="Texture2D" uid="uid://bv5mw7h2slaxx" path="res://ComPuzzle Assets/Desk.png" id="1_23ut2"]
 [ext_resource type="Texture2D" uid="uid://cy7k5vvcmdtlf" path="res://ComPuzzle Assets/megaGroup.png" id="1_damyf"]
+[ext_resource type="Texture2D" uid="uid://b1xyn7kd6fet0" path="res://ComPuzzle Assets/Tree.png" id="2_o5nal"]
+
+[sub_resource type="TileSetAtlasSource" id="TileSetAtlasSource_dtvkx"]
+texture = ExtResource("1_23ut2")
+texture_region_size = Vector2i(32, 32)
+0:0/0 = 0
+0:0/0/custom_data_3 = true
+
+[sub_resource type="TileSetAtlasSource" id="TileSetAtlasSource_mw2im"]
+texture = ExtResource("2_o5nal")
+texture_region_size = Vector2i(32, 32)
+0:0/size_in_atlas = Vector2i(3, 3)
+0:0/0 = 0
+0:0/0/custom_data_0 = true
 
 [sub_resource type="TileSetAtlasSource" id="TileSetAtlasSource_iyxws"]
 texture = ExtResource("1_damyf")
@@ -44,3 +59,5 @@ custom_data_layer_2/type = 1
 custom_data_layer_3/name = "Wall"
 custom_data_layer_3/type = 1
 sources/11 = SubResource("TileSetAtlasSource_iyxws")
+sources/0 = SubResource("TileSetAtlasSource_dtvkx")
+sources/1 = SubResource("TileSetAtlasSource_mw2im")

@@ -6,7 +6,8 @@ var maps = [
 	"res://Scenes/ParentMap.tscn",
 	"res://Scenes/map1.tscn",
 	"res://Scenes/map2.tscn",
-	
+	"res://Scenes/map3.tscn",
+
 ]
 
 
