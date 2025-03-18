@@ -8,6 +8,7 @@ extends VBoxContainer
 @onready var EndIfButton = preload("res://Scenes/button_endif.tscn")
 @onready var IfButton = preload("res://Scenes/button_if.tscn")
 
+@onready var whiteloop = preload("res://ComPuzzle Assets/buttons/Loop_Button_White.png")
 
 signal walk_signal
 signal turn_left_signal
@@ -18,40 +19,45 @@ signal reset
 signal checkGoal
 
 var totalmoves = 0
-var loopcounter = 0
-var ifcounter = 0
-var framelen = 40
-var cleared = false
-var running = false
+var loopcounter = 0		# 0 if number of loops and endloops are equal
+var ifcounter = 0		# 0 if number of ifs and endifs are equal
+var framelen = 40		# number of frames to wait for animations
+var cleared = false		# flag to stop the running of the command list
+var running = false		# flag to disable things that interact with command list
 var scrollguy
 
+# all nodes put into command list will have a label node that has the 
+# type of node that it is
 
 func _ready() -> void:
 	scrollguy = get_parent()
 	pass # Replace with function body.
 
 
-
 func _process(delta: float) -> void:
 	pass
 
-
+# moves the calling node up / down the list
 func _on_texture_rect_mover(move: int, button: TextureButton):
+	# if the command list is not being read
 	if !running:
+		# will get the node that called it, get that node's index, then move it
+		# up or down depending on the button, then will call reindex 
 		var Index = button.get_index()
 		var newSpot = Index - move
 		move_child(button, newSpot)
 		reIndex()
 
-
+# replaces the index label on a node to its current index number
 func reIndex():
 	var index = 1;
+	# starting at node 0, give them all their index based on order from top
 	for child in get_children():
 		if child.has_node("index_label"):
 			child.get_node("index_label").text = str(index)
 			index += 1
 
-
+# prob gonna delete so no comment
 func _read_list():
 	var the_name
 	var i = 0
@@ -80,53 +86,92 @@ func _read_list():
 	running = false
 	pass
 
-
+# executes the command list in top down order
 func realReadList():
 	var the_name
 	var i = 0
 	var child
 	var totals = get_child_count()
+	# set running to true to disable the nodes that interact
+	#  with the command list
 	running = true
 	
+	# i = index, totals = total children, cleared = quit out of reading the list
 	while i < totals && !cleared:
 		child = get_child(i)
 		the_name = child.get_node("Label").text
 		i += 1
+		# waits for procrss node to finish, sends the label's text, the node
+		# and the current index, then gets the new index number
 		i = (await processNode(the_name, child, i))
+	# after the loop, check to see if robot is on the goal
 	emit_signal("checkGoal")
+	# re-enable command list dependant nodes
 	running = false
 	pass
 
-
+# handles node specialty or basic node functions for command list
 func processNode(the_name: String, child: Node, i: int):
+	# command list is imbedded in a scroll list calling the parent (scrollguy)
+	# and using it's ensure control visible to make the nodes always be 
+	# on the screen when executed
 	scrollguy.ensure_control_visible(child)
 	
+	# if the node is a loop, then make run the loop func and make the node blue
 	if the_name == "LOOP":
-		child.modulate = Color(1, 0, 0)
-		i =  (await realLoop(child.get_index(), child))
-		if child:
-			child.modulate = Color(1, 1, 1)
-	if the_name == "IF":
+		# get the original texture then change it to a white version, then
+		# apply a blue filter
+		var reg = child.texture_normal
+		child.texture_normal = load(whiteloop)
 		child.modulate = Color(0, 0, 1)
+		
+		#call the loop function
+		i =  (await realLoop(child.get_index(), child))
+		
+		# make sure that there is still a child before resetting
+		# (child may be gone if level reset before current action ended)
+		if child:
+			child.texture_normal = reg
+			child.modulate = Color(1, 1, 1)
+	
+	# if the node is a loop, then make run the loop func and make the node blue
+	if the_name == "IF":
+		# get the original texture then change it to a white version, then
+		# apply a blue filter
+		child.modulate = Color(0, 0, 1)
+		
+		#call the if function
 		i =  (await ifNode(child.get_index(), child))
+		
+		# make sure that there is still a child before resetting
+		# (child may be gone if level reset before current action ended)
 		if child:
 			child.modulate = Color(1, 1, 1)
+	
+	
 	else:
+		# apply green filter, texture replacement happens in fofunc
 		child.modulate = Color(0, 1, 0)
+		
+		# call dofunc
 		await doFunc(the_name)
+
+		# make sure that there is still a child before resetting
+		# (child may be gone if level reset before current action ended)
 		if child:
 			child.modulate = Color(1, 1, 1)
 	return i
 
-
+# does the function of basic nodes
 func doFunc(the_name: String):
 	var matched = false
+	
+	# switch based of label's text
 	match the_name:
 			"WALK":
 				emit_signal("walk_signal")
 				matched = true
 			"LEFT":
-				print("LEFT!!!")
 				emit_signal("turn_left_signal")
 				matched = true
 			"RIGHT":
@@ -134,6 +179,7 @@ func doFunc(the_name: String):
 				matched = true
 		
 	if matched:
+		# if there is a match, all wait frames and wait the time
 		await wait_frames(framelen)
 
 
@@ -145,9 +191,7 @@ func realLoop(num: int, button: TextureButton):
 	var child
 	var index
 	var totals = int(button.get_node("loopCount").text)
-	var goLoop = true
-	if totals == 0:
-		goLoop = false
+	
 	if !button.get_node("loopCount").text.is_valid_float():
 		emit_signal("showError", "LOOP NAN")
 	while i < totals && !cleared:
@@ -184,7 +228,7 @@ func realLoop(num: int, button: TextureButton):
 		retspot = findEndLoop(num) # index then loop from here?
 	return retspot
 
-
+# only used for loop = 0
 func findEndLoop(num: int):
 	var the_name = ""
 	var i = 1
@@ -206,30 +250,44 @@ func findEndLoop(num: int):
 	return retspot
 	pass
 
-
+# can end the command list early and deletes all nodes
 func clearList():
+	# disables the running flag and enables the exit read flag
 	running = false
+	cleared = true
+	
+	#deletes children
 	for child in get_children():
 		child.queue_free()
-	cleared = true
+		
+	# waits an extra 5 frames than the anmiation	
 	wait_frames(framelen+5)
 	pass
 
-
+# ends the command list early but does not clear it
 func fakeClearList():
+	# emit the reset signal, and end the reading of the command list early
+	# BUT does not clear the list
 	emit_signal("reset")
 	running = false
 	cleared = true
+	
+	# waits an extra 5 frames than the anmiation
 	wait_frames(framelen+5)
+	
+	#resets the color filters
 	for child in get_children():
 		child.self_modulate = Color(1, 1, 1)
 	pass
 
-
+# makes sure that the loops and ifs are balanced before running
 func validate():
+	# diables the clear flag to allow the running of the commad list 
 	cleared = false
+	
 	var i = get_child_count()
 	var loops = 0
+	# if it is not already running, check if and loop counts
 	if !running:
 		for child in get_children():
 			var the_name = child.get_node("Label").text
@@ -241,36 +299,46 @@ func validate():
 			emit_signal("showError", "NO END LOOP")
 		elif(loops < 0):
 			emit_signal("showError", "EXTRA END LOOP")
+			
+		# if no errors, then start reading command list
 		else:
 			realReadList()
 			#_read_list()
 
-
+# waits 1 frame n times
 func wait_frames(frame_count: int):
+	# waits 1 fram frame_count times
 	for i in range(frame_count):
 		await get_tree().process_frame
 
-
+# deletes a node from command list
 func deleteNode(node: TextureButton):
+	# only allow deletion of nodes if command list is not running
 	if !running:
+		# if there has to be a balance, change totals
 		var the_name = node.get_node("Label").text
 		if(the_name == "LOOP"):
 			loopcounter -= 1
-		if(the_name == "ENDLOOP"):
+		elif(the_name == "ENDLOOP"):
 			loopcounter += 1
-		if(the_name == "IF"):
+		elif(the_name == "IF"):
 			ifcounter -= 1
-		if(the_name == "ENDIF"):
+		elif(the_name == "ENDIF"):
 			ifcounter += 1
+		#delete node and wait 1 frame to update
 		node.queue_free()
 		await wait_frames(1)
+		# call reindex to update index
 		reIndex()
 	pass
 
-
+# creates a new node for the command list
 func _on_make_node(the_name: String):
+	# local variables
 	var button_instance 
 	var error = 0
+	
+	# if the list is not running, allow creation of new nodes
 	if !running:
 		match the_name:
 			"WALK":
@@ -283,6 +351,7 @@ func _on_make_node(the_name: String):
 				loopcounter += 1
 				button_instance = LoopButton.instantiate()
 			"ENDLOOP":
+				# allow or disable endloop creation based off balance
 				if loopcounter > 0:
 					loopcounter -= 1
 					button_instance = EndLoopButton.instantiate()
@@ -293,6 +362,7 @@ func _on_make_node(the_name: String):
 				ifcounter += 1
 				button_instance = IfButton.instantiate()
 			"ENDIF":
+				# allow or disable endif creation based off balance
 				if ifcounter > 0:
 					ifcounter -= 1
 					button_instance = EndIfButton.instantiate()
@@ -300,6 +370,7 @@ func _on_make_node(the_name: String):
 					error += 1
 					emit_signal("showError", "TOO MANY END LOOPS")
 					
+		# if no errors, then make the node, connect signals, and add to list
 		if !error:
 			add_child(button_instance)
 			if button_instance.get_node("loopCount"):
