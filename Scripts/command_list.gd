@@ -5,6 +5,8 @@ extends VBoxContainer
 @onready var RightButton = preload("res://Scenes/button_right.tscn")
 @onready var LoopButton = preload("res://Scenes/button_loop.tscn")
 @onready var EndLoopButton = preload("res://Scenes/button_endloop.tscn")
+@onready var EndIfButton = preload("res://Scenes/button_endif.tscn")
+@onready var IfButton = preload("res://Scenes/button_if.tscn")
 
 
 signal walk_signal
@@ -17,6 +19,7 @@ signal checkGoal
 
 var totalmoves = 0
 var loopcounter = 0
+var ifcounter = 0
 var framelen = 40
 var cleared = false
 var running = false
@@ -41,14 +44,22 @@ func _on_texture_rect_mover(move: int, button: TextureButton):
 		reIndex()
 
 
+func reIndex():
+	var index = 1;
+	for child in get_children():
+		if child.has_node("index_label"):
+			child.get_node("index_label").text = str(index)
+			index += 1
+
+
 func _read_list():
 	var the_name
 	var i = 0
 	var child
 	var totals = get_child_count()
 	running = true
+	
 	while i < totals && !cleared:
-		
 		child = get_child(i)
 		the_name = child.get_node("Label").text
 		i += 1
@@ -64,12 +75,48 @@ func _read_list():
 			
 			if child:
 				child.modulate = Color(1, 1, 1)
-			
-		
 	
 	emit_signal("checkGoal")
 	running = false
 	pass
+
+
+func realReadList():
+	var the_name
+	var i = 0
+	var child
+	var totals = get_child_count()
+	running = true
+	
+	while i < totals && !cleared:
+		child = get_child(i)
+		the_name = child.get_node("Label").text
+		i += 1
+		i = (await processNode(the_name, child, i))
+	emit_signal("checkGoal")
+	running = false
+	pass
+
+
+func processNode(the_name: String, child: Node, i: int):
+	scrollguy.ensure_control_visible(child)
+	
+	if the_name == "LOOP":
+		child.modulate = Color(1, 0, 0)
+		i =  (await realLoop(child.get_index(), child))
+		if child:
+			child.modulate = Color(1, 1, 1)
+	if the_name == "IF":
+		child.modulate = Color(0, 0, 1)
+		i =  (await ifNode(child.get_index(), child))
+		if child:
+			child.modulate = Color(1, 1, 1)
+	else:
+		child.modulate = Color(0, 1, 0)
+		await doFunc(the_name)
+		if child:
+			child.modulate = Color(1, 1, 1)
+	return i
 
 
 func doFunc(the_name: String):
@@ -79,6 +126,7 @@ func doFunc(the_name: String):
 				emit_signal("walk_signal")
 				matched = true
 			"LEFT":
+				print("LEFT!!!")
 				emit_signal("turn_left_signal")
 				matched = true
 			"RIGHT":
@@ -194,7 +242,8 @@ func validate():
 		elif(loops < 0):
 			emit_signal("showError", "EXTRA END LOOP")
 		else:
-			_read_list()
+			realReadList()
+			#_read_list()
 
 
 func wait_frames(frame_count: int):
@@ -209,18 +258,14 @@ func deleteNode(node: TextureButton):
 			loopcounter -= 1
 		if(the_name == "ENDLOOP"):
 			loopcounter += 1
+		if(the_name == "IF"):
+			ifcounter -= 1
+		if(the_name == "ENDIF"):
+			ifcounter += 1
 		node.queue_free()
 		await wait_frames(1)
 		reIndex()
 	pass
-
-
-func reIndex():
-	var index = 1;
-	for child in get_children():
-		if child.has_node("index_label"):
-			child.get_node("index_label").text = str(index)
-			index += 1
 
 
 func _on_make_node(the_name: String):
@@ -244,6 +289,17 @@ func _on_make_node(the_name: String):
 				else:
 					error += 1
 					emit_signal("showError", "TOO MANY END LOOPS")
+			"IF":
+				ifcounter += 1
+				button_instance = IfButton.instantiate()
+			"ENDIF":
+				if ifcounter > 0:
+					ifcounter -= 1
+					button_instance = EndIfButton.instantiate()
+				else:
+					error += 1
+					emit_signal("showError", "TOO MANY END LOOPS")
+					
 		if !error:
 			add_child(button_instance)
 			if button_instance.get_node("loopCount"):
@@ -256,3 +312,49 @@ func _on_make_node(the_name: String):
 			button_instance.connect("deleteMe", deleteNode)
 			button_instance.connect("mover", _on_texture_rect_mover)
 		pass # Replace with function body.
+
+
+func ifNode(num: int, button: TextureButton):
+	var the_name = ""
+	var i = num + 1
+	var child
+	var isTrue = true
+	var elseTime = false
+	while the_name != "ENDIF" && !cleared:
+		child = get_child(i)
+		the_name = child.get_node("Label").text
+		print("name: ", the_name, " index: ", i)
+		if the_name == "ELSE":
+			elseTime = true
+			
+		if isTrue && !elseTime:
+			print(" TRUE ")
+			await processNode(the_name, child, i)
+		elif !isTrue && elseTime: 
+			print(" FALSE ")
+			await processNode(the_name, child, i)
+		i += 1
+	return i + num
+	
+
+
+
+func findEndIf(num: int):
+	var the_name = ""
+	var i = 1
+	var child
+	var totIfs = 0
+	var retspot = 1
+	while the_name != "ENDIF" && !cleared:
+		child = get_child(num + i)
+		the_name = child.get_node("Label").text
+		i += 1
+		if the_name == "IF":
+			totIfs += 1
+		if the_name == "ENDIF":
+			if totIfs == 0:
+				retspot = child.get_index() + 1
+			else: 
+				the_name = ""
+				totIfs -= 1
+	return retspot

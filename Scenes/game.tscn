@@ -1,4 +1,4 @@
-[gd_scene load_steps=10 format=3 uid="uid://dd0kham0vgye6"]
+[gd_scene load_steps=12 format=3 uid="uid://dd0kham0vgye6"]
 
 [ext_resource type="Script" uid="uid://cgptds56vy7k1" path="res://Scripts/game.gd" id="1_ln1c5"]
 [ext_resource type="Texture2D" uid="uid://bxvklotg8dys1" path="res://ComPuzzle Assets/buttons/Loop.png" id="4_bygsc"]
@@ -8,6 +8,8 @@
 [ext_resource type="Texture2D" uid="uid://c4ndikobv786d" path="res://ComPuzzle Assets/buttons/Turn_Left.png" id="6_48egg"]
 [ext_resource type="Texture2D" uid="uid://cm6gsxnkdiwxp" path="res://ComPuzzle Assets/buttons/Turn_Right.png" id="7_wjly5"]
 [ext_resource type="Texture2D" uid="uid://b7ivkis8nkl4" path="res://ComPuzzle Assets/buttons/End_Loop.png" id="8_dg372"]
+[ext_resource type="Texture2D" uid="uid://c3h5ii63xuss5" path="res://ComPuzzle Assets/buttons/If_Button.png" id="8_o5yvi"]
+[ext_resource type="Texture2D" uid="uid://6p6nws0eldli" path="res://ComPuzzle Assets/buttons/End_If_button.png" id="9_rku1e"]
 [ext_resource type="Texture2D" uid="uid://b5owuj6hfy8py" path="res://ComPuzzle Assets/buttons/Run_Button.png" id="10_su6ef"]
 
 [node name="Game" type="Node2D"]
@@ -56,6 +58,14 @@ texture_normal = ExtResource("7_wjly5")
 [node name="EndLoopButton" type="TextureButton" parent="Buttons"]
 layout_mode = 2
 texture_normal = ExtResource("8_dg372")
+
+[node name="IfButton" type="TextureButton" parent="Buttons"]
+layout_mode = 2
+texture_normal = ExtResource("8_o5yvi")
+
+[node name="EndIfButton" type="TextureButton" parent="Buttons"]
+layout_mode = 2
+texture_normal = ExtResource("9_rku1e")
 
 [node name="ScrollContainer" type="ScrollContainer" parent="."]
 offset_left = 1679.0
@@ -127,6 +137,8 @@ autowrap_mode = 3
 [connection signal="pressed" from="Buttons/LeftButton" to="Buttons" method="_on_left_button_pressed"]
 [connection signal="pressed" from="Buttons/RightButton" to="Buttons" method="_on_right_button_pressed"]
 [connection signal="pressed" from="Buttons/EndLoopButton" to="Buttons" method="_on_end_loop_button_pressed"]
+[connection signal="pressed" from="Buttons/IfButton" to="Buttons" method="_on_if_button_pressed"]
+[connection signal="pressed" from="Buttons/EndIfButton" to="Buttons" method="_on_end_if_button_pressed"]
 [connection signal="checkGoal" from="ScrollContainer/Command_List" to="." method="checkGoal"]
 [connection signal="reset" from="ScrollContainer/Command_List" to="." method="_on_command_list_reset"]
 [connection signal="showError" from="ScrollContainer/Command_List" to="." method="show_error"]

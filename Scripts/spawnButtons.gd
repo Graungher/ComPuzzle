@@ -35,3 +35,13 @@ func _on_right_button_pressed() -> void:
 func _on_end_loop_button_pressed() -> void:
 	emit_signal("makeNode", "ENDLOOP")
 	pass # Replace with function body.
+
+
+func _on_if_button_pressed() -> void:
+	emit_signal("makeNode", "IF")
+	pass # Replace with function body.
+
+
+func _on_end_if_button_pressed() -> void:
+	emit_signal("makeNode", "ENDIF")
+	pass # Replace with function body.
