@@ -114,13 +114,6 @@ offset_right = 442.0
 offset_bottom = 997.0
 text = "NEXT MAP"
 
-[node name="next step" type="Button" parent="."]
-offset_left = -23.0
-offset_top = 781.0
-offset_right = 77.0
-offset_bottom = 881.0
-text = "NEXT MAP"
-
 [node name="Clear_List" type="Button" parent="."]
 offset_left = 228.0
 offset_top = 897.0
@@ -159,5 +152,4 @@ autowrap_mode = 3
 [connection signal="pressed" from="Reset_Button" to="." method="_on_reset_button_pressed"]
 [connection signal="pressed" from="Quit_Button" to="." method="_on_quit_button_pressed"]
 [connection signal="pressed" from="nextMap" to="." method="switch_map"]
-[connection signal="pressed" from="next step" to="ScrollContainer/Command_List" method="nextStep"]
 [connection signal="pressed" from="Clear_List" to="ScrollContainer/Command_List" method="clearList"]

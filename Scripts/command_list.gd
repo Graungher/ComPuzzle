@@ -26,15 +26,16 @@ var framelen = 40		# number of frames to wait for animations
 var cleared = false		# flag to stop the running of the command list
 var running = false		# flag to disable things that interact with command list
 var scrollguy
-var leave = false
+
 # all nodes put into command list will have a label node that has the 
 # type of node that it is
 
+# once instantiated 
 func _ready() -> void:
 	scrollguy = get_parent()
 	pass # Replace with function body.
 
-
+# does something every frame
 func _process(delta: float) -> void:
 	pass
 
@@ -58,35 +59,6 @@ func reIndex():
 			child.get_node("index_label").text = str(index)
 			index += 1
 
-# prob gonna delete so no comment
-func _read_list():
-	var the_name
-	var i = 0
-	var child
-	var totals = get_child_count()
-	running = true
-	
-	while i < totals && !cleared:
-		child = get_child(i)
-		the_name = child.get_node("Label").text
-		i += 1
-		scrollguy.ensure_control_visible(child)
-		if the_name == "LOOP":
-			child.modulate = Color(1, 0, 0)
-			i =  (await realLoop(child.get_index(), child))
-			if child:
-				child.modulate = Color(1, 1, 1)
-		else:
-			child.modulate = Color(0, 1, 0)
-			await doFunc(the_name)
-			
-			if child:
-				child.modulate = Color(1, 1, 1)
-	
-	emit_signal("checkGoal")
-	running = false
-	pass
-
 # executes the command list in top down order
 func realReadList():
 	var the_name
@@ -105,23 +77,15 @@ func realReadList():
 		# waits for procrss node to finish, sends the label's text, the node
 		# and the current index, then gets the new index number
 		i = (await processNode(the_name, child, i))
+		
 	# after the loop, check to see if robot is on the goal
 	emit_signal("checkGoal")
 	# re-enable command list dependant nodes
 	running = false
 	pass
 
-
-func nextStep():
-	leave = true
-
 # handles node specialty or basic node functions for command list
 func processNode(the_name: String, child: Node, i: int):
-	var stepmode = true
-	while stepmode && !leave:
-		await wait_frames(1)
-		pass
-	leave = false
 	# command list is imbedded in a scroll list calling the parent (scrollguy)
 	# and using it's ensure control visible to make the nodes always be 
 	# on the screen when executed
@@ -402,13 +366,15 @@ func _on_make_node(the_name: String):
 			button_instance.connect("mover", _on_texture_rect_mover)
 		pass # Replace with function body.
 
-
+# if will will do the nodes between if and else||endif if the condition is true
+# will do nodes between else and endif (if else is present, otherwise nothing)
 func ifNode(num: int, button: TextureButton):
 	var the_name = ""
 	var i = num + 1
 	var child
 	var isTrue = false
 	var elseTime = false
+	var retSpot = num
 	
 	# does through the if's sections until endif then return the index
 	while the_name != "ENDIF" && !cleared:
@@ -421,36 +387,17 @@ func ifNode(num: int, button: TextureButton):
 		# else flag
 		if the_name == "ELSE":
 			elseTime = true
-			
+		elif the_name == "ENDIF":
+			retSpot = child.get_index()
+			break
 		# 'then' section, if True and not at else yet
 		if isTrue && !elseTime:
-			await processNode(the_name, child, i)
+			# process node and get new index
+			i = (await processNode(the_name, child, i))
 		# if there is an else, then do the else stuff if flase
 		elif !isTrue && elseTime: 
-			await processNode(the_name, child, i)
+			# process node and get new index
+			i = (await processNode(the_name, child, i))
 		
 		i += 1
-	return i + num
-	
-
-
-
-func findEndIf(num: int):
-	var the_name = ""
-	var i = 1
-	var child
-	var totIfs = 0
-	var retspot = 1
-	while the_name != "ENDIF" && !cleared:
-		child = get_child(num + i)
-		the_name = child.get_node("Label").text
-		i += 1
-		if the_name == "IF":
-			totIfs += 1
-		if the_name == "ENDIF":
-			if totIfs == 0:
-				retspot = child.get_index() + 1
-			else: 
-				the_name = ""
-				totIfs -= 1
-	return retspot
+	return retSpot
