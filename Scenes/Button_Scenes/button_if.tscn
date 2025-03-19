@@ -1,0 +1,10 @@
+[gd_scene load_steps=3 format=3 uid="uid://442chvh8f4nh"]
+
+[ext_resource type="PackedScene" uid="uid://cghshp176xdq1" path="res://Scenes/Button_Scenes/button_walk.tscn" id="1_i0t2v"]
+[ext_resource type="Texture2D" uid="uid://dfpr0es0wywrd" path="res://ComPuzzle Assets/buttons/IF/If_Button.png" id="2_jotd5"]
+
+[node name="If_Button" instance=ExtResource("1_i0t2v")]
+texture_normal = ExtResource("2_jotd5")
+
+[node name="Label" parent="." index="0"]
+text = "IF"

@@ -3,9 +3,10 @@ extends Node
 var currentMapIndex = -1
 
 var maps = [
-	"res://Scenes/ParentMap.tscn",
-	"res://Scenes/map1.tscn",
-	"res://Scenes/map2.tscn",
+	#"res://Scenes/Map_Scenes/ParentMap.tscn",
+	"res://Scenes/Map_Scenes/map1.tscn",
+	"res://Scenes/Map_Scenes/map2.tscn",
+	"res://Scenes/Map_Scenes/map3.tscn",
 	
 ]
 

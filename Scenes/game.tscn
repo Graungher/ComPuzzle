@@ -1,17 +1,17 @@
 [gd_scene load_steps=13 format=3 uid="uid://dd0kham0vgye6"]
 
 [ext_resource type="Script" uid="uid://cgptds56vy7k1" path="res://Scripts/game.gd" id="1_ln1c5"]
-[ext_resource type="Texture2D" uid="uid://bxvklotg8dys1" path="res://ComPuzzle Assets/buttons/Loop.png" id="4_bygsc"]
+[ext_resource type="Texture2D" uid="uid://bb4c8bmvjc8af" path="res://ComPuzzle Assets/buttons/WALK/Walk.png" id="3_rku1e"]
+[ext_resource type="Texture2D" uid="uid://cwyomwbqxj00e" path="res://ComPuzzle Assets/buttons/TURNLEFT/Turn_Left.png" id="4_rfjv2"]
+[ext_resource type="Texture2D" uid="uid://boljr71gjawpo" path="res://ComPuzzle Assets/buttons/TURNRIGHT/Turn_Right.png" id="5_1phco"]
 [ext_resource type="Script" uid="uid://cwxre8kpmj7hi" path="res://Scripts/command_list.gd" id="5_awy3j"]
-[ext_resource type="Texture2D" uid="uid://bvlou0tu3hewl" path="res://ComPuzzle Assets/buttons/Walk.png" id="5_g1k74"]
 [ext_resource type="Script" uid="uid://djiyhpf2cilsw" path="res://Scripts/spawnButtons.gd" id="5_g6tuc"]
-[ext_resource type="Texture2D" uid="uid://c4ndikobv786d" path="res://ComPuzzle Assets/buttons/Turn_Left.png" id="6_48egg"]
-[ext_resource type="Texture2D" uid="uid://cm6gsxnkdiwxp" path="res://ComPuzzle Assets/buttons/Turn_Right.png" id="7_wjly5"]
-[ext_resource type="Texture2D" uid="uid://b7ivkis8nkl4" path="res://ComPuzzle Assets/buttons/End_Loop.png" id="8_dg372"]
-[ext_resource type="Texture2D" uid="uid://c3h5ii63xuss5" path="res://ComPuzzle Assets/buttons/If_Button.png" id="8_o5yvi"]
-[ext_resource type="Texture2D" uid="uid://6p6nws0eldli" path="res://ComPuzzle Assets/buttons/End_If_button.png" id="9_rku1e"]
-[ext_resource type="Texture2D" uid="uid://bavs7usy4xour" path="res://ComPuzzle Assets/buttons/Else_Button.png" id="10_rku1e"]
-[ext_resource type="Texture2D" uid="uid://b5owuj6hfy8py" path="res://ComPuzzle Assets/buttons/Run_Button.png" id="10_su6ef"]
+[ext_resource type="Texture2D" uid="uid://cc75frmpp3gb4" path="res://ComPuzzle Assets/buttons/LOOP/Loop.png" id="6_nb51f"]
+[ext_resource type="Texture2D" uid="uid://cj3ka2w0d6bb0" path="res://ComPuzzle Assets/buttons/ENDLOOP/EndLoop.png" id="7_nnt18"]
+[ext_resource type="Texture2D" uid="uid://cl3h3685m0akx" path="res://ComPuzzle Assets/buttons/IF/If.png" id="8_ewbju"]
+[ext_resource type="Texture2D" uid="uid://c6ulp76m6cvph" path="res://ComPuzzle Assets/buttons/ENDIF/EndIf.png" id="9_85qyi"]
+[ext_resource type="Texture2D" uid="uid://c4n2jn14q7fc2" path="res://ComPuzzle Assets/buttons/ELSE/ElseButton.png" id="10_iivbl"]
+[ext_resource type="Texture2D" uid="uid://jriqneluvhn6" path="res://ComPuzzle Assets/buttons/Run_Button.png" id="10_su6ef"]
 
 [node name="Game" type="Node2D"]
 script = ExtResource("1_ln1c5")
@@ -39,37 +39,37 @@ size_flags_horizontal = 6
 size_flags_vertical = 6
 script = ExtResource("5_g6tuc")
 
-[node name="LoopButton" type="TextureButton" parent="Buttons"]
-layout_mode = 2
-texture_normal = ExtResource("4_bygsc")
-
 [node name="WalkButton" type="TextureButton" parent="Buttons"]
 layout_mode = 2
-texture_normal = ExtResource("5_g1k74")
+texture_normal = ExtResource("3_rku1e")
 
 [node name="LeftButton" type="TextureButton" parent="Buttons"]
 layout_mode = 2
-texture_normal = ExtResource("6_48egg")
+texture_normal = ExtResource("4_rfjv2")
 
 [node name="RightButton" type="TextureButton" parent="Buttons"]
 layout_mode = 2
-texture_normal = ExtResource("7_wjly5")
+texture_normal = ExtResource("5_1phco")
+
+[node name="LoopButton" type="TextureButton" parent="Buttons"]
+layout_mode = 2
+texture_normal = ExtResource("6_nb51f")
 
 [node name="EndLoopButton" type="TextureButton" parent="Buttons"]
 layout_mode = 2
-texture_normal = ExtResource("8_dg372")
+texture_normal = ExtResource("7_nnt18")
 
 [node name="IfButton" type="TextureButton" parent="Buttons"]
 layout_mode = 2
-texture_normal = ExtResource("8_o5yvi")
+texture_normal = ExtResource("8_ewbju")
 
 [node name="EndIfButton" type="TextureButton" parent="Buttons"]
 layout_mode = 2
-texture_normal = ExtResource("9_rku1e")
+texture_normal = ExtResource("9_85qyi")
 
 [node name="ElseButton" type="TextureButton" parent="Buttons"]
 layout_mode = 2
-texture_normal = ExtResource("10_rku1e")
+texture_normal = ExtResource("10_iivbl")
 
 [node name="ScrollContainer" type="ScrollContainer" parent="."]
 offset_left = 1679.0
@@ -136,10 +136,10 @@ vertical_alignment = 1
 autowrap_mode = 3
 
 [connection signal="makeNode" from="Buttons" to="ScrollContainer/Command_List" method="_on_make_node"]
-[connection signal="pressed" from="Buttons/LoopButton" to="Buttons" method="_on_loop_button_pressed"]
 [connection signal="pressed" from="Buttons/WalkButton" to="Buttons" method="_on_walk_button_pressed"]
 [connection signal="pressed" from="Buttons/LeftButton" to="Buttons" method="_on_left_button_pressed"]
 [connection signal="pressed" from="Buttons/RightButton" to="Buttons" method="_on_right_button_pressed"]
+[connection signal="pressed" from="Buttons/LoopButton" to="Buttons" method="_on_loop_button_pressed"]
 [connection signal="pressed" from="Buttons/EndLoopButton" to="Buttons" method="_on_end_loop_button_pressed"]
 [connection signal="pressed" from="Buttons/IfButton" to="Buttons" method="_on_if_button_pressed"]
 [connection signal="pressed" from="Buttons/EndIfButton" to="Buttons" method="_on_end_if_button_pressed"]

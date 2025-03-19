@@ -1,15 +1,15 @@
 extends VBoxContainer
 
-@onready var WalkButton = preload("res://Scenes/button_walk.tscn")
-@onready var LeftButton = preload("res://Scenes/button_left.tscn")
-@onready var RightButton = preload("res://Scenes/button_right.tscn")
-@onready var LoopButton = preload("res://Scenes/button_loop.tscn")
-@onready var EndLoopButton = preload("res://Scenes/button_endloop.tscn")
-@onready var EndIfButton = preload("res://Scenes/button_endif.tscn")
-@onready var IfButton = preload("res://Scenes/button_if.tscn")
-@onready var ElseButton = preload("res://Scenes/button_else.tscn")
+@onready var WalkButton = preload("res://Scenes/Button_Scenes/button_walk.tscn")
+@onready var LeftButton = preload("res://Scenes/Button_Scenes/button_left.tscn")
+@onready var RightButton = preload("res://Scenes/Button_Scenes/button_right.tscn")
+@onready var LoopButton = preload("res://Scenes/Button_Scenes/button_loop.tscn")
+@onready var EndLoopButton = preload("res://Scenes/Button_Scenes/button_endloop.tscn")
+@onready var EndIfButton = preload("res://Scenes/Button_Scenes/button_endif.tscn")
+@onready var IfButton = preload("res://Scenes/Button_Scenes/button_if.tscn")
+@onready var ElseButton = preload("res://Scenes/Button_Scenes/button_else.tscn")
 
-@onready var whiteloop = preload("res://ComPuzzle Assets/buttons/Loop_Button_White.png")
+@onready var whiteloop = "res://ComPuzzle Assets/buttons/LOOP/Loop_Button_White.png"
 
 signal walk_signal
 signal turn_left_signal
@@ -95,8 +95,8 @@ func processNode(the_name: String, child: Node, i: int):
 	if the_name == "LOOP":
 		# get the original texture then change it to a white version, then
 		# apply a blue filter
-		#var reg = child.texture_normal
-		#child.texture_normal = load(whiteloop)
+		var reg = child.texture_normal
+		child.texture_normal = load(whiteloop)
 		child.modulate = Color(0, 0, 1)
 		
 		#call the loop function
@@ -372,7 +372,7 @@ func ifNode(num: int, button: TextureButton):
 	var the_name = ""
 	var i = num + 1
 	var child
-	var isTrue = false
+	var isTrue = true
 	var elseTime = false
 	var retSpot = num
 	
