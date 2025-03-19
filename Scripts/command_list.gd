@@ -26,7 +26,7 @@ var framelen = 40		# number of frames to wait for animations
 var cleared = false		# flag to stop the running of the command list
 var running = false		# flag to disable things that interact with command list
 var scrollguy
-
+var leave = false
 # all nodes put into command list will have a label node that has the 
 # type of node that it is
 
@@ -111,8 +111,17 @@ func realReadList():
 	running = false
 	pass
 
+
+func nextStep():
+	leave = true
+
 # handles node specialty or basic node functions for command list
 func processNode(the_name: String, child: Node, i: int):
+	var stepmode = true
+	while stepmode && !leave:
+		await wait_frames(1)
+		pass
+	leave = false
 	# command list is imbedded in a scroll list calling the parent (scrollguy)
 	# and using it's ensure control visible to make the nodes always be 
 	# on the screen when executed
