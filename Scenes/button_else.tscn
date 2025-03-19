@@ -1,0 +1,10 @@
+[gd_scene load_steps=3 format=3 uid="uid://ru12wve7jl0g"]
+
+[ext_resource type="PackedScene" uid="uid://cghshp176xdq1" path="res://Scenes/button_walk.tscn" id="1_65t5o"]
+[ext_resource type="Texture2D" uid="uid://bavs7usy4xour" path="res://ComPuzzle Assets/buttons/Else_Button.png" id="2_65t5o"]
+
+[node name="else" instance=ExtResource("1_65t5o")]
+texture_normal = ExtResource("2_65t5o")
+
+[node name="Label" parent="." index="0"]
+text = "ELSE"

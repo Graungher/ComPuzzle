@@ -3,15 +3,15 @@
 importer="texture"
 type="CompressedTexture2D"
 uid="uid://bavs7usy4xour"
-path="res://.godot/imported/Else.png-8d43e04b0ce389432d263934402830fb.ctex"
+path="res://.godot/imported/Else_Button.png-9fdab153a877fc735d0c1312bed1f5c5.ctex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://ComPuzzle Assets/buttons/Else.png"
-dest_files=["res://.godot/imported/Else.png-8d43e04b0ce389432d263934402830fb.ctex"]
+source_file="res://ComPuzzle Assets/buttons/Else_Button.png"
+dest_files=["res://.godot/imported/Else_Button.png-9fdab153a877fc735d0c1312bed1f5c5.ctex"]
 
 [params]
 

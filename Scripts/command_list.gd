@@ -7,6 +7,7 @@ extends VBoxContainer
 @onready var EndLoopButton = preload("res://Scenes/button_endloop.tscn")
 @onready var EndIfButton = preload("res://Scenes/button_endif.tscn")
 @onready var IfButton = preload("res://Scenes/button_if.tscn")
+@onready var ElseButton = preload("res://Scenes/button_else.tscn")
 
 @onready var whiteloop = preload("res://ComPuzzle Assets/buttons/Loop_Button_White.png")
 
@@ -121,8 +122,8 @@ func processNode(the_name: String, child: Node, i: int):
 	if the_name == "LOOP":
 		# get the original texture then change it to a white version, then
 		# apply a blue filter
-		var reg = child.texture_normal
-		child.texture_normal = load(whiteloop)
+		#var reg = child.texture_normal
+		#child.texture_normal = load(whiteloop)
 		child.modulate = Color(0, 0, 1)
 		
 		#call the loop function
@@ -131,7 +132,7 @@ func processNode(the_name: String, child: Node, i: int):
 		# make sure that there is still a child before resetting
 		# (child may be gone if level reset before current action ended)
 		if child:
-			child.texture_normal = reg
+			#child.texture_normal = reg
 			child.modulate = Color(1, 1, 1)
 	
 	# if the node is a loop, then make run the loop func and make the node blue
@@ -222,29 +223,9 @@ func realLoop(num: int, button: TextureButton):
 			if the_name == "ENDLOOP":
 				retspot = child.get_index()
 				break
-			# nested loop 
-			elif the_name == "LOOP":
-				# makes sure that the loop is visible when starting
-				scrollguy.ensure_control_visible(child)
-				#changes color to blue
-				child.modulate = Color(0, 0, 1)
-				# go into the nested loop and  wait until it finishes and
-				# get the new index
-				var loop_return = await realLoop(child.get_index(), child)
-				j = loop_return - num  
-				
-				# make sure that there is still a child before resetting
-				# (child may be gone if level reset before current action ended)
-				if child:
-					child.modulate = Color(1, 1, 1)
-			# if neither end nor nested do the node's function
+			# nested loop
 			else: 
-				
-				scrollguy.ensure_control_visible(child)
-				child.modulate = Color(0, 1, 0)
-				await doFunc(the_name)
-				if child:
-					child.modulate = Color(1, 1, 1)
+				j = (await processNode(the_name, child, j))
 	if totals == 0:
 		retspot = findEndLoop(num) # index then loop from here?
 	return retspot
@@ -256,12 +237,17 @@ func findEndLoop(num: int):
 	var child
 	var totLoop = 0
 	var retspot = 1
+	# finds the accociated endloop for an loop by keeping track of how many
+	# nested loops there may be, then return the index of the correct end loop
 	while (the_name != "ENDLOOP" || totLoop > 0) && !cleared:
+		# gets node info
 		child = get_child(num + i)
 		the_name = child.get_node("Label").text
 		i += 1
+		# keeps track of nodes
 		if the_name == "LOOP":
 			totLoop += 1
+		# found end if, then checks to see if totloop = 0. if 0 then correct end
 		if the_name == "ENDLOOP":
 			if totLoop == 0:
 				retspot = child.get_index() + 1
@@ -382,6 +368,8 @@ func _on_make_node(the_name: String):
 			"IF":
 				ifcounter += 1
 				button_instance = IfButton.instantiate()
+			"ELSE":
+				button_instance = ElseButton.instantiate()	
 			"ENDIF":
 				# allow or disable endif creation based off balance
 				if ifcounter > 0:
@@ -410,21 +398,28 @@ func ifNode(num: int, button: TextureButton):
 	var the_name = ""
 	var i = num + 1
 	var child
-	var isTrue = true
+	var isTrue = false
 	var elseTime = false
+	
+	# does through the if's sections until endif then return the index
 	while the_name != "ENDIF" && !cleared:
+		# gets node info
+		if cleared:
+			return 0
+		
 		child = get_child(i)
 		the_name = child.get_node("Label").text
-		print("name: ", the_name, " index: ", i)
+		# else flag
 		if the_name == "ELSE":
 			elseTime = true
 			
+		# 'then' section, if True and not at else yet
 		if isTrue && !elseTime:
-			print(" TRUE ")
 			await processNode(the_name, child, i)
+		# if there is an else, then do the else stuff if flase
 		elif !isTrue && elseTime: 
-			print(" FALSE ")
 			await processNode(the_name, child, i)
+		
 		i += 1
 	return i + num
 	

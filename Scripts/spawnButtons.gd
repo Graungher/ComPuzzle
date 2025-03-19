@@ -45,3 +45,8 @@ func _on_if_button_pressed() -> void:
 func _on_end_if_button_pressed() -> void:
 	emit_signal("makeNode", "ENDIF")
 	pass # Replace with function body.
+
+
+func _on_else_button_pressed() -> void:
+	emit_signal("makeNode", "ELSE")
+	pass # Replace with function body.
