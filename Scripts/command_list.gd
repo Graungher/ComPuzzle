@@ -182,7 +182,7 @@ func doFunc(the_name: String):
 		# if there is a match, all wait frames and wait the time
 		await wait_frames(framelen)
 
-
+# loop will repeat all nodes between it and it's accociated end loop node
 func realLoop(num: int, button: TextureButton):
 	var the_name
 	var i = 0
@@ -190,35 +190,56 @@ func realLoop(num: int, button: TextureButton):
 	var retspot = num 
 	var child
 	var index
+	# total number of loops
 	var totals = int(button.get_node("loopCount").text)
 	
+	# check for a number
 	if !button.get_node("loopCount").text.is_valid_float():
 		emit_signal("showError", "LOOP NAN")
+		
+	# i = number of loops executed, totals = total loop times
+	# cleared is exit command list flag
 	while i < totals && !cleared:
+		# if cleared flag is true, return 0 to exit loop
 		if cleared:
 			return 0
 		i += 1
 		j = 0
 		the_name = ""
+		
 		while the_name != "ENDLOOP" && !cleared:
+			# if cleared flag is true, return 0 to exit loop
 			if cleared:
 				return 0
+			
+			# get next node info
 			j += 1
 			child = get_child(num + j)
 			index = child.get_index()
 			the_name = child.get_node("Label").text
 			
+			# exit loop and return index
 			if the_name == "ENDLOOP":
 				retspot = child.get_index()
 				break
+			# nested loop 
 			elif the_name == "LOOP":
+				# makes sure that the loop is visible when starting
 				scrollguy.ensure_control_visible(child)
-				child.modulate = Color(1, 0, 0)
+				#changes color to blue
+				child.modulate = Color(0, 0, 1)
+				# go into the nested loop and  wait until it finishes and
+				# get the new index
 				var loop_return = await realLoop(child.get_index(), child)
-				j = loop_return - num  # Adjust j based on where the loop ended	
+				j = loop_return - num  
+				
+				# make sure that there is still a child before resetting
+				# (child may be gone if level reset before current action ended)
 				if child:
 					child.modulate = Color(1, 1, 1)
+			# if neither end nor nested do the node's function
 			else: 
+				
 				scrollguy.ensure_control_visible(child)
 				child.modulate = Color(0, 1, 0)
 				await doFunc(the_name)
