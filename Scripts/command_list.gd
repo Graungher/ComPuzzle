@@ -25,7 +25,11 @@ var ifcounter = 0		# 0 if number of ifs and endifs are equal
 var framelen = 40		# number of frames to wait for animations
 var cleared = false		# flag to stop the running of the command list
 var running = false		# flag to disable things that interact with command list
+var preLoaded = false
 var scrollguy
+
+
+var tempArray = ["LEFT", "WALK", "WALK"]
 
 # all nodes put into command list will have a label node that has the 
 # type of node that it is
@@ -33,6 +37,7 @@ var scrollguy
 # once instantiated 
 func _ready() -> void:
 	scrollguy = get_parent()
+	preloadCommands(tempArray)
 	pass # Replace with function body.
 
 # does something every frame
@@ -90,7 +95,7 @@ func processNode(the_name: String, child: Node, i: int):
 	# and using it's ensure control visible to make the nodes always be 
 	# on the screen when executed
 	scrollguy.ensure_control_visible(child)
-	
+	#the_name = "CUSTOM"													## DELETE THIS SOON
 	# if the node is a loop, then make run the loop func and make the node blue
 	if the_name == "LOOP":
 		# get the original texture then change it to a white version, then
@@ -109,7 +114,7 @@ func processNode(the_name: String, child: Node, i: int):
 			child.modulate = Color(1, 1, 1)
 	
 	# if the node is a loop, then make run the loop func and make the node blue
-	if the_name == "IF":
+	elif the_name == "IF":
 		# get the original texture then change it to a white version, then
 		# apply a blue filter
 		child.modulate = Color(0, 0, 1)
@@ -122,7 +127,8 @@ func processNode(the_name: String, child: Node, i: int):
 		if child:
 			child.modulate = Color(1, 1, 1)
 	
-	
+	elif the_name == "CUSTOM":
+		await readFunctionList(tempArray)
 	else:
 		# apply green filter, texture replacement happens in fofunc
 		child.modulate = Color(0, 1, 0)
@@ -401,3 +407,19 @@ func ifNode(num: int, button: TextureButton):
 		
 		i += 1
 	return retSpot
+
+
+func readFunctionList(theWords: Array):
+	
+	for i in theWords:
+		await doFunc(i)
+	pass
+
+
+func preloadCommands(theWords: Array):
+	if theWords.size() != 0:
+		preLoaded = true
+		for i in theWords:
+			_on_make_node(i)
+			pass
+	pass

@@ -4,8 +4,9 @@ extends Node2D
 @onready var current_map = $TileMap  # Initial TileMap
 @onready var cmdList = $ScrollContainer/Command_List
 @onready var errorWindow = $AcceptDialog
-@onready var errorLabel = $AcceptDialog/Label
-@onready var funcmaker = $FunctionMakerWindow
+@onready var errorLabel = $ErrorPopup/Label
+@onready var nameWindow = $FuncName
+@onready var funcName = $FuncName/LineEdit
 
 var spawn_position = null
 var theRobot
@@ -15,36 +16,16 @@ var current_tile
 var next_tile
 var scaleX = 1
 var scaleY = 1
+var customFuncName = ""
 
 signal goAway
 signal walk_signal
+signal NAMECONFIRMED
 
 func _ready() -> void:
-	switch_map()
-	spawnBot()
-	pass
-
-
-func switch_map():
-	if current_map:
-		current_map.queue_free()  # Remove the old TileMap
-
-	#robot.deleteRobot()
-	emit_signal("goAway")
-	var new_map_scene = load(mapList.get_next_map())  # Load scene
-	var new_map = new_map_scene.instantiate()  # Create an instance
-	add_child(new_map)
-	move_child(new_map, 0)  # Ensure it’s the first child
-	current_map = new_map  # Update reference
-
-	await get_tree().process_frame  # Wait a frame to ensure it's added
 	mapSetup()
 	spawnBot()
-	#robot.update_tilemap_reference()  # Make sure Robot gets the new TileMap
-
-
-func get_current_map():
-	return current_map
+	pass
 
 
 func spawnBot():
@@ -79,8 +60,8 @@ func show_error(err: String):
 
 func mapSetup():
 	
-	var defaultX = 50
-	var defaultY = 25
+	var defaultX = 17
+	var defaultY = 17
 	
 	var tile_size = current_map.tile_set.tile_size.x
 	start_tile = current_map.get_start_tile()
@@ -99,9 +80,7 @@ func mapSetup():
 	current_map.scale = Vector2(scaleX, scaleY)
 	spawn_position = current_map.map_to_local(start_tile)
 	
-	spawn_position += Vector2(0, tile_size/2)
-	var foot_offset = (tile_size * scaleY) / 16.2
-	spawn_position.y -= foot_offset
+	spawn_position = Vector2(289.0, 314)
 	spawn_position *= current_map.scale 
 	
 	#spawn_position = current_map.map_to_local(start_tile) + Vector2(0,(tile_size/2) - int(3*scaleY))
@@ -126,6 +105,7 @@ func botMoved():
 
 
 func botControl():
+	
 	var compass = theRobot.getFacing()
 	var object
 	var walkable = true
@@ -159,7 +139,6 @@ func botControl():
 func checkGoal():
 	if current_tile == end_tile:
 		cmdList.clearList()
-		switch_map()
 	else:
 		emit_signal("goAway")
 		spawnBot()
@@ -183,6 +162,17 @@ func _on_command_list_reset() -> void:
 	pass # Replace with function body.
 
 
-func _on_make_a_func_pressed() -> void:
-	funcmaker.popup()
+func openNameWindow():
+	nameWindow.popup()
+	
+
+
+func _on_func_name_confirmed() -> void:
+	customFuncName = funcName.text
+	print(customFuncName)
+	pass # Replace with function body.
+
+
+func _on_function_maker_window_confirmed() -> void:
+	
 	pass # Replace with function body.

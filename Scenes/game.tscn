@@ -1,4 +1,4 @@
-[gd_scene load_steps=13 format=3 uid="uid://dd0kham0vgye6"]
+[gd_scene load_steps=14 format=3 uid="uid://dd0kham0vgye6"]
 
 [ext_resource type="Script" uid="uid://cgptds56vy7k1" path="res://Scripts/game.gd" id="1_ln1c5"]
 [ext_resource type="Texture2D" uid="uid://bb4c8bmvjc8af" path="res://ComPuzzle Assets/buttons/WALK/Walk.png" id="3_rku1e"]
@@ -12,6 +12,7 @@
 [ext_resource type="Texture2D" uid="uid://c6ulp76m6cvph" path="res://ComPuzzle Assets/buttons/ENDIF/EndIf.png" id="9_85qyi"]
 [ext_resource type="Texture2D" uid="uid://c4n2jn14q7fc2" path="res://ComPuzzle Assets/buttons/ELSE/ElseButton.png" id="10_iivbl"]
 [ext_resource type="Texture2D" uid="uid://jriqneluvhn6" path="res://ComPuzzle Assets/buttons/Run_Button.png" id="10_su6ef"]
+[ext_resource type="PackedScene" uid="uid://crub3q5lo4g2r" path="res://Scenes/Function_Maker.tscn" id="13_rfjv2"]
 
 [node name="Game" type="Node2D"]
 script = ExtResource("1_ln1c5")
@@ -29,14 +30,15 @@ scale = Vector2(2, 5)
 zoom = Vector2(1.01, 1.01)
 metadata/_edit_lock_ = true
 
-[node name="Buttons" type="HBoxContainer" parent="."]
+[node name="Buttons" type="GridContainer" parent="."]
 offset_left = 475.0
 offset_top = 879.0
-offset_right = 947.0
+offset_right = 1015.0
 offset_bottom = 943.0
 scale = Vector2(2, 2)
 size_flags_horizontal = 6
 size_flags_vertical = 6
+columns = 20
 script = ExtResource("5_g6tuc")
 
 [node name="WalkButton" type="TextureButton" parent="Buttons"]
@@ -121,6 +123,14 @@ offset_right = 328.0
 offset_bottom = 997.0
 text = "CLEAR LIST"
 
+[node name="Make a Func" type="Button" parent="."]
+offset_left = -86.0
+offset_top = 800.0
+offset_right = 14.0
+offset_bottom = 900.0
+text = "MAKE A FUNCTION"
+autowrap_mode = 2
+
 [node name="AcceptDialog" type="AcceptDialog" parent="."]
 initial_position = 2
 size = Vector2i(129, 140)
@@ -134,6 +144,9 @@ text = "this is an error"
 horizontal_alignment = 1
 vertical_alignment = 1
 autowrap_mode = 3
+
+[node name="FunctionMakerWindow" parent="." instance=ExtResource("13_rfjv2")]
+visible = false
 
 [connection signal="makeNode" from="Buttons" to="ScrollContainer/Command_List" method="_on_make_node"]
 [connection signal="pressed" from="Buttons/WalkButton" to="Buttons" method="_on_walk_button_pressed"]
@@ -153,3 +166,4 @@ autowrap_mode = 3
 [connection signal="pressed" from="Quit_Button" to="." method="_on_quit_button_pressed"]
 [connection signal="pressed" from="nextMap" to="." method="switch_map"]
 [connection signal="pressed" from="Clear_List" to="ScrollContainer/Command_List" method="clearList"]
+[connection signal="pressed" from="Make a Func" to="." method="_on_make_a_func_pressed"]

@@ -1,4 +1,4 @@
-extends HBoxContainer
+extends GridContainer
 
 signal makeNode(node: String)
 

@@ -44,7 +44,7 @@ func find_end_tile():
 			end_tile = cell
 			#print("End tile found at: ", end_tile)
 			return
-	#print("NO STARTING TILE")
+	#print("NO ENDING TILE")
 
 
 func get_start_tile():
