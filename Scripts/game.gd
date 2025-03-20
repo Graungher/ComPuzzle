@@ -180,3 +180,9 @@ func _on_quit_button_pressed() -> void:
 func _on_command_list_reset() -> void:
 	current_tile = start_tile
 	pass # Replace with function body.
+
+
+
+func _on_victory_button_pressed() -> void:
+	get_tree().change_scene_to_file("res://Scenes/Victory.gd")
+	pass # Replace with function body.

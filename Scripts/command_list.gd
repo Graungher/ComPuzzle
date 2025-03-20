@@ -401,3 +401,11 @@ func ifNode(num: int, button: TextureButton):
 		
 		i += 1
 	return retSpot
+	
+func replay_level():
+	clearList()
+	fakeClearList()
+
+
+func _on_texture_rect_replay() -> void:
+	pass # Replace with function body.

@@ -1,4 +1,4 @@
-[gd_scene load_steps=13 format=3 uid="uid://dd0kham0vgye6"]
+[gd_scene load_steps=14 format=3 uid="uid://dd0kham0vgye6"]
 
 [ext_resource type="Script" uid="uid://cgptds56vy7k1" path="res://Scripts/game.gd" id="1_ln1c5"]
 [ext_resource type="Texture2D" uid="uid://bxvklotg8dys1" path="res://ComPuzzle Assets/buttons/Loop.png" id="4_bygsc"]
@@ -12,16 +12,11 @@
 [ext_resource type="Texture2D" uid="uid://6p6nws0eldli" path="res://ComPuzzle Assets/buttons/End_If_button.png" id="9_rku1e"]
 [ext_resource type="Texture2D" uid="uid://bavs7usy4xour" path="res://ComPuzzle Assets/buttons/Else_Button.png" id="10_rku1e"]
 [ext_resource type="Texture2D" uid="uid://b5owuj6hfy8py" path="res://ComPuzzle Assets/buttons/Run_Button.png" id="10_su6ef"]
+[ext_resource type="PackedScene" uid="uid://b0dlrsxwsr8fo" path="res://Scenes/Victory.tscn" id="13_rfjv2"]
 
 [node name="Game" type="Node2D"]
 script = ExtResource("1_ln1c5")
 metadata/_edit_lock_ = true
-
-[node name="TextureRect" type="TextureRect" parent="."]
-offset_left = -78.0
-offset_top = -44.0
-offset_right = 1825.0
-offset_bottom = 1027.0
 
 [node name="Camera2D" type="Camera2D" parent="."]
 position = Vector2(873, 491)
@@ -94,6 +89,14 @@ scale = Vector2(2, 2)
 texture_normal = ExtResource("10_su6ef")
 metadata/_edit_lock_ = true
 
+[node name="Victory_Button" type="Button" parent="."]
+offset_left = 2.0
+offset_top = 789.0
+offset_right = 102.0
+offset_bottom = 889.0
+text = "TEST 
+VICTORY"
+
 [node name="Reset_Button" type="Button" parent="."]
 offset_left = 114.0
 offset_top = 897.0
@@ -135,6 +138,13 @@ horizontal_alignment = 1
 vertical_alignment = 1
 autowrap_mode = 3
 
+[node name="TextureRect" parent="." instance=ExtResource("13_rfjv2")]
+visible = false
+offset_left = -2608.0
+offset_top = 3066.0
+offset_right = -1628.0
+offset_bottom = 4052.0
+
 [connection signal="makeNode" from="Buttons" to="ScrollContainer/Command_List" method="_on_make_node"]
 [connection signal="pressed" from="Buttons/LoopButton" to="Buttons" method="_on_loop_button_pressed"]
 [connection signal="pressed" from="Buttons/WalkButton" to="Buttons" method="_on_walk_button_pressed"]
@@ -149,7 +159,10 @@ autowrap_mode = 3
 [connection signal="showError" from="ScrollContainer/Command_List" to="." method="show_error"]
 [connection signal="walk_signal" from="ScrollContainer/Command_List" to="." method="botControl"]
 [connection signal="pressed" from="Run_button" to="ScrollContainer/Command_List" method="validate"]
+[connection signal="pressed" from="Victory_Button" to="." method="_on_victory_button_pressed"]
 [connection signal="pressed" from="Reset_Button" to="." method="_on_reset_button_pressed"]
 [connection signal="pressed" from="Quit_Button" to="." method="_on_quit_button_pressed"]
 [connection signal="pressed" from="nextMap" to="." method="switch_map"]
 [connection signal="pressed" from="Clear_List" to="ScrollContainer/Command_List" method="clearList"]
+[connection signal="change" from="TextureRect" to="." method="switch_map"]
+[connection signal="replay" from="TextureRect" to="ScrollContainer/Command_List" method="replay_level"]

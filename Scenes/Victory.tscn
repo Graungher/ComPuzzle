@@ -1,0 +1,64 @@
+[gd_scene load_steps=6 format=3 uid="uid://b0dlrsxwsr8fo"]
+
+[ext_resource type="Texture2D" uid="uid://b86whtcy3uxdr" path="res://ComPuzzle Assets/screen.png" id="1_vb8gj"]
+[ext_resource type="Script" uid="uid://dcfw15rf65x01" path="res://Scenes/Victory.gd" id="2_ebubv"]
+[ext_resource type="Texture2D" uid="uid://7uw8c6y6pabx" path="res://ComPuzzle Assets/buttons/NextLevel.png" id="2_f6307"]
+[ext_resource type="Texture2D" uid="uid://dbyp3rac40cks" path="res://ComPuzzle Assets/buttons/MainMenu.png" id="3_ebubv"]
+[ext_resource type="Texture2D" uid="uid://g5162qw26ric" path="res://ComPuzzle Assets/buttons/Replay.png" id="4_lh6sg"]
+
+[node name="TextureRect" type="TextureRect"]
+offset_right = 980.0
+offset_bottom = 986.0
+texture = ExtResource("1_vb8gj")
+script = ExtResource("2_ebubv")
+metadata/_edit_vertical_guides_ = [1848.0, -366.0]
+
+[node name="Next Level" type="Button" parent="."]
+top_level = true
+layout_mode = 0
+offset_left = 310.0
+offset_top = 800.0
+offset_right = 470.0
+offset_bottom = 960.0
+text = "
+"
+icon = ExtResource("2_f6307")
+icon_alignment = 1
+expand_icon = true
+
+[node name="Main Menu" type="Button" parent="."]
+top_level = true
+layout_mode = 0
+offset_left = 100.0
+offset_top = 800.0
+offset_right = 260.0
+offset_bottom = 960.0
+icon = ExtResource("3_ebubv")
+icon_alignment = 1
+expand_icon = true
+
+[node name="Level Select" type="Button" parent="."]
+top_level = true
+layout_mode = 0
+offset_left = 730.0
+offset_top = 800.0
+offset_right = 890.0
+offset_bottom = 960.0
+icon = ExtResource("2_f6307")
+icon_alignment = 1
+expand_icon = true
+
+[node name="Replay" type="Button" parent="."]
+layout_mode = 0
+offset_left = 520.0
+offset_top = 800.0
+offset_right = 680.0
+offset_bottom = 960.0
+icon = ExtResource("4_lh6sg")
+icon_alignment = 1
+expand_icon = true
+
+[connection signal="pressed" from="Next Level" to="." method="_on_next_level_pressed"]
+[connection signal="pressed" from="Main Menu" to="." method="_on_main_menu_pressed"]
+[connection signal="pressed" from="Level Select" to="." method="_on_level_select_pressed"]
+[connection signal="pressed" from="Replay" to="." method="_on_replay_pressed"]
