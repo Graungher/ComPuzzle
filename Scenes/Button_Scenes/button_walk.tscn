@@ -1,7 +1,8 @@
-[gd_scene load_steps=4 format=3 uid="uid://cghshp176xdq1"]
+[gd_scene load_steps=5 format=3 uid="uid://cghshp176xdq1"]
 
 [ext_resource type="Texture2D" uid="uid://ckf3awdrcux34" path="res://ComPuzzle Assets/buttons/WALK/Walk_Button.png" id="1_h7slj"]
 [ext_resource type="Script" uid="uid://bkko6chb7djmv" path="res://Scripts/buttonFunctionality.gd" id="2_7baod"]
+[ext_resource type="Texture2D" uid="uid://bs8m0ft6b05lw" path="res://ComPuzzle Assets/buttons/WALK/Walk_Button_White.png" id="2_18sb7"]
 
 [sub_resource type="LabelSettings" id="LabelSettings_0l3hy"]
 font_size = 18
@@ -18,8 +19,14 @@ offset_bottom = -1016.0
 grow_horizontal = 2
 grow_vertical = 2
 texture_normal = ExtResource("1_h7slj")
+texture_focused = ExtResource("2_18sb7")
 stretch_mode = 0
 script = ExtResource("2_7baod")
+
+[node name="TextureButton" type="TextureButton" parent="."]
+layout_mode = 0
+offset_right = 62.0
+offset_bottom = 64.0
 
 [node name="Label" type="Label" parent="."]
 visible = false

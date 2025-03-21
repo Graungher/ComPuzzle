@@ -4,8 +4,9 @@ extends Node2D
 @onready var current_map = $TileMap  # Initial TileMap
 @onready var cmdList = $ScrollContainer/Command_List
 @onready var errorWindow = $AcceptDialog
-@onready var errorLabel = $AcceptDialog/Label
+@onready var errorLabel = $ErrorWindow/Label
 @onready var funcmaker = $FunctionMakerWindow
+@onready var helper = $HelpWindow
 
 var spawn_position = null
 var theRobot
@@ -185,4 +186,9 @@ func _on_command_list_reset() -> void:
 
 func _on_make_a_func_pressed() -> void:
 	funcmaker.popup()
+	pass # Replace with function body.
+
+
+func _on_help_pressed() -> void:
+	helper.popup()
 	pass # Replace with function body.

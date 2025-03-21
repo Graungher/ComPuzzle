@@ -1,0 +1,44 @@
+[gd_scene load_steps=5 format=3 uid="uid://dvthoo6j7fhsu"]
+
+[ext_resource type="PackedScene" uid="uid://blltddyh63pjq" path="res://Scenes/Map_Scenes/ParentMap.tscn" id="1_bxtno"]
+[ext_resource type="Script" uid="uid://c35evgsqk2ae" path="res://Scripts/help_walk.gd" id="1_l7g27"]
+[ext_resource type="PackedScene" uid="uid://dut7sncjon3br" path="res://Scenes/robot.tscn" id="2_l7g27"]
+[ext_resource type="Texture2D" uid="uid://bb4c8bmvjc8af" path="res://ComPuzzle Assets/buttons/WALK/Walk.png" id="4_bhpug"]
+
+[node name="Help_Walk" type="AcceptDialog"]
+title = "WALK BUTTON"
+initial_position = 1
+size = Vector2i(600, 650)
+visible = true
+popup_window = true
+sharp_corners = true
+ok_button_text = "Run"
+dialog_hide_on_ok = false
+script = ExtResource("1_l7g27")
+
+[node name="Node2D" type="Node2D" parent="."]
+
+[node name="TileMap" parent="Node2D" instance=ExtResource("1_bxtno")]
+position = Vector2(29, 43)
+
+[node name="Label" type="Label" parent="Node2D"]
+offset_left = 8.0
+offset_top = 8.0
+offset_right = 592.0
+offset_bottom = 601.0
+text = "This is the Walk Button. Click the run button to see how it works."
+horizontal_alignment = 1
+
+[node name="Robot" parent="Node2D" instance=ExtResource("2_l7g27")]
+position = Vector2(301, 332)
+
+[node name="TextureRect" type="TextureRect" parent="Node2D"]
+offset_left = 478.0
+offset_top = 74.0
+offset_right = 542.0
+offset_bottom = 138.0
+texture = ExtResource("4_bhpug")
+
+[connection signal="canceled" from="." to="." method="_on_canceled"]
+[connection signal="confirmed" from="." to="." method="_on_confirmed"]
+[connection signal="walk" from="." to="Node2D/Robot" method="_walk"]

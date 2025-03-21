@@ -1,0 +1,61 @@
+[gd_scene load_steps=9 format=3 uid="uid://cnapfcrjygfn0"]
+
+[ext_resource type="Script" uid="uid://c863jg45sip04" path="res://Scripts/help_menu.gd" id="1_myg67"]
+[ext_resource type="Script" uid="uid://djiyhpf2cilsw" path="res://Scripts/spawnButtons.gd" id="2_p14dy"]
+[ext_resource type="Texture2D" uid="uid://bb4c8bmvjc8af" path="res://ComPuzzle Assets/buttons/WALK/Walk.png" id="3_2fbqo"]
+[ext_resource type="Texture2D" uid="uid://cwyomwbqxj00e" path="res://ComPuzzle Assets/buttons/TURNLEFT/Turn_Left.png" id="4_njejh"]
+[ext_resource type="Texture2D" uid="uid://boljr71gjawpo" path="res://ComPuzzle Assets/buttons/TURNRIGHT/Turn_Right.png" id="5_rft3v"]
+[ext_resource type="Texture2D" uid="uid://cc75frmpp3gb4" path="res://ComPuzzle Assets/buttons/LOOP/Loop.png" id="6_blfi1"]
+[ext_resource type="Texture2D" uid="uid://cl3h3685m0akx" path="res://ComPuzzle Assets/buttons/IF/If.png" id="7_b7oc5"]
+[ext_resource type="Texture2D" uid="uid://bn38kpo8gvagb" path="res://ComPuzzle Assets/buttons/CUSTOM/Function.png" id="8_p14dy"]
+
+[node name="Window" type="AcceptDialog"]
+title = "HELP MENU"
+initial_position = 1
+size = Vector2i(400, 325)
+visible = true
+script = ExtResource("1_myg67")
+
+[node name="Node2D" type="Node2D" parent="."]
+
+[node name="Buttons" type="GridContainer" parent="Node2D"]
+offset_top = 8.0
+offset_right = 540.0
+offset_bottom = 140.0
+scale = Vector2(2, 2)
+size_flags_horizontal = 6
+size_flags_vertical = 6
+columns = 3
+script = ExtResource("2_p14dy")
+
+[node name="WalkButton" type="TextureButton" parent="Node2D/Buttons"]
+layout_mode = 2
+texture_normal = ExtResource("3_2fbqo")
+
+[node name="LeftButton" type="TextureButton" parent="Node2D/Buttons"]
+layout_mode = 2
+texture_normal = ExtResource("4_njejh")
+
+[node name="RightButton" type="TextureButton" parent="Node2D/Buttons"]
+layout_mode = 2
+texture_normal = ExtResource("5_rft3v")
+
+[node name="LoopButton" type="TextureButton" parent="Node2D/Buttons"]
+layout_mode = 2
+texture_normal = ExtResource("6_blfi1")
+
+[node name="IfButton" type="TextureButton" parent="Node2D/Buttons"]
+layout_mode = 2
+texture_normal = ExtResource("7_b7oc5")
+
+[node name="CustomButton" type="TextureButton" parent="Node2D/Buttons"]
+layout_mode = 2
+texture_normal = ExtResource("8_p14dy")
+
+[connection signal="makeNode" from="Node2D/Buttons" to="." method="_on_buttons_make_node"]
+[connection signal="pressed" from="Node2D/Buttons/WalkButton" to="Node2D/Buttons" method="_on_walk_button_pressed"]
+[connection signal="pressed" from="Node2D/Buttons/LeftButton" to="Node2D/Buttons" method="_on_left_button_pressed"]
+[connection signal="pressed" from="Node2D/Buttons/RightButton" to="Node2D/Buttons" method="_on_right_button_pressed"]
+[connection signal="pressed" from="Node2D/Buttons/LoopButton" to="Node2D/Buttons" method="_on_loop_button_pressed"]
+[connection signal="pressed" from="Node2D/Buttons/IfButton" to="Node2D/Buttons" method="_on_if_button_pressed"]
+[connection signal="pressed" from="Node2D/Buttons/CustomButton" to="Node2D/Buttons" method="_on_custom_button_pressed"]

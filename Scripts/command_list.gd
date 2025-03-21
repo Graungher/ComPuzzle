@@ -170,9 +170,10 @@ func realLoop(num: int, button: TextureButton):
 	var retspot = num 
 	var child
 	var index
+	var loopsLeft
 	# total number of loops
 	var totals = int(button.get_node("loopCount").text)
-	
+	loopsLeft = totals
 	# check for a number
 	if !button.get_node("loopCount").text.is_valid_float():
 		emit_signal("showError", "LOOP NAN")
@@ -187,7 +188,10 @@ func realLoop(num: int, button: TextureButton):
 		j = 0
 		the_name = ""
 		
+		loopsLeft -= 1
 		while the_name != "ENDLOOP" && !cleared:
+			
+			button.get_node("loopCount").text = str(loopsLeft)
 			# if cleared flag is true, return 0 to exit loop
 			if cleared:
 				return 0
@@ -207,6 +211,7 @@ func realLoop(num: int, button: TextureButton):
 				j = (await processNode(the_name, child, j))
 	if totals == 0:
 		retspot = findEndLoop(num) # index then loop from here?
+	button.get_node("loopCount").text = str(totals)
 	return retspot
 
 # only used for loop = 0
