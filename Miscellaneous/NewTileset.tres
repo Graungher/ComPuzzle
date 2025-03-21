@@ -1,6 +1,16 @@
-[gd_resource type="TileSet" load_steps=3 format=3 uid="uid://cfqepkqqbipcw"]
+[gd_resource type="TileSet" load_steps=11 format=3 uid="uid://cfqepkqqbipcw"]
 
 [ext_resource type="Texture2D" uid="uid://cy7k5vvcmdtlf" path="res://ComPuzzle Assets/megaGroup.png" id="1_damyf"]
+[ext_resource type="Texture2D" uid="uid://bv5mw7h2slaxx" path="res://ComPuzzle Assets/Desk.png" id="1_mv550"]
+[ext_resource type="Texture2D" uid="uid://db8i510x2bkvp" path="res://ComPuzzle Assets/OtherFloor.png" id="3_m4pp1"]
+[ext_resource type="Texture2D" uid="uid://d3t0ouii6lgux" path="res://ComPuzzle Assets/Podium.png" id="4_63t4k"]
+[ext_resource type="Texture2D" uid="uid://b1xyn7kd6fet0" path="res://ComPuzzle Assets/Tree.png" id="5_7lgge"]
+
+[sub_resource type="TileSetAtlasSource" id="TileSetAtlasSource_iwvek"]
+texture = ExtResource("1_mv550")
+texture_region_size = Vector2i(32, 32)
+0:0/0 = 0
+0:0/0/custom_data_0 = true
 
 [sub_resource type="TileSetAtlasSource" id="TileSetAtlasSource_iyxws"]
 texture = ExtResource("1_damyf")
@@ -32,6 +42,27 @@ texture_region_size = Vector2i(32, 32)
 2:2/0 = 0
 2:2/0/custom_data_0 = true
 
+[sub_resource type="TileSetAtlasSource" id="TileSetAtlasSource_gfxvy"]
+texture = ExtResource("3_m4pp1")
+texture_region_size = Vector2i(32, 32)
+0:0/0 = 0
+1:0/0 = 0
+0:1/0 = 0
+1:1/0 = 0
+
+[sub_resource type="TileSetAtlasSource" id="TileSetAtlasSource_ojpqi"]
+texture = ExtResource("4_63t4k")
+texture_region_size = Vector2i(32, 32)
+0:0/0 = 0
+0:0/0/custom_data_0 = true
+
+[sub_resource type="TileSetAtlasSource" id="TileSetAtlasSource_fnykl"]
+texture = ExtResource("5_7lgge")
+texture_region_size = Vector2i(32, 32)
+0:0/size_in_atlas = Vector2i(3, 3)
+0:0/0 = 0
+0:0/0/custom_data_0 = true
+
 [resource]
 resource_name = "newTiles"
 tile_size = Vector2i(32, 32)
@@ -44,3 +75,7 @@ custom_data_layer_2/type = 1
 custom_data_layer_3/name = "Wall"
 custom_data_layer_3/type = 1
 sources/11 = SubResource("TileSetAtlasSource_iyxws")
+sources/1 = SubResource("TileSetAtlasSource_iwvek")
+sources/2 = SubResource("TileSetAtlasSource_gfxvy")
+sources/3 = SubResource("TileSetAtlasSource_ojpqi")
+sources/4 = SubResource("TileSetAtlasSource_fnykl")

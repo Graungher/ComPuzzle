@@ -2,16 +2,16 @@
 
 importer="texture"
 type="CompressedTexture2D"
-uid="uid://jriqneluvhn6"
-path="res://.godot/imported/Run_Button.png-76c75f292914eb1627fc0eb624843395.ctex"
+uid="uid://couxrbpyfqj20"
+path="res://.godot/imported/Loop_Button_White.png-7214e14fb5a11c278645b18459978aeb.ctex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://ComPuzzle Assets/buttons/Run_Button.png"
-dest_files=["res://.godot/imported/Run_Button.png-76c75f292914eb1627fc0eb624843395.ctex"]
+source_file="res://ComPuzzle Assets/buttons/LOOP/Loop_Button_White.png"
+dest_files=["res://.godot/imported/Loop_Button_White.png-7214e14fb5a11c278645b18459978aeb.ctex"]
 
 [params]
 

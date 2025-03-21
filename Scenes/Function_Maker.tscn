@@ -1,0 +1,158 @@
+[gd_scene load_steps=14 format=3 uid="uid://crub3q5lo4g2r"]
+
+[ext_resource type="PackedScene" uid="uid://blltddyh63pjq" path="res://Scenes/Map_Scenes/ParentMap.tscn" id="1_7b0fl"]
+[ext_resource type="Script" uid="uid://bwed4f4vbk8f1" path="res://Scripts/function_maker.gd" id="1_ir32n"]
+[ext_resource type="Script" uid="uid://cwxre8kpmj7hi" path="res://Scripts/command_list.gd" id="2_7hquj"]
+[ext_resource type="Script" uid="uid://djiyhpf2cilsw" path="res://Scripts/spawnButtons.gd" id="3_450yh"]
+[ext_resource type="Texture2D" uid="uid://bb4c8bmvjc8af" path="res://ComPuzzle Assets/buttons/WALK/Walk.png" id="4_ir32n"]
+[ext_resource type="Texture2D" uid="uid://cwyomwbqxj00e" path="res://ComPuzzle Assets/buttons/TURNLEFT/Turn_Left.png" id="5_7bge2"]
+[ext_resource type="Texture2D" uid="uid://boljr71gjawpo" path="res://ComPuzzle Assets/buttons/TURNRIGHT/Turn_Right.png" id="6_oh43a"]
+[ext_resource type="Texture2D" uid="uid://cc75frmpp3gb4" path="res://ComPuzzle Assets/buttons/LOOP/Loop.png" id="7_2asrl"]
+[ext_resource type="Texture2D" uid="uid://cj3ka2w0d6bb0" path="res://ComPuzzle Assets/buttons/ENDLOOP/EndLoop.png" id="8_0mbjx"]
+[ext_resource type="Texture2D" uid="uid://cl3h3685m0akx" path="res://ComPuzzle Assets/buttons/IF/If.png" id="9_5g51x"]
+[ext_resource type="Texture2D" uid="uid://c6ulp76m6cvph" path="res://ComPuzzle Assets/buttons/ENDIF/EndIf.png" id="10_gkkyy"]
+[ext_resource type="Texture2D" uid="uid://c4n2jn14q7fc2" path="res://ComPuzzle Assets/buttons/ELSE/ElseButton.png" id="11_2r048"]
+[ext_resource type="Texture2D" uid="uid://jriqneluvhn6" path="res://ComPuzzle Assets/buttons/Run_Button.png" id="12_450yh"]
+
+[node name="FunctionMakerWindow" type="ConfirmationDialog"]
+title = "Function Creator"
+initial_position = 1
+size = Vector2i(700, 900)
+visible = true
+borderless = true
+ok_button_text = "Accept"
+
+[node name="FunctionMaker" type="Node2D" parent="."]
+script = ExtResource("1_ir32n")
+
+[node name="TileMap" parent="FunctionMaker" instance=ExtResource("1_7b0fl")]
+position = Vector2(18, 27)
+
+[node name="ScrollContainer" type="ScrollContainer" parent="FunctionMaker"]
+offset_left = 566.0
+offset_top = 26.0
+offset_right = 645.0
+offset_bottom = 300.0
+scale = Vector2(2, 2)
+follow_focus = true
+
+[node name="Command_List" type="VBoxContainer" parent="FunctionMaker/ScrollContainer"]
+layout_mode = 2
+size_flags_horizontal = 2
+size_flags_vertical = 3
+script = ExtResource("2_7hquj")
+
+[node name="Buttons" type="GridContainer" parent="FunctionMaker"]
+layout_direction = 4
+anchors_preset = 7
+anchor_left = 0.5
+anchor_top = 1.0
+anchor_right = 0.5
+anchor_bottom = 1.0
+offset_left = 21.0
+offset_top = 585.0
+offset_right = 289.0
+offset_bottom = 717.0
+grow_horizontal = 2
+grow_vertical = 0
+scale = Vector2(2, 2)
+size_flags_horizontal = 6
+size_flags_vertical = 10
+columns = 4
+script = ExtResource("3_450yh")
+
+[node name="WalkButton" type="TextureButton" parent="FunctionMaker/Buttons"]
+layout_mode = 2
+texture_normal = ExtResource("4_ir32n")
+
+[node name="LeftButton" type="TextureButton" parent="FunctionMaker/Buttons"]
+layout_mode = 2
+texture_normal = ExtResource("5_7bge2")
+
+[node name="RightButton" type="TextureButton" parent="FunctionMaker/Buttons"]
+layout_mode = 2
+texture_normal = ExtResource("6_oh43a")
+
+[node name="LoopButton" type="TextureButton" parent="FunctionMaker/Buttons"]
+layout_mode = 2
+texture_normal = ExtResource("7_2asrl")
+
+[node name="EndLoopButton" type="TextureButton" parent="FunctionMaker/Buttons"]
+layout_mode = 2
+texture_normal = ExtResource("8_0mbjx")
+
+[node name="IfButton" type="TextureButton" parent="FunctionMaker/Buttons"]
+layout_mode = 2
+texture_normal = ExtResource("9_5g51x")
+
+[node name="EndIfButton" type="TextureButton" parent="FunctionMaker/Buttons"]
+layout_mode = 2
+texture_normal = ExtResource("10_gkkyy")
+
+[node name="ElseButton" type="TextureButton" parent="FunctionMaker/Buttons"]
+layout_mode = 2
+texture_normal = ExtResource("11_2r048")
+
+[node name="SaveButton" type="Button" parent="FunctionMaker"]
+offset_left = 563.0
+offset_top = 720.0
+offset_right = 627.0
+offset_bottom = 784.0
+scale = Vector2(2, 2)
+text = "Save
+Func"
+
+[node name="Run_button" type="TextureButton" parent="FunctionMaker"]
+offset_left = 563.0
+offset_top = 587.0
+offset_right = 627.0
+offset_bottom = 651.0
+scale = Vector2(2, 2)
+texture_normal = ExtResource("12_450yh")
+
+[node name="ErrorPopup" type="AcceptDialog" parent="FunctionMaker"]
+auto_translate_mode = 1
+initial_position = 2
+size = Vector2i(129, 140)
+
+[node name="Label" type="Label" parent="FunctionMaker/ErrorPopup"]
+offset_left = 8.0
+offset_top = 8.0
+offset_right = 121.0
+offset_bottom = 91.0
+text = "this is an error"
+horizontal_alignment = 1
+vertical_alignment = 1
+autowrap_mode = 3
+
+[node name="FuncName" type="ConfirmationDialog" parent="FunctionMaker"]
+auto_translate_mode = 1
+title = "NAME:"
+initial_position = 2
+size = Vector2i(200, 140)
+
+[node name="LineEdit" type="LineEdit" parent="FunctionMaker/FuncName"]
+offset_left = 8.0
+offset_top = 8.0
+offset_right = 121.0
+offset_bottom = 91.0
+placeholder_text = "Enter FunctionL Name"
+alignment = 1
+
+[connection signal="confirmed" from="." to="FunctionMaker" method="_on_function_maker_window_confirmed"]
+[connection signal="checkGoal" from="FunctionMaker/ScrollContainer/Command_List" to="FunctionMaker" method="checkGoal"]
+[connection signal="reset" from="FunctionMaker/ScrollContainer/Command_List" to="FunctionMaker" method="_on_reset_button_pressed"]
+[connection signal="showError" from="FunctionMaker/ScrollContainer/Command_List" to="FunctionMaker" method="show_error"]
+[connection signal="walk_signal" from="FunctionMaker/ScrollContainer/Command_List" to="FunctionMaker" method="botControl"]
+[connection signal="makeNode" from="FunctionMaker/Buttons" to="FunctionMaker/ScrollContainer/Command_List" method="_on_make_node"]
+[connection signal="pressed" from="FunctionMaker/Buttons/WalkButton" to="FunctionMaker/Buttons" method="_on_walk_button_pressed"]
+[connection signal="pressed" from="FunctionMaker/Buttons/LeftButton" to="FunctionMaker/Buttons" method="_on_left_button_pressed"]
+[connection signal="pressed" from="FunctionMaker/Buttons/RightButton" to="FunctionMaker/Buttons" method="_on_right_button_pressed"]
+[connection signal="pressed" from="FunctionMaker/Buttons/LoopButton" to="FunctionMaker/Buttons" method="_on_loop_button_pressed"]
+[connection signal="pressed" from="FunctionMaker/Buttons/EndLoopButton" to="FunctionMaker/Buttons" method="_on_end_loop_button_pressed"]
+[connection signal="pressed" from="FunctionMaker/Buttons/IfButton" to="FunctionMaker/Buttons" method="_on_if_button_pressed"]
+[connection signal="pressed" from="FunctionMaker/Buttons/EndIfButton" to="FunctionMaker/Buttons" method="_on_end_if_button_pressed"]
+[connection signal="pressed" from="FunctionMaker/Buttons/ElseButton" to="FunctionMaker/Buttons" method="_on_else_button_pressed"]
+[connection signal="pressed" from="FunctionMaker/SaveButton" to="FunctionMaker" method="openNameWindow"]
+[connection signal="pressed" from="FunctionMaker/Run_button" to="FunctionMaker/ScrollContainer/Command_List" method="validate"]
+[connection signal="confirmed" from="FunctionMaker/FuncName" to="FunctionMaker" method="_on_func_name_confirmed"]

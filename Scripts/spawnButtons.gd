@@ -1,4 +1,4 @@
-extends HBoxContainer
+extends GridContainer
 
 signal makeNode(node: String)
 
@@ -49,4 +49,9 @@ func _on_end_if_button_pressed() -> void:
 
 func _on_else_button_pressed() -> void:
 	emit_signal("makeNode", "ELSE")
+	pass # Replace with function body.
+
+
+func _on_custom_button_pressed() -> void:
+	emit_signal("makeNode", "CUSTOM")
 	pass # Replace with function body.

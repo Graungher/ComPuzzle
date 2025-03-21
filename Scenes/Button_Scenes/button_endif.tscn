@@ -1,0 +1,10 @@
+[gd_scene load_steps=3 format=3 uid="uid://wsws4o27cjef"]
+
+[ext_resource type="PackedScene" uid="uid://cghshp176xdq1" path="res://Scenes/Button_Scenes/button_walk.tscn" id="1_m8ytx"]
+[ext_resource type="Texture2D" uid="uid://dj672xa4o35sx" path="res://ComPuzzle Assets/buttons/ENDIF/End_If_button.png" id="2_kdjj3"]
+
+[node name="Walk_Button" instance=ExtResource("1_m8ytx")]
+texture_normal = ExtResource("2_kdjj3")
+
+[node name="Label" parent="." index="0"]
+text = "ENDIF"

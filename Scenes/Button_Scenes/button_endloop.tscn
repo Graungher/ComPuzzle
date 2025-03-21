@@ -1,0 +1,13 @@
+[gd_scene load_steps=3 format=3 uid="uid://sdpmjn4pxlt5"]
+
+[ext_resource type="PackedScene" uid="uid://cghshp176xdq1" path="res://Scenes/Button_Scenes/button_walk.tscn" id="1_tdy2q"]
+[ext_resource type="Texture2D" uid="uid://i0gwwttbpc8v" path="res://ComPuzzle Assets/buttons/ENDLOOP/End_Loop_Button.png" id="2_ouf8q"]
+
+[node name="button_endloop" instance=ExtResource("1_tdy2q")]
+offset_top = -1.0
+offset_bottom = -1017.0
+scale = Vector2(0.5, 0.5)
+texture_normal = ExtResource("2_ouf8q")
+
+[node name="Label" parent="." index="0"]
+text = "ENDLOOP"
