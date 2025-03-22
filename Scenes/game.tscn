@@ -1,4 +1,4 @@
-[gd_scene load_steps=15 format=3 uid="uid://dd0kham0vgye6"]
+[gd_scene load_steps=16 format=3 uid="uid://dd0kham0vgye6"]
 
 [ext_resource type="Script" uid="uid://cgptds56vy7k1" path="res://Scripts/game.gd" id="1_ln1c5"]
 [ext_resource type="Texture2D" uid="uid://bb4c8bmvjc8af" path="res://ComPuzzle Assets/buttons/WALK/Walk.png" id="3_rku1e"]
@@ -14,16 +14,11 @@
 [ext_resource type="Texture2D" uid="uid://jriqneluvhn6" path="res://ComPuzzle Assets/buttons/Run_Button.png" id="10_su6ef"]
 [ext_resource type="PackedScene" uid="uid://crub3q5lo4g2r" path="res://Scenes/Function_Maker.tscn" id="13_rfjv2"]
 [ext_resource type="PackedScene" uid="uid://cnapfcrjygfn0" path="res://Scenes/Help_Windows/help_menu.tscn" id="14_1phco"]
+[ext_resource type="PackedScene" uid="uid://b3fk4grjwfapc" path="res://Scenes/Victory.tscn" id="15_nb51f"]
 
 [node name="Game" type="Node2D"]
 script = ExtResource("1_ln1c5")
 metadata/_edit_lock_ = true
-
-[node name="TextureRect" type="TextureRect" parent="."]
-offset_left = -78.0
-offset_top = -44.0
-offset_right = 1825.0
-offset_bottom = 1027.0
 
 [node name="Camera2D" type="Camera2D" parent="."]
 position = Vector2(873, 491)
@@ -88,7 +83,9 @@ size_flags_horizontal = 2
 size_flags_vertical = 3
 script = ExtResource("5_awy3j")
 
-[node name="Run_button" type="TextureButton" parent="."]
+[node name="OtherButtons" type="Node2D" parent="."]
+
+[node name="Run_button" type="TextureButton" parent="OtherButtons"]
 offset_left = 1679.0
 offset_top = 879.0
 offset_right = 1743.0
@@ -97,34 +94,38 @@ scale = Vector2(2, 2)
 texture_normal = ExtResource("10_su6ef")
 metadata/_edit_lock_ = true
 
-[node name="Reset_Button" type="Button" parent="."]
+[node name="Reset_Button" type="Button" parent="OtherButtons"]
 offset_left = 114.0
 offset_top = 897.0
 offset_right = 214.0
 offset_bottom = 997.0
 text = "RESET"
+metadata/_edit_lock_ = true
 
-[node name="Quit_Button" type="Button" parent="."]
+[node name="Quit_Button" type="Button" parent="OtherButtons"]
 offset_top = 897.0
 offset_right = 100.0
 offset_bottom = 997.0
 text = "QUIT"
+metadata/_edit_lock_ = true
 
-[node name="nextMap" type="Button" parent="."]
+[node name="nextMap" type="Button" parent="OtherButtons"]
 offset_left = 342.0
 offset_top = 897.0
 offset_right = 442.0
 offset_bottom = 997.0
 text = "NEXT MAP"
+metadata/_edit_lock_ = true
 
-[node name="Clear_List" type="Button" parent="."]
+[node name="Clear_List" type="Button" parent="OtherButtons"]
 offset_left = 228.0
 offset_top = 897.0
 offset_right = 328.0
 offset_bottom = 997.0
 text = "CLEAR LIST"
+metadata/_edit_lock_ = true
 
-[node name="Make a Func" type="Button" parent="."]
+[node name="Make a Func" type="Button" parent="OtherButtons"]
 visible = false
 offset_left = -86.0
 offset_top = 800.0
@@ -132,8 +133,9 @@ offset_right = 14.0
 offset_bottom = 900.0
 text = "MAKE A FUNCTION"
 autowrap_mode = 2
+metadata/_edit_lock_ = true
 
-[node name="HELP" type="Button" parent="."]
+[node name="HELP" type="Button" parent="OtherButtons"]
 visible = false
 offset_left = -52.0
 offset_top = -39.0
@@ -141,6 +143,7 @@ offset_right = 48.0
 offset_bottom = 61.0
 text = "HELP"
 autowrap_mode = 2
+metadata/_edit_lock_ = true
 
 [node name="ErrorWindow" type="AcceptDialog" parent="."]
 initial_position = 2
@@ -162,6 +165,20 @@ visible = false
 [node name="HelpWindow" parent="." instance=ExtResource("14_1phco")]
 visible = false
 
+[node name="Victory" parent="." instance=ExtResource("15_nb51f")]
+visible = false
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = 405.0
+offset_top = 18.0
+offset_right = 1385.0
+offset_bottom = 1004.0
+grow_horizontal = 2
+grow_vertical = 2
+
 [connection signal="makeNode" from="Buttons" to="ScrollContainer/Command_List" method="_on_make_node"]
 [connection signal="pressed" from="Buttons/WalkButton" to="Buttons" method="_on_walk_button_pressed"]
 [connection signal="pressed" from="Buttons/LeftButton" to="Buttons" method="_on_left_button_pressed"]
@@ -175,10 +192,12 @@ visible = false
 [connection signal="reset" from="ScrollContainer/Command_List" to="." method="_on_command_list_reset"]
 [connection signal="showError" from="ScrollContainer/Command_List" to="." method="show_error"]
 [connection signal="walk_signal" from="ScrollContainer/Command_List" to="." method="botControl"]
-[connection signal="pressed" from="Run_button" to="ScrollContainer/Command_List" method="validate"]
-[connection signal="pressed" from="Reset_Button" to="." method="_on_reset_button_pressed"]
-[connection signal="pressed" from="Quit_Button" to="." method="_on_quit_button_pressed"]
-[connection signal="pressed" from="nextMap" to="." method="switch_map"]
-[connection signal="pressed" from="Clear_List" to="ScrollContainer/Command_List" method="clearList"]
-[connection signal="pressed" from="Make a Func" to="." method="_on_make_a_func_pressed"]
-[connection signal="pressed" from="HELP" to="." method="_on_help_pressed"]
+[connection signal="pressed" from="OtherButtons/Run_button" to="ScrollContainer/Command_List" method="validate"]
+[connection signal="pressed" from="OtherButtons/Reset_Button" to="." method="_on_reset_button_pressed"]
+[connection signal="pressed" from="OtherButtons/Quit_Button" to="." method="_on_quit_button_pressed"]
+[connection signal="pressed" from="OtherButtons/nextMap" to="." method="switch_map"]
+[connection signal="pressed" from="OtherButtons/Clear_List" to="ScrollContainer/Command_List" method="clearList"]
+[connection signal="pressed" from="OtherButtons/Make a Func" to="." method="_on_make_a_func_pressed"]
+[connection signal="pressed" from="OtherButtons/HELP" to="." method="_on_help_pressed"]
+[connection signal="change" from="Victory" to="." method="switch_map"]
+[connection signal="replay" from="Victory" to="." method="Replay"]

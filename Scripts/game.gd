@@ -7,6 +7,7 @@ extends Node2D
 @onready var errorLabel = $ErrorWindow/Label
 @onready var funcmaker = $FunctionMakerWindow
 @onready var helper = $HelpWindow
+@onready var victory = $Victory
 
 var spawn_position = null
 var theRobot
@@ -160,7 +161,8 @@ func botControl():
 func checkGoal():
 	if current_tile == end_tile:
 		cmdList.clearList()
-		switch_map()
+		emit_signal("goAway")
+		victory.show()
 	else:
 		emit_signal("goAway")
 		spawnBot()
@@ -191,4 +193,11 @@ func _on_make_a_func_pressed() -> void:
 
 func _on_help_pressed() -> void:
 	helper.popup()
+	pass # Replace with function body.
+
+
+func Replay() -> void:
+	cmdList.clearList()
+	cmdList.fakeClearList()
+	spawnBot()
 	pass # Replace with function body.
