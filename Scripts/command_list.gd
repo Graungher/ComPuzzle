@@ -41,7 +41,7 @@ var tempArray = ["LEFT", "WALK", "WALK"]
 # once instantiated 
 func _ready() -> void:
 	scrollguy = get_parent()
-	preloadCommands(tempArray)
+	#preloadCommands(tempArray)
 	pass # Replace with function body.
 
 # does something every frame
