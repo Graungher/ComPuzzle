@@ -2,16 +2,16 @@
 
 importer="texture"
 type="CompressedTexture2D"
-uid="uid://jriqneluvhn6"
-path="res://.godot/imported/Run_Button.png-76c75f292914eb1627fc0eb624843395.ctex"
+uid="uid://40rh7j4xdq0s"
+path="res://.godot/imported/Turn_Left_Button.png-ff436146a8f483178e083f142e43644b.ctex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://ComPuzzle Assets/buttons/Run_Button.png"
-dest_files=["res://.godot/imported/Run_Button.png-76c75f292914eb1627fc0eb624843395.ctex"]
+source_file="res://ComPuzzle Assets/buttons/TURNLEFT/Turn_Left_Button.png"
+dest_files=["res://.godot/imported/Turn_Left_Button.png-ff436146a8f483178e083f142e43644b.ctex"]
 
 [params]
 

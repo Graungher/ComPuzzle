@@ -1,0 +1,10 @@
+[gd_scene load_steps=3 format=3 uid="uid://b6omgnqj5ejqh"]
+
+[ext_resource type="PackedScene" uid="uid://cghshp176xdq1" path="res://Scenes/Button_Scenes/button_walk.tscn" id="1_sbqcv"]
+[ext_resource type="Texture2D" uid="uid://40rh7j4xdq0s" path="res://ComPuzzle Assets/buttons/TURNLEFT/Turn_Left_Button.png" id="2_p8kcc"]
+
+[node name="turn_left" instance=ExtResource("1_sbqcv")]
+texture_normal = ExtResource("2_p8kcc")
+
+[node name="Label" parent="." index="0"]
+text = "LEFT"

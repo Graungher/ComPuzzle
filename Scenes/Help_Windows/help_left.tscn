@@ -1,0 +1,10 @@
+[gd_scene load_steps=3 format=3 uid="uid://cjw225ubjbiu8"]
+
+[ext_resource type="PackedScene" uid="uid://dvthoo6j7fhsu" path="res://Scenes/Help_Windows/help_walk.tscn" id="1_prnnc"]
+[ext_resource type="Script" uid="uid://djumohei70024" path="res://Scripts/help_scripts/help_left.gd" id="2_4efsv"]
+
+[node name="Help_Left" instance=ExtResource("1_prnnc")]
+script = ExtResource("2_4efsv")
+
+[connection signal="LEFT" from="." to="Node2D/Robot" method="_turnLeft"]
+[connection signal="RIGHT" from="." to="Node2D/Robot" method="_turnRight"]
