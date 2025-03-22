@@ -1,7 +1,7 @@
 [gd_scene load_steps=3 format=3 uid="uid://qswwq5uwatpp"]
 
 [ext_resource type="PackedScene" uid="uid://cjw225ubjbiu8" path="res://Scenes/Help_Windows/help_left.tscn" id="1_cdmqp"]
-[ext_resource type="Script" uid="uid://cdf508xhymqop" path="res://Scenes/Help_Windows/help_right.gd" id="2_2q2vf"]
+[ext_resource type="Script" uid="uid://cdf508xhymqop" path="res://Scripts/help_scripts/help_right.gd" id="2_2q2vf"]
 
 [node name="Help_Right" instance=ExtResource("1_cdmqp")]
 script = ExtResource("2_2q2vf")

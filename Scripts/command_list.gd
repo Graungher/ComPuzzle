@@ -9,7 +9,11 @@ extends VBoxContainer
 @onready var IfButton = preload("res://Scenes/Button_Scenes/button_if.tscn")
 @onready var ElseButton = preload("res://Scenes/Button_Scenes/button_else.tscn")
 
-@onready var whiteloop = "res://ComPuzzle Assets/buttons/LOOP/Loop_Button_White.png"
+@onready var whiteLoop = "res://ComPuzzle Assets/buttons/LOOP/Loop_Button_White.png"
+@onready var whiteIf = "res://ComPuzzle Assets/buttons/IF/If_Button_White.png"
+@onready var whiteWalk = "res://ComPuzzle Assets/buttons/WALK/Walk_Button_White.png"
+@onready var whiteLeft = "res://ComPuzzle Assets/buttons/TURNLEFT/Turn_Left_Button_White.png"
+@onready var whiteRight = "res://ComPuzzle Assets/buttons/TURNRIGHT/Turn_Right_Button_White.png"
 
 signal walk_signal
 signal turn_left_signal
@@ -101,8 +105,8 @@ func processNode(the_name: String, child: Node, i: int):
 		# get the original texture then change it to a white version, then
 		# apply a blue filter
 		var reg = child.texture_normal
-		child.texture_normal = load(whiteloop)
-		child.modulate = Color(0, 0, 1)
+		child.texture_normal = load(whiteLoop)
+		child.modulate = Color(0, .36, .85)
 		
 		#call the loop function
 		i =  (await realLoop(child.get_index(), child))
@@ -110,14 +114,16 @@ func processNode(the_name: String, child: Node, i: int):
 		# make sure that there is still a child before resetting
 		# (child may be gone if level reset before current action ended)
 		if child:
-			#child.texture_normal = reg
+			child.texture_normal = reg
 			child.modulate = Color(1, 1, 1)
 	
 	# if the node is a loop, then make run the loop func and make the node blue
 	elif the_name == "IF":
 		# get the original texture then change it to a white version, then
 		# apply a blue filter
-		child.modulate = Color(0, 0, 1)
+		var reg = child.texture_normal
+		child.texture_normal = load(whiteIf)
+		child.modulate = Color(0, .36, .85)
 		
 		#call the if function
 		i =  (await ifNode(child.get_index(), child))
@@ -125,42 +131,47 @@ func processNode(the_name: String, child: Node, i: int):
 		# make sure that there is still a child before resetting
 		# (child may be gone if level reset before current action ended)
 		if child:
+			child.texture_normal = reg
 			child.modulate = Color(1, 1, 1)
 	
 	elif the_name == "CUSTOM":
 		await readFunctionList(tempArray)
-	else:
-		# apply green filter, texture replacement happens in fofunc
-		child.modulate = Color(0, 1, 0)
 		
+	else:
 		# call dofunc
-		await doFunc(the_name)
+		await doFunc(the_name, child)
 
-		# make sure that there is still a child before resetting
-		# (child may be gone if level reset before current action ended)
-		if child:
-			child.modulate = Color(1, 1, 1)
 	return i
 
 # does the function of basic nodes
-func doFunc(the_name: String):
-	var matched = false
-	
+func doFunc(the_name: String, child: Node):
+	# apply green filter
+	child.modulate = Color(.2588, .6275, 0)
 	# switch based of label's text
 	match the_name:
 			"WALK":
+				var reg = child.texture_normal
+				child.texture_normal = load(whiteWalk)
 				emit_signal("walk_signal")
-				matched = true
+				await wait_frames(framelen)
+				child.texture_normal = reg
 			"LEFT":
+				var reg = child.texture_normal
+				child.texture_normal = load(whiteLeft)
 				emit_signal("turn_left_signal")
-				matched = true
+				await wait_frames(framelen)
+				child.texture_normal = reg
 			"RIGHT":
+				var reg = child.texture_normal
+				child.texture_normal = load(whiteRight)
 				emit_signal("turn_right_signal")
-				matched = true
-		
-	if matched:
-		# if there is a match, all wait frames and wait the time
-		await wait_frames(framelen)
+				await wait_frames(framelen)
+				child.texture_normal = reg
+	
+	# make sure that there is still a child before resetting
+	# (child may be gone if level reset before current action ended)
+	if child:
+		child.modulate = Color(1, 1, 1)
 
 # loop will repeat all nodes between it and it's accociated end loop node
 func realLoop(num: int, button: TextureButton):
@@ -416,8 +427,8 @@ func ifNode(num: int, button: TextureButton):
 
 func readFunctionList(theWords: Array):
 	
-	for i in theWords:
-		await doFunc(i)
+	#for i in theWords:
+	#	await doFunc(i)
 	pass
 
 

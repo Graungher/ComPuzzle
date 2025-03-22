@@ -125,6 +125,7 @@ offset_bottom = 997.0
 text = "CLEAR LIST"
 
 [node name="Make a Func" type="Button" parent="."]
+visible = false
 offset_left = -86.0
 offset_top = 800.0
 offset_right = 14.0
@@ -133,6 +134,7 @@ text = "MAKE A FUNCTION"
 autowrap_mode = 2
 
 [node name="HELP" type="Button" parent="."]
+visible = false
 offset_left = -52.0
 offset_top = -39.0
 offset_right = 48.0
