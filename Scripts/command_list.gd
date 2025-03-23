@@ -99,7 +99,7 @@ func processNode(the_name: String, child: Node, i: int):
 	# and using it's ensure control visible to make the nodes always be 
 	# on the screen when executed
 	scrollguy.ensure_control_visible(child)
-	#the_name = "CUSTOM"													## DELETE THIS SOON
+
 	# if the node is a loop, then make run the loop func and make the node blue
 	if the_name == "LOOP":
 		# get the original texture then change it to a white version, then
@@ -184,6 +184,7 @@ func realLoop(num: int, button: TextureButton):
 	var loopsLeft
 	# total number of loops
 	var totals = int(button.get_node("loopCount").text)
+	# Used to keep track of how many loops left to player
 	loopsLeft = totals
 	# check for a number
 	if !button.get_node("loopCount").text.is_valid_float():
@@ -198,8 +199,8 @@ func realLoop(num: int, button: TextureButton):
 		i += 1
 		j = 0
 		the_name = ""
-		
 		loopsLeft -= 1
+		
 		while the_name != "ENDLOOP" && !cleared:
 			
 			button.get_node("loopCount").text = str(loopsLeft)
@@ -221,7 +222,8 @@ func realLoop(num: int, button: TextureButton):
 			else: 
 				j = (await processNode(the_name, child, j))
 	if totals == 0:
-		retspot = findEndLoop(num) # index then loop from here?
+		retspot = findEndLoop(num)
+	# reset the label
 	button.get_node("loopCount").text = str(totals)
 	return retspot
 

@@ -52,7 +52,7 @@ func get_current_map():
 func spawnBot():
 	if spawn_position:
 		var bot_instance = robot.instantiate()
-		bot_instance.global_position = spawn_position
+		
 		add_child(bot_instance)  # Add bot to scene
 	
 		current_tile = start_tile
@@ -64,6 +64,7 @@ func spawnBot():
 	
 		theRobot = bot_instance
 		theRobot.SetMapStuff(scaleX, scaleY)
+		bot_instance.global_position = spawn_position
 	pass
 
 
@@ -84,12 +85,11 @@ func mapSetup():
 	var defaultX = 50
 	var defaultY = 25
 	
-	var tile_size = current_map.tile_set.tile_size.x
+	var tile_size = current_map.tile_set.tile_size
 	start_tile = current_map.get_start_tile()
 	current_tile = start_tile
 	
 	end_tile = current_map.get_end_tile()
-	
 	
 	var tilemap_size = current_map.get_used_rect().size
 	var width_in_tiles = tilemap_size.x
@@ -99,15 +99,12 @@ func mapSetup():
 	scaleY = float(defaultY) / float(height_in_tiles)
 	
 	current_map.scale = Vector2(scaleX, scaleY)
-	spawn_position = current_map.map_to_local(start_tile)
 	
-	spawn_position += Vector2(0, tile_size/2)
-	var foot_offset = (tile_size * scaleY) / 16.2
-	spawn_position.y -= foot_offset
+	spawn_position = current_map.map_to_local(start_tile)
+	spawn_position += Vector2(0, tile_size.y / 2)
+	
 	spawn_position *= current_map.scale 
 	
-	#spawn_position = current_map.map_to_local(start_tile) + Vector2(0,(tile_size/2) - int(3*scaleY))
-	#spawn_position *= current_map.scale
 	
 	pass
 
