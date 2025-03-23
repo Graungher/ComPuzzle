@@ -33,6 +33,10 @@ var preLoaded = false
 var scrollguy
 
 
+#######################################
+var GLOBAL_TRUE = true
+#######################################
+
 var tempArray = ["LEFT", "WALK", "WALK"]
 
 # all nodes put into command list will have a label node that has the 
@@ -396,7 +400,7 @@ func ifNode(num: int, button: TextureButton):
 	var the_name = ""
 	var i = num + 1
 	var child
-	var isTrue = true
+	var isTrue = GLOBAL_TRUE
 	var elseTime = false
 	var retSpot = num
 	
