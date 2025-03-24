@@ -293,6 +293,7 @@ func validate():
 	# diables the clear flag to allow the running of the commad list 
 	cleared = false
 	
+	
 	var i = get_child_count()
 	var loops = 0
 	# if it is not already running, check if and loop counts
@@ -431,12 +432,75 @@ func ifNode(num: int, button: TextureButton):
 	return retSpot
 
 
-func readFunctionList(theWords: Array):
-	
-	#for i in theWords:
-	#	await doFunc(i)
+func readFunctionList(file_name: String):
+	var path = "user://%s.txt" % file_name
+	var file = FileAccess.open(path, FileAccess.READ)
+	var nickName = file.get_line()  # Reads the first line
+	var line
+	var commands: Array
+	while not file.eof_reached():
+		line = file.get_line()  # Reads the first line
+		commands.append(line)
+		print(line)
+	runCommands(commands)
+
+func runCommands(commands: Array):
+	var i = 0
+	var TheCommand
+	while i < commands.size():
+		TheCommand = commands[i]	
+		i = await processCommands(TheCommand, commands, i)
 	pass
 
+func processCommands(TheCommand: String, commands: Array, i: int):
+	
+	if TheCommand == "LOOP":
+		var count = int(commands[i + 1])
+		i += 1
+		i = (await commandLoops(commands, i, count))
+		pass
+	elif TheCommand == "IF":
+		pass
+	else:
+		await commandDo(TheCommand)
+		i += 1
+	return i
+
+func commandDo(TheCommand: String):
+	match TheCommand:
+			"WALK":
+				emit_signal("walk_signal")
+				await wait_frames(framelen)
+			"LEFT":
+				emit_signal("turn_left_signal")
+				await wait_frames(framelen)
+			"RIGHT":
+				emit_signal("turn_right_signal")
+				await wait_frames(framelen)
+
+func commandLoops(commands: Array, index: int, count: int):
+	var retspot = index + 1
+	var theIndex = index
+	var TheCommand
+	var i = 0
+	var j = 0
+	
+	while i < count  && !cleared:
+		if cleared:
+			return 0
+		i += 1
+		j = 0
+		TheCommand = ""
+		
+		while TheCommand != "ENDLOOP" && !cleared:
+			j += 1
+			TheCommand = commands[theIndex + j]
+			if TheCommand == "ENDLOOP":
+				retspot = theIndex + j
+				break
+			else: 
+				await processCommands(TheCommand, commands, i)
+	return retspot
 
 func preloadCommands(theWords: Array):
 	if theWords.size() != 0:
@@ -445,3 +509,25 @@ func preloadCommands(theWords: Array):
 			_on_make_node(i)
 			pass
 	pass
+
+
+func _on_function_maker_nameconfirmed(saveName: String) -> void:
+	var file = FileAccess.open("user://%s.txt" % saveName, FileAccess.WRITE)
+	var line
+	
+	line = "temper"
+	file.store_line(line)
+	
+	for child in get_children():
+		line = child.get_node("Label").text
+		if line == "LOOP":
+			file.store_line(line)
+			line = child.get_node("loopCount").text
+		file.store_line(line)
+		pass
+	pass # Replace with function body.
+
+
+func _on_run_button_pressed33() -> void:
+	readFunctionList("SAVEA")
+	pass # Replace with function body.

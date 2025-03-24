@@ -140,6 +140,7 @@ placeholder_text = "Enter FunctionL Name"
 alignment = 1
 
 [connection signal="confirmed" from="." to="FunctionMaker" method="_on_function_maker_window_confirmed"]
+[connection signal="SaveThis" from="FunctionMaker" to="FunctionMaker/ScrollContainer/Command_List" method="_on_function_maker_nameconfirmed"]
 [connection signal="checkGoal" from="FunctionMaker/ScrollContainer/Command_List" to="FunctionMaker" method="checkGoal"]
 [connection signal="reset" from="FunctionMaker/ScrollContainer/Command_List" to="FunctionMaker" method="_on_reset_button_pressed"]
 [connection signal="showError" from="FunctionMaker/ScrollContainer/Command_List" to="FunctionMaker" method="show_error"]
