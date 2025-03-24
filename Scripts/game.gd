@@ -1,6 +1,6 @@
 extends Node2D
 
-@onready var robot = preload("res://Scenes/robot.tscn")
+@onready var robot = preload("res://Scenes/car.tscn")
 @onready var current_map = $TileMap  # Initial TileMap
 @onready var cmdList = $ScrollContainer/Command_List
 @onready var errorWindow = $ErrorWindow
@@ -90,8 +90,8 @@ func show_error(err: String):
 
 func mapSetup():
 	
-	var defaultX = 50
-	var defaultY = 25
+	var defaultX = 20
+	var defaultY = 10
 	
 	var tile_size = current_map.tile_set.tile_size
 	start_tile = current_map.get_start_tile()
