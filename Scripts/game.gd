@@ -82,6 +82,8 @@ func show_error(err: String):
 		errorLabel.text = "Else Needs to be inside the If and before the End If"
 	elif err == "EXTRA ELSE":
 		errorLabel.text = "There are too many elses in one IF"
+	elif err == "END BEFORE IF":
+		errorLabel.text = "There is an End If with no open If"
 	errorWindow.popup()
 	pass
 

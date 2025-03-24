@@ -302,6 +302,7 @@ func validate():
 	var endBeforeLoop = false
 	var extraElse = false
 	var outElse = false
+	var endBeforeif = false
 	# if it is not already running, check if and loop counts
 	if !running:
 		for child in get_children():
@@ -326,10 +327,14 @@ func validate():
 				pass
 			elif(the_name == "ENDIF"):
 				elseFlag = false
-				ifs -= 1
+				if ifs == 0:
+					endBeforeif = true
+				else:
+					ifs -= 1
 		if endBeforeLoop:
 			emit_signal("showError", "END BEFORE LOOP")
-			pass
+		elif endBeforeif:
+			emit_signal("showError", "END BEFORE IF")
 		elif outElse:
 			emit_signal("showError", "OUTSIDE ELSE")
 		elif extraElse:
