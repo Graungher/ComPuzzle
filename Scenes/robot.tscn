@@ -1,4 +1,4 @@
-[gd_scene load_steps=12 format=3 uid="uid://dut7sncjon3br"]
+[gd_scene load_steps=11 format=3 uid="uid://dut7sncjon3br"]
 
 [ext_resource type="Script" uid="uid://dkoyg18sf0e5m" path="res://Scripts/robot.gd" id="1_qlooc"]
 [ext_resource type="Texture2D" uid="uid://dmswvqdqy4mms" path="res://ComPuzzle Assets/robot sprites/NormStand.png" id="2_3wn4g"]
@@ -9,9 +9,6 @@
 [ext_resource type="Texture2D" uid="uid://bpwqxjgqxrhaa" path="res://ComPuzzle Assets/robot sprites/upwalk2.png" id="6_u0663"]
 [ext_resource type="Texture2D" uid="uid://doo2lib7oqcjn" path="res://ComPuzzle Assets/robot sprites/SideView.png" id="7_0o5nm"]
 [ext_resource type="Texture2D" uid="uid://bqr6bpx83nity" path="res://ComPuzzle Assets/robot sprites/SideWalk2.png" id="8_vhtoj"]
-
-[sub_resource type="RectangleShape2D" id="RectangleShape2D_oxtgi"]
-size = Vector2(28.3871, 15.8118)
 
 [sub_resource type="SpriteFrames" id="SpriteFrames_kyys1"]
 animations = [{
@@ -64,19 +61,11 @@ animations = [{
 collision_layer = 2
 script = ExtResource("1_qlooc")
 
-[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
-visible = false
-position = Vector2(-1.78814e-06, -6.75)
-scale = Vector2(0.484375, 0.664063)
-shape = SubResource("RectangleShape2D_oxtgi")
-
 [node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="."]
 light_mask = 2
 texture_filter = 1
 position = Vector2(0, 1.78814e-07)
 scale = Vector2(0.484375, 0.664063)
 sprite_frames = SubResource("SpriteFrames_kyys1")
-animation = &"Idle"
+animation = &"walk"
 autoplay = "Idle"
-frame_progress = 0.197645
-offset = Vector2(2, -28)
