@@ -3,10 +3,11 @@ extends Node2D
 @onready var robot = preload("res://Scenes/robot.tscn")
 @onready var current_map = $TileMap  # Initial TileMap
 @onready var cmdList = $ScrollContainer/Command_List
-@onready var errorWindow = $AcceptDialog
+@onready var errorWindow = $ErrorWindow
 @onready var errorLabel = $ErrorWindow/Label
 @onready var funcmaker = $FunctionMakerWindow
 @onready var helper = $HelpWindow
+@onready var victory = $Victory
 
 var spawn_position = null
 var theRobot
@@ -51,7 +52,7 @@ func get_current_map():
 func spawnBot():
 	if spawn_position:
 		var bot_instance = robot.instantiate()
-		bot_instance.global_position = spawn_position
+		
 		add_child(bot_instance)  # Add bot to scene
 	
 		current_tile = start_tile
@@ -63,6 +64,7 @@ func spawnBot():
 	
 		theRobot = bot_instance
 		theRobot.SetMapStuff(scaleX, scaleY)
+		bot_instance.global_position = spawn_position
 	pass
 
 
@@ -74,6 +76,14 @@ func show_error(err: String):
 		errorLabel.text = "There are too many 'END LOOP's!"
 	elif err == "LOOP NAN":
 		errorLabel.text = "One of the loops had something that was not a number"
+	elif err == "END BEFORE LOOP":
+		errorLabel.text = "There is an End Loop with no open Loop"
+	elif err == "OUTSIDE ELSE":
+		errorLabel.text = "Else Needs to be inside the If and before the End If"
+	elif err == "EXTRA ELSE":
+		errorLabel.text = "There are too many elses in one IF"
+	elif err == "END BEFORE IF":
+		errorLabel.text = "There is an End If with no open If"
 	errorWindow.popup()
 	pass
 
@@ -83,12 +93,11 @@ func mapSetup():
 	var defaultX = 50
 	var defaultY = 25
 	
-	var tile_size = current_map.tile_set.tile_size.x
+	var tile_size = current_map.tile_set.tile_size
 	start_tile = current_map.get_start_tile()
 	current_tile = start_tile
 	
 	end_tile = current_map.get_end_tile()
-	
 	
 	var tilemap_size = current_map.get_used_rect().size
 	var width_in_tiles = tilemap_size.x
@@ -98,15 +107,12 @@ func mapSetup():
 	scaleY = float(defaultY) / float(height_in_tiles)
 	
 	current_map.scale = Vector2(scaleX, scaleY)
-	spawn_position = current_map.map_to_local(start_tile)
 	
-	spawn_position += Vector2(0, tile_size/2)
-	var foot_offset = (tile_size * scaleY) / 16.2
-	spawn_position.y -= foot_offset
+	spawn_position = current_map.map_to_local(start_tile)
+	spawn_position += Vector2(0, tile_size.y / 2)
+	
 	spawn_position *= current_map.scale 
 	
-	#spawn_position = current_map.map_to_local(start_tile) + Vector2(0,(tile_size/2) - int(3*scaleY))
-	#spawn_position *= current_map.scale
 	
 	pass
 
@@ -160,7 +166,8 @@ func botControl():
 func checkGoal():
 	if current_tile == end_tile:
 		cmdList.clearList()
-		switch_map()
+		emit_signal("goAway")
+		victory.show()
 	else:
 		emit_signal("goAway")
 		spawnBot()
@@ -191,4 +198,11 @@ func _on_make_a_func_pressed() -> void:
 
 func _on_help_pressed() -> void:
 	helper.popup()
+	pass # Replace with function body.
+
+
+func Replay() -> void:
+	cmdList.clearList()
+	cmdList.fakeClearList()
+	spawnBot()
 	pass # Replace with function body.

@@ -9,7 +9,11 @@ extends VBoxContainer
 @onready var IfButton = preload("res://Scenes/Button_Scenes/button_if.tscn")
 @onready var ElseButton = preload("res://Scenes/Button_Scenes/button_else.tscn")
 
-@onready var whiteloop = "res://ComPuzzle Assets/buttons/LOOP/Loop_Button_White.png"
+@onready var whiteLoop = "res://ComPuzzle Assets/buttons/LOOP/Loop_Button_White.png"
+@onready var whiteIf = "res://ComPuzzle Assets/buttons/IF/If_Button_White.png"
+@onready var whiteWalk = "res://ComPuzzle Assets/buttons/WALK/Walk_Button_White.png"
+@onready var whiteLeft = "res://ComPuzzle Assets/buttons/TURNLEFT/Turn_Left_Button_White.png"
+@onready var whiteRight = "res://ComPuzzle Assets/buttons/TURNRIGHT/Turn_Right_Button_White.png"
 
 signal walk_signal
 signal turn_left_signal
@@ -29,6 +33,10 @@ var preLoaded = false
 var scrollguy
 
 
+#######################################
+var GLOBAL_TRUE = false
+#######################################
+
 var tempArray = ["LEFT", "WALK", "WALK"]
 
 # all nodes put into command list will have a label node that has the 
@@ -37,7 +45,7 @@ var tempArray = ["LEFT", "WALK", "WALK"]
 # once instantiated 
 func _ready() -> void:
 	scrollguy = get_parent()
-	preloadCommands(tempArray)
+	#preloadCommands(tempArray)
 	pass # Replace with function body.
 
 # does something every frame
@@ -95,14 +103,14 @@ func processNode(the_name: String, child: Node, i: int):
 	# and using it's ensure control visible to make the nodes always be 
 	# on the screen when executed
 	scrollguy.ensure_control_visible(child)
-	#the_name = "CUSTOM"													## DELETE THIS SOON
+
 	# if the node is a loop, then make run the loop func and make the node blue
 	if the_name == "LOOP":
 		# get the original texture then change it to a white version, then
 		# apply a blue filter
 		var reg = child.texture_normal
-		child.texture_normal = load(whiteloop)
-		child.modulate = Color(0, 0, 1)
+		child.texture_normal = load(whiteLoop)
+		child.modulate = Color(0, .36, .85)
 		
 		#call the loop function
 		i =  (await realLoop(child.get_index(), child))
@@ -110,14 +118,16 @@ func processNode(the_name: String, child: Node, i: int):
 		# make sure that there is still a child before resetting
 		# (child may be gone if level reset before current action ended)
 		if child:
-			#child.texture_normal = reg
+			child.texture_normal = reg
 			child.modulate = Color(1, 1, 1)
 	
 	# if the node is a loop, then make run the loop func and make the node blue
 	elif the_name == "IF":
 		# get the original texture then change it to a white version, then
 		# apply a blue filter
-		child.modulate = Color(0, 0, 1)
+		var reg = child.texture_normal
+		child.texture_normal = load(whiteIf)
+		child.modulate = Color(0, .36, .85)
 		
 		#call the if function
 		i =  (await ifNode(child.get_index(), child))
@@ -125,42 +135,47 @@ func processNode(the_name: String, child: Node, i: int):
 		# make sure that there is still a child before resetting
 		# (child may be gone if level reset before current action ended)
 		if child:
+			child.texture_normal = reg
 			child.modulate = Color(1, 1, 1)
 	
 	elif the_name == "CUSTOM":
 		await readFunctionList(tempArray)
-	else:
-		# apply green filter, texture replacement happens in fofunc
-		child.modulate = Color(0, 1, 0)
 		
+	else:
 		# call dofunc
-		await doFunc(the_name)
+		await doFunc(the_name, child)
 
-		# make sure that there is still a child before resetting
-		# (child may be gone if level reset before current action ended)
-		if child:
-			child.modulate = Color(1, 1, 1)
 	return i
 
 # does the function of basic nodes
-func doFunc(the_name: String):
-	var matched = false
-	
+func doFunc(the_name: String, child: Node):
+	# apply green filter
+	child.modulate = Color(.2588, .6275, 0)
 	# switch based of label's text
 	match the_name:
 			"WALK":
+				var reg = child.texture_normal
+				child.texture_normal = load(whiteWalk)
 				emit_signal("walk_signal")
-				matched = true
+				await wait_frames(framelen)
+				child.texture_normal = reg
 			"LEFT":
+				var reg = child.texture_normal
+				child.texture_normal = load(whiteLeft)
 				emit_signal("turn_left_signal")
-				matched = true
+				await wait_frames(framelen)
+				child.texture_normal = reg
 			"RIGHT":
+				var reg = child.texture_normal
+				child.texture_normal = load(whiteRight)
 				emit_signal("turn_right_signal")
-				matched = true
-		
-	if matched:
-		# if there is a match, all wait frames and wait the time
-		await wait_frames(framelen)
+				await wait_frames(framelen)
+				child.texture_normal = reg
+	
+	# make sure that there is still a child before resetting
+	# (child may be gone if level reset before current action ended)
+	if child:
+		child.modulate = Color(1, 1, 1)
 
 # loop will repeat all nodes between it and it's accociated end loop node
 func realLoop(num: int, button: TextureButton):
@@ -173,6 +188,7 @@ func realLoop(num: int, button: TextureButton):
 	var loopsLeft
 	# total number of loops
 	var totals = int(button.get_node("loopCount").text)
+	# Used to keep track of how many loops left to player
 	loopsLeft = totals
 	# check for a number
 	if !button.get_node("loopCount").text.is_valid_float():
@@ -187,8 +203,8 @@ func realLoop(num: int, button: TextureButton):
 		i += 1
 		j = 0
 		the_name = ""
-		
 		loopsLeft -= 1
+		
 		while the_name != "ENDLOOP" && !cleared:
 			
 			button.get_node("loopCount").text = str(loopsLeft)
@@ -210,7 +226,8 @@ func realLoop(num: int, button: TextureButton):
 			else: 
 				j = (await processNode(the_name, child, j))
 	if totals == 0:
-		retspot = findEndLoop(num) # index then loop from here?
+		retspot = findEndLoop(num)
+	# reset the label
 	button.get_node("loopCount").text = str(totals)
 	return retspot
 
@@ -276,21 +293,57 @@ func validate():
 	# diables the clear flag to allow the running of the commad list 
 	cleared = false
 	
+	
 	var i = get_child_count()
 	var loops = 0
+	var ifs = 0
+	var endFlag = false
+	var elseFlag = false
+	var endBeforeLoop = false
+	var extraElse = false
+	var outElse = false
+	var endBeforeif = false
 	# if it is not already running, check if and loop counts
 	if !running:
 		for child in get_children():
 			var the_name = child.get_node("Label").text
 			if(the_name == "LOOP"):
 				loops += 1
-			if(the_name == "ENDLOOP"):
-				loops -= 1
-		if(loops > 0):
+			elif(the_name == "ENDLOOP"):
+				if loops == 0:
+					endBeforeLoop = true
+				else:
+					loops -= 1
+			elif(the_name == "IF"):
+				ifs += 1
+			elif(the_name == "ELSE"):
+				if ifs > 0:
+					if elseFlag:
+						extraElse = true
+					else:
+						elseFlag = true
+				else:
+					outElse = true
+				pass
+			elif(the_name == "ENDIF"):
+				elseFlag = false
+				if ifs == 0:
+					endBeforeif = true
+				else:
+					ifs -= 1
+		if endBeforeLoop:
+			emit_signal("showError", "END BEFORE LOOP")
+		elif endBeforeif:
+			emit_signal("showError", "END BEFORE IF")
+		elif outElse:
+			emit_signal("showError", "OUTSIDE ELSE")
+		elif extraElse:
+			emit_signal("showError", "EXTRA ELSE")
+		elif(loops > 0):
 			emit_signal("showError", "NO END LOOP")
 		elif(loops < 0):
 			emit_signal("showError", "EXTRA END LOOP")
-			
+		
 		# if no errors, then start reading command list
 		else:
 			realReadList()
@@ -383,7 +436,7 @@ func ifNode(num: int, button: TextureButton):
 	var the_name = ""
 	var i = num + 1
 	var child
-	var isTrue = true
+	var isTrue = GLOBAL_TRUE
 	var elseTime = false
 	var retSpot = num
 	
@@ -414,12 +467,75 @@ func ifNode(num: int, button: TextureButton):
 	return retSpot
 
 
-func readFunctionList(theWords: Array):
-	
-	for i in theWords:
-		await doFunc(i)
+func readFunctionList(file_name: String):
+	var path = "user://%s.txt" % file_name
+	var file = FileAccess.open(path, FileAccess.READ)
+	var nickName = file.get_line()  # Reads the first line
+	var line
+	var commands: Array
+	while not file.eof_reached():
+		line = file.get_line()  # Reads the first line
+		commands.append(line)
+		print(line)
+	runCommands(commands)
+
+func runCommands(commands: Array):
+	var i = 0
+	var TheCommand
+	while i < commands.size():
+		TheCommand = commands[i]	
+		i = await processCommands(TheCommand, commands, i)
 	pass
 
+func processCommands(TheCommand: String, commands: Array, i: int):
+	
+	if TheCommand == "LOOP":
+		var count = int(commands[i + 1])
+		i += 1
+		i = (await commandLoops(commands, i, count))
+		pass
+	elif TheCommand == "IF":
+		pass
+	else:
+		await commandDo(TheCommand)
+		i += 1
+	return i
+
+func commandDo(TheCommand: String):
+	match TheCommand:
+			"WALK":
+				emit_signal("walk_signal")
+				await wait_frames(framelen)
+			"LEFT":
+				emit_signal("turn_left_signal")
+				await wait_frames(framelen)
+			"RIGHT":
+				emit_signal("turn_right_signal")
+				await wait_frames(framelen)
+
+func commandLoops(commands: Array, index: int, count: int):
+	var retspot = index + 1
+	var theIndex = index
+	var TheCommand
+	var i = 0
+	var j = 0
+	
+	while i < count  && !cleared:
+		if cleared:
+			return 0
+		i += 1
+		j = 0
+		TheCommand = ""
+		
+		while TheCommand != "ENDLOOP" && !cleared:
+			j += 1
+			TheCommand = commands[theIndex + j]
+			if TheCommand == "ENDLOOP":
+				retspot = theIndex + j
+				break
+			else: 
+				await processCommands(TheCommand, commands, i)
+	return retspot
 
 func preloadCommands(theWords: Array):
 	if theWords.size() != 0:
@@ -428,3 +544,25 @@ func preloadCommands(theWords: Array):
 			_on_make_node(i)
 			pass
 	pass
+
+
+func _on_function_maker_nameconfirmed(saveName: String) -> void:
+	var file = FileAccess.open("user://%s.txt" % saveName, FileAccess.WRITE)
+	var line
+	
+	line = "temper"
+	file.store_line(line)
+	
+	for child in get_children():
+		line = child.get_node("Label").text
+		if line == "LOOP":
+			file.store_line(line)
+			line = child.get_node("loopCount").text
+		file.store_line(line)
+		pass
+	pass # Replace with function body.
+
+
+func _on_run_button_pressed33() -> void:
+	readFunctionList("SAVEA")
+	pass # Replace with function body.

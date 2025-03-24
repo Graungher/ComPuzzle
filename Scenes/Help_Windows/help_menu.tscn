@@ -1,6 +1,6 @@
 [gd_scene load_steps=9 format=3 uid="uid://cnapfcrjygfn0"]
 
-[ext_resource type="Script" uid="uid://c863jg45sip04" path="res://Scripts/help_menu.gd" id="1_myg67"]
+[ext_resource type="Script" uid="uid://c863jg45sip04" path="res://Scripts/help_scripts/help_menu.gd" id="1_myg67"]
 [ext_resource type="Script" uid="uid://djiyhpf2cilsw" path="res://Scripts/spawnButtons.gd" id="2_p14dy"]
 [ext_resource type="Texture2D" uid="uid://bb4c8bmvjc8af" path="res://ComPuzzle Assets/buttons/WALK/Walk.png" id="3_2fbqo"]
 [ext_resource type="Texture2D" uid="uid://cwyomwbqxj00e" path="res://ComPuzzle Assets/buttons/TURNLEFT/Turn_Left.png" id="4_njejh"]
