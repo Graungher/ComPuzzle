@@ -1,16 +1,32 @@
-[gd_resource type="TileSet" load_steps=11 format=3 uid="uid://cfqepkqqbipcw"]
+[gd_resource type="TileSet" load_steps=19 format=3 uid="uid://cfqepkqqbipcw"]
 
 [ext_resource type="Texture2D" uid="uid://cy7k5vvcmdtlf" path="res://ComPuzzle Assets/megaGroup.png" id="1_damyf"]
-[ext_resource type="Texture2D" uid="uid://bv5mw7h2slaxx" path="res://ComPuzzle Assets/Desk.png" id="1_mv550"]
+[ext_resource type="Texture2D" uid="uid://dp47e50huajde" path="res://ComPuzzle Assets/Road.png" id="1_m4pp1"]
+[ext_resource type="Texture2D" uid="uid://bmkwlsxg1f3g3" path="res://ComPuzzle Assets/Desk.png" id="1_mv550"]
+[ext_resource type="Texture2D" uid="uid://d0qmtv387jqcy" path="res://ComPuzzle Assets/Desk_With_Person.png" id="3_7lgge"]
 [ext_resource type="Texture2D" uid="uid://db8i510x2bkvp" path="res://ComPuzzle Assets/OtherFloor.png" id="3_m4pp1"]
 [ext_resource type="Texture2D" uid="uid://d3t0ouii6lgux" path="res://ComPuzzle Assets/Podium.png" id="4_63t4k"]
 [ext_resource type="Texture2D" uid="uid://b1xyn7kd6fet0" path="res://ComPuzzle Assets/Tree.png" id="5_7lgge"]
+[ext_resource type="Texture2D" uid="uid://7sq24wxo0rds" path="res://ComPuzzle Assets/Desk_With_Person2.png" id="5_iwvek"]
+[ext_resource type="Texture2D" uid="uid://5rr6kitit1j8" path="res://ComPuzzle Assets/White_Board.png" id="7_63t4k"]
+
+[sub_resource type="TileSetAtlasSource" id="TileSetAtlasSource_63t4k"]
+texture = ExtResource("1_m4pp1")
+texture_region_size = Vector2i(32, 32)
+0:0/0 = 0
 
 [sub_resource type="TileSetAtlasSource" id="TileSetAtlasSource_iwvek"]
 texture = ExtResource("1_mv550")
 texture_region_size = Vector2i(32, 32)
 0:0/0 = 0
 0:0/0/custom_data_0 = true
+
+[sub_resource type="TileSetAtlasSource" id="TileSetAtlasSource_pkfnb"]
+texture = ExtResource("3_7lgge")
+texture_region_size = Vector2i(32, 32)
+0:0/0 = 0
+0:0/0/custom_data_0 = true
+0:0/0/custom_data_3 = true
 
 [sub_resource type="TileSetAtlasSource" id="TileSetAtlasSource_iyxws"]
 texture = ExtResource("1_damyf")
@@ -34,6 +50,7 @@ texture_region_size = Vector2i(32, 32)
 2:1/0 = 0
 2:1/0/custom_data_0 = true
 3:1/0 = 0
+3:1/0/custom_data_0 = true
 0:2/size_in_atlas = Vector2i(2, 2)
 0:2/0 = 0
 0:2/0/custom_data_0 = true
@@ -41,6 +58,12 @@ texture_region_size = Vector2i(32, 32)
 2:2/next_alternative_id = 2
 2:2/0 = 0
 2:2/0/custom_data_0 = true
+
+[sub_resource type="TileSetAtlasSource" id="TileSetAtlasSource_ywm0s"]
+texture = ExtResource("5_iwvek")
+texture_region_size = Vector2i(32, 32)
+0:0/0 = 0
+0:0/0/custom_data_0 = true
 
 [sub_resource type="TileSetAtlasSource" id="TileSetAtlasSource_gfxvy"]
 texture = ExtResource("3_m4pp1")
@@ -63,6 +86,22 @@ texture_region_size = Vector2i(32, 32)
 0:0/0 = 0
 0:0/0/custom_data_0 = true
 
+[sub_resource type="TileSetAtlasSource" id="TileSetAtlasSource_7lgge"]
+texture = ExtResource("7_63t4k")
+texture_region_size = Vector2i(32, 32)
+0:0/0 = 0
+0:0/0/custom_data_0 = true
+1:0/0 = 0
+1:0/0/custom_data_0 = true
+2:0/0 = 0
+2:0/0/custom_data_0 = true
+0:1/0 = 0
+0:1/0/custom_data_0 = true
+1:1/0 = 0
+1:1/0/custom_data_0 = true
+2:1/0 = 0
+2:1/0/custom_data_0 = true
+
 [resource]
 resource_name = "newTiles"
 tile_size = Vector2i(32, 32)
@@ -79,3 +118,7 @@ sources/1 = SubResource("TileSetAtlasSource_iwvek")
 sources/2 = SubResource("TileSetAtlasSource_gfxvy")
 sources/3 = SubResource("TileSetAtlasSource_ojpqi")
 sources/4 = SubResource("TileSetAtlasSource_fnykl")
+sources/0 = SubResource("TileSetAtlasSource_63t4k")
+sources/9 = SubResource("TileSetAtlasSource_7lgge")
+sources/10 = SubResource("TileSetAtlasSource_pkfnb")
+sources/12 = SubResource("TileSetAtlasSource_ywm0s")

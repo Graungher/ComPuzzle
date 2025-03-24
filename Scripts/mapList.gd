@@ -4,9 +4,9 @@ var currentMapIndex = -1
 
 var maps = [
 	#"res://Scenes/Map_Scenes/ParentMap.tscn",
+	"res://Scenes/Map_Scenes/map3.tscn",
 	"res://Scenes/Map_Scenes/map1.tscn",
 	"res://Scenes/Map_Scenes/map2.tscn",
-	"res://Scenes/Map_Scenes/map3.tscn",
 	
 ]
 
