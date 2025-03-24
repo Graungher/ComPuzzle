@@ -34,7 +34,7 @@ var scrollguy
 
 
 #######################################
-var GLOBAL_TRUE = true
+var GLOBAL_TRUE = false
 #######################################
 
 var tempArray = ["LEFT", "WALK", "WALK"]
@@ -296,19 +296,49 @@ func validate():
 	
 	var i = get_child_count()
 	var loops = 0
+	var ifs = 0
+	var endFlag = false
+	var elseFlag = false
+	var endBeforeLoop = false
+	var extraElse = false
+	var outElse = false
 	# if it is not already running, check if and loop counts
 	if !running:
 		for child in get_children():
 			var the_name = child.get_node("Label").text
 			if(the_name == "LOOP"):
 				loops += 1
-			if(the_name == "ENDLOOP"):
-				loops -= 1
-		if(loops > 0):
+			elif(the_name == "ENDLOOP"):
+				if loops == 0:
+					endBeforeLoop = true
+				else:
+					loops -= 1
+			elif(the_name == "IF"):
+				ifs += 1
+			elif(the_name == "ELSE"):
+				if ifs > 0:
+					if elseFlag:
+						extraElse = true
+					else:
+						elseFlag = true
+				else:
+					outElse = true
+				pass
+			elif(the_name == "ENDIF"):
+				elseFlag = false
+				ifs -= 1
+		if endBeforeLoop:
+			emit_signal("showError", "END BEFORE LOOP")
+			pass
+		elif outElse:
+			emit_signal("showError", "OUTSIDE ELSE")
+		elif extraElse:
+			emit_signal("showError", "EXTRA ELSE")
+		elif(loops > 0):
 			emit_signal("showError", "NO END LOOP")
 		elif(loops < 0):
 			emit_signal("showError", "EXTRA END LOOP")
-			
+		
 		# if no errors, then start reading command list
 		else:
 			realReadList()

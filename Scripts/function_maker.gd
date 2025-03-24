@@ -3,7 +3,7 @@ extends Node2D
 @onready var robot = preload("res://Scenes/robot.tscn")
 @onready var current_map = $TileMap  # Initial TileMap
 @onready var cmdList = $ScrollContainer/Command_List
-@onready var errorWindow = $AcceptDialog
+@onready var errorWindow = $ErrorWindow
 @onready var errorLabel = $ErrorPopup/Label
 @onready var nameWindow = $FuncName
 @onready var funcName = $FuncName/LineEdit

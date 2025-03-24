@@ -126,6 +126,7 @@ text = "CLEAR LIST"
 metadata/_edit_lock_ = true
 
 [node name="Make a Func" type="Button" parent="OtherButtons"]
+visible = false
 offset_left = -86.0
 offset_top = 800.0
 offset_right = 14.0
@@ -191,7 +192,7 @@ grow_vertical = 2
 [connection signal="reset" from="ScrollContainer/Command_List" to="." method="_on_command_list_reset"]
 [connection signal="showError" from="ScrollContainer/Command_List" to="." method="show_error"]
 [connection signal="walk_signal" from="ScrollContainer/Command_List" to="." method="botControl"]
-[connection signal="pressed" from="OtherButtons/Run_button" to="ScrollContainer/Command_List" method="_on_run_button_pressed33"]
+[connection signal="pressed" from="OtherButtons/Run_button" to="ScrollContainer/Command_List" method="validate"]
 [connection signal="pressed" from="OtherButtons/Reset_Button" to="." method="_on_reset_button_pressed"]
 [connection signal="pressed" from="OtherButtons/Quit_Button" to="." method="_on_quit_button_pressed"]
 [connection signal="pressed" from="OtherButtons/nextMap" to="." method="switch_map"]
