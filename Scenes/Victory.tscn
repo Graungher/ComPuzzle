@@ -1,4 +1,4 @@
-[gd_scene load_steps=7 format=3 uid="uid://b3fk4grjwfapc"]
+[gd_scene load_steps=8 format=3 uid="uid://b3fk4grjwfapc"]
 
 [ext_resource type="Texture2D" uid="uid://3uc5iucbngqc" path="res://ComPuzzle Assets/screen.png" id="1_vb8gj"]
 [ext_resource type="Script" uid="uid://dcfw15rf65x01" path="res://Scripts/Victory.gd" id="2_ebubv"]
@@ -6,6 +6,10 @@
 [ext_resource type="Texture2D" uid="uid://tfwwksqy2mgq" path="res://ComPuzzle Assets/buttons/VICTORY/MainMenu.png" id="4_1ttpw"]
 [ext_resource type="Texture2D" uid="uid://c8hlwbboffqv1" path="res://ComPuzzle Assets/buttons/VICTORY/LevelSelect.png" id="5_f2md5"]
 [ext_resource type="Texture2D" uid="uid://bn6gng4obfth5" path="res://ComPuzzle Assets/buttons/VICTORY/Replay.png" id="6_ebpg4"]
+
+[sub_resource type="LabelSettings" id="LabelSettings_lh6sg"]
+font_size = 103
+font_color = Color(0, 0, 0, 1)
 
 [node name="Victory" type="TextureRect"]
 offset_right = 980.0
@@ -40,6 +44,16 @@ texture_normal = ExtResource("6_ebpg4")
 [node name="LevelSelect" type="TextureButton" parent="HBoxContainer"]
 layout_mode = 2
 texture_normal = ExtResource("5_f2md5")
+
+[node name="Label" type="Label" parent="."]
+visible = false
+layout_mode = 0
+offset_left = 581.0
+offset_top = 492.0
+offset_right = 881.0
+offset_bottom = 779.0
+text = "01"
+label_settings = SubResource("LabelSettings_lh6sg")
 
 [connection signal="pressed" from="HBoxContainer/MainMenu" to="." method="_on_main_menu_pressed"]
 [connection signal="pressed" from="HBoxContainer/NextLevel" to="." method="_on_next_level_pressed"]

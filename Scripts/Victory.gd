@@ -3,6 +3,10 @@ signal change
 signal select
 signal replay
 
+@onready
+
+var totalInstructions = 0
+
 
 
 # Called when the node enters the scene tree for the first time.
@@ -40,3 +44,6 @@ func _on_replay_pressed() -> void:
 
 func _on_button_pressed() -> void:
 	pass # Replace with function body.
+	
+func setTotalInst():
+	pass

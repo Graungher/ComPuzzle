@@ -3,7 +3,7 @@ extends Node2D
 @onready var robot = preload("res://Scenes/robot.tscn")
 @onready var current_map = $TileMap  # Initial TileMap
 @onready var cmdList = $ScrollContainer/Command_List
-@onready var errorWindow = $AcceptDialog
+@onready var errorWindow = $ErrorWindow
 @onready var errorLabel = $ErrorPopup/Label
 @onready var nameWindow = $FuncName
 @onready var funcName = $FuncName/LineEdit
@@ -21,6 +21,7 @@ var customFuncName = ""
 signal goAway
 signal walk_signal
 signal NAMECONFIRMED
+signal SaveThis(customFuncName: String)
 
 func _ready() -> void:
 	mapSetup()
@@ -170,6 +171,7 @@ func openNameWindow():
 func _on_func_name_confirmed() -> void:
 	customFuncName = funcName.text
 	print(customFuncName)
+	emit_signal("SaveThis", customFuncName)
 	pass # Replace with function body.
 
 

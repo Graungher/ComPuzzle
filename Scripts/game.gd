@@ -3,7 +3,7 @@ extends Node2D
 @onready var robot = preload("res://Scenes/robot.tscn")
 @onready var current_map = $TileMap  # Initial TileMap
 @onready var cmdList = $ScrollContainer/Command_List
-@onready var errorWindow = $AcceptDialog
+@onready var errorWindow = $ErrorWindow
 @onready var errorLabel = $ErrorWindow/Label
 @onready var funcmaker = $FunctionMakerWindow
 @onready var helper = $HelpWindow
@@ -76,6 +76,14 @@ func show_error(err: String):
 		errorLabel.text = "There are too many 'END LOOP's!"
 	elif err == "LOOP NAN":
 		errorLabel.text = "One of the loops had something that was not a number"
+	elif err == "END BEFORE LOOP":
+		errorLabel.text = "There is an End Loop with no open Loop"
+	elif err == "OUTSIDE ELSE":
+		errorLabel.text = "Else Needs to be inside the If and before the End If"
+	elif err == "EXTRA ELSE":
+		errorLabel.text = "There are too many elses in one IF"
+	elif err == "END BEFORE IF":
+		errorLabel.text = "There is an End If with no open If"
 	errorWindow.popup()
 	pass
 
