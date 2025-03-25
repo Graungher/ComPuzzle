@@ -90,8 +90,8 @@ func show_error(err: String):
 
 func mapSetup():
 	
-	var defaultX = 20
-	var defaultY = 10
+	var defaultX = 50
+	var defaultY = 25
 	
 	var tile_size = current_map.tile_set.tile_size
 	start_tile = current_map.get_start_tile()
@@ -112,8 +112,6 @@ func mapSetup():
 	spawn_position += Vector2(0, tile_size.y / 2)
 	
 	spawn_position *= current_map.scale 
-	
-	
 	pass
 
 
@@ -171,8 +169,7 @@ func checkGoal():
 	else:
 		emit_signal("goAway")
 		spawnBot()
-		pass
-	pass
+
 
 
 func _on_reset_button_pressed() -> void:

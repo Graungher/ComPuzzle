@@ -158,19 +158,22 @@ func doFunc(the_name: String, child: Node):
 				child.texture_normal = load(whiteWalk)
 				emit_signal("walk_signal")
 				await wait_frames(framelen)
-				child.texture_normal = reg
+				if child:
+					child.texture_normal = reg
 			"LEFT":
 				var reg = child.texture_normal
 				child.texture_normal = load(whiteLeft)
 				emit_signal("turn_left_signal")
 				await wait_frames(framelen)
-				child.texture_normal = reg
+				if child:
+					child.texture_normal = reg
 			"RIGHT":
 				var reg = child.texture_normal
 				child.texture_normal = load(whiteRight)
 				emit_signal("turn_right_signal")
 				await wait_frames(framelen)
-				child.texture_normal = reg
+				if child:
+					child.texture_normal = reg
 	
 	# make sure that there is still a child before resetting
 	# (child may be gone if level reset before current action ended)
@@ -215,7 +218,6 @@ func realLoop(num: int, button: TextureButton):
 			# get next node info
 			j += 1
 			child = get_child(num + j)
-			index = child.get_index()
 			the_name = child.get_node("Label").text
 			
 			# exit loop and return index
@@ -347,7 +349,7 @@ func validate():
 		# if no errors, then start reading command list
 		else:
 			realReadList()
-			#_read_list()
+
 
 # waits 1 frame n times
 func wait_frames(frame_count: int):
