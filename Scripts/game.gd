@@ -1,6 +1,7 @@
 extends Node2D
 
-@onready var robot = preload("res://Scenes/car.tscn")
+@onready var bot = preload("res://Scenes/robot.tscn")
+@onready var car = preload("res://Scenes/car.tscn")
 @onready var current_map = $TileMap  # Initial TileMap
 @onready var cmdList = $ScrollContainer/Command_List
 @onready var errorWindow = $ErrorWindow
@@ -10,20 +11,20 @@ extends Node2D
 @onready var victory = $Victory
 
 var spawn_position = null
+var robot
 var theRobot
 var start_tile
 var end_tile
 var current_tile
-var next_tile
 var scaleX = 1
 var scaleY = 1
+
 
 signal goAway
 signal walk_signal
 
 func _ready() -> void:
 	switch_map()
-	spawnBot()
 	pass
 
 
@@ -41,7 +42,6 @@ func switch_map():
 
 	await get_tree().process_frame  # Wait a frame to ensure it's added
 	mapSetup()
-	spawnBot()
 	#robot.update_tilemap_reference()  # Make sure Robot gets the new TileMap
 
 
@@ -60,7 +60,6 @@ func spawnBot():
 		cmdList.turn_left_signal.connect(bot_instance._turnLeft)
 		cmdList.turn_right_signal.connect(bot_instance._turnRight)
 		goAway.connect(bot_instance.deleteRobot)
-		bot_instance.connect("tookStep", botMoved)
 	
 		theRobot = bot_instance
 		theRobot.SetMapStuff(scaleX, scaleY)
@@ -84,14 +83,25 @@ func show_error(err: String):
 		errorLabel.text = "There are too many elses in one IF"
 	elif err == "END BEFORE IF":
 		errorLabel.text = "There is an End If with no open If"
+	elif err == "NO END IF":
+		errorLabel.text = "There is an IF without an 'END IF'!"
+		
 	errorWindow.popup()
 	pass
 
 
 func mapSetup():
 	
-	var defaultX = 20
-	var defaultY = 10
+	var defaultX = 50
+	var defaultY = 25
+	
+	var model = mapList.getBotModel()
+	
+	if model == "CAR":
+		robot = car
+	else:
+		robot = bot
+	
 	
 	var tile_size = current_map.tile_set.tile_size
 	start_tile = current_map.get_start_tile()
@@ -112,30 +122,13 @@ func mapSetup():
 	spawn_position += Vector2(0, tile_size.y / 2)
 	
 	spawn_position *= current_map.scale 
-	
-	
+	spawnBot()
 	pass
+	
 
-
-func botMoved():
+func getNextTile():
+	var next_tile: Vector2i
 	var compass = theRobot.getFacing()
-	match compass:
-		"north":
-			current_tile += Vector2i(0,-1)
-		"south":
-			current_tile += Vector2i(0,1)
-		"east":
-			current_tile += Vector2i(1,0)
-		"west":
-			current_tile += Vector2i(-1,0)
-	#print("CURRENT TILE: ", current_tile, "  | GOAL TILE: ", end_tile)
-	pass
-
-
-func botControl():
-	var compass = theRobot.getFacing()
-	var object
-	var walkable = true
 	match compass:
 		"north":
 			next_tile = current_tile + Vector2i(0,-1)
@@ -145,7 +138,20 @@ func botControl():
 			next_tile = current_tile + Vector2i(1,0)
 		"west":
 			next_tile = current_tile + Vector2i(-1,0)
+	return next_tile
+	
+	
+func gameGetTileType(next_tile: Vector2i):
 	var tile_type = current_map.getTileType(next_tile)
+	return tile_type
+	
+	
+func botControl():
+	var object
+	var walkable = true
+	
+	var next_tile = getNextTile()
+	var tile_type = gameGetTileType(next_tile)
 	
 	#print("CURRENT TILE: ", current_tile, "  | NEXT TILE", next_tile)
 	
@@ -158,6 +164,24 @@ func botControl():
 			pass
 	if walkable:
 		emit_signal("walk_signal")
+		
+		
+		var upFeet = Vector2i (0,0)
+		var sideFeet = Vector2i (0,1)
+		var feet
+		var compass = theRobot.getFacing()
+		match compass:
+			"north":
+				feet = upFeet
+			"south":
+				feet = upFeet
+			"east":
+				feet = sideFeet
+			"west":
+				feet = sideFeet
+		
+		current_map.set_cell(2,current_tile,0,feet,0)
+		
 		current_tile = next_tile
 		pass
 	pass
@@ -171,8 +195,7 @@ func checkGoal():
 	else:
 		emit_signal("goAway")
 		spawnBot()
-		pass
-	pass
+
 
 
 func _on_reset_button_pressed() -> void:
@@ -205,4 +228,9 @@ func Replay() -> void:
 	cmdList.clearList()
 	cmdList.fakeClearList()
 	spawnBot()
+	pass # Replace with function body.
+
+
+func _on_command_list_runtime() -> void:
+	current_map.clear_layer(2)
 	pass # Replace with function body.

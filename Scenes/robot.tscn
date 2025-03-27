@@ -69,3 +69,4 @@ scale = Vector2(0.484375, 0.664063)
 sprite_frames = SubResource("SpriteFrames_kyys1")
 animation = &"walk"
 autoplay = "Idle"
+offset = Vector2(0, -28)
