@@ -193,6 +193,7 @@ grow_vertical = 2
 [connection signal="pressed" from="Buttons/ElseButton" to="Buttons" method="_on_else_button_pressed"]
 [connection signal="checkGoal" from="ScrollContainer/Command_List" to="." method="checkGoal"]
 [connection signal="reset" from="ScrollContainer/Command_List" to="." method="_on_command_list_reset"]
+[connection signal="runtime" from="ScrollContainer/Command_List" to="." method="_on_command_list_runtime"]
 [connection signal="showError" from="ScrollContainer/Command_List" to="." method="show_error"]
 [connection signal="walk_signal" from="ScrollContainer/Command_List" to="." method="botControl"]
 [connection signal="pressed" from="OtherButtons/Run_button" to="ScrollContainer/Command_List" method="validate"]

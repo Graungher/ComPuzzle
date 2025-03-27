@@ -1,10 +1,44 @@
-[gd_scene load_steps=3 format=3 uid="uid://442chvh8f4nh"]
+[gd_scene load_steps=8 format=3 uid="uid://442chvh8f4nh"]
 
 [ext_resource type="PackedScene" uid="uid://cghshp176xdq1" path="res://Scenes/Button_Scenes/button_walk.tscn" id="1_i0t2v"]
 [ext_resource type="Texture2D" uid="uid://dfpr0es0wywrd" path="res://ComPuzzle Assets/buttons/IF/If_Button.png" id="2_jotd5"]
 
+[sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_de5yk"]
+
+[sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_t85bn"]
+
+[sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_io48r"]
+
+[sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_jotd5"]
+
+[sub_resource type="ViewportTexture" id="ViewportTexture_jotd5"]
+
 [node name="If_Button" instance=ExtResource("1_i0t2v")]
 texture_normal = ExtResource("2_jotd5")
 
-[node name="Label" parent="." index="0"]
+[node name="Label" parent="." index="1"]
 text = "IF"
+
+[node name="condition" type="OptionButton" parent="." index="2"]
+layout_mode = 0
+offset_left = 4.0
+offset_top = 23.0
+offset_right = 82.0
+offset_bottom = 54.0
+scale = Vector2(0.6, 0.6)
+theme_override_constants/h_separation = 0
+theme_override_constants/icon_max_width = 0
+theme_override_styles/focus = SubResource("StyleBoxEmpty_de5yk")
+theme_override_styles/hover = SubResource("StyleBoxEmpty_t85bn")
+theme_override_styles/pressed = SubResource("StyleBoxEmpty_io48r")
+theme_override_styles/normal = SubResource("StyleBoxEmpty_jotd5")
+theme_override_constants/arrow_margin = 0
+theme_override_icons/arrow = SubResource("ViewportTexture_jotd5")
+flat = true
+selected = 0
+allow_reselect = true
+item_count = 2
+popup/item_0/text = "WALL"
+popup/item_0/id = 0
+popup/item_1/text = "EMPTY"
+popup/item_1/id = 1

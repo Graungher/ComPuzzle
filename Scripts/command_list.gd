@@ -22,6 +22,7 @@ signal next_map
 signal showError(err: String)
 signal reset
 signal checkGoal
+signal runtime
 
 var totalmoves = 0
 var loopcounter = 0		# 0 if number of loops and endloops are equal
@@ -31,7 +32,7 @@ var cleared = false		# flag to stop the running of the command list
 var running = false		# flag to disable things that interact with command list
 var preLoaded = false
 var scrollguy
-
+var rootNode
 
 #######################################
 var GLOBAL_TRUE = false
@@ -45,6 +46,7 @@ var tempArray = ["LEFT", "WALK", "WALK"]
 # once instantiated 
 func _ready() -> void:
 	scrollguy = get_parent()
+	rootNode = get_tree().get_current_scene()
 	#preloadCommands(tempArray)
 	pass # Replace with function body.
 
@@ -81,6 +83,7 @@ func realReadList():
 	# set running to true to disable the nodes that interact
 	#  with the command list
 	running = true
+	emit_signal("runtime")
 	
 	# i = index, totals = total children, cleared = quit out of reading the list
 	while i < totals && !cleared:
@@ -127,6 +130,7 @@ func processNode(the_name: String, child: Node, i: int):
 		# apply a blue filter
 		var reg = child.texture_normal
 		child.texture_normal = load(whiteIf)
+		child.get_node("condition").add_theme_color_override("font_color", Color.BLACK)
 		child.modulate = Color(0, .36, .85)
 		
 		#call the if function
@@ -135,6 +139,7 @@ func processNode(the_name: String, child: Node, i: int):
 		# make sure that there is still a child before resetting
 		# (child may be gone if level reset before current action ended)
 		if child:
+			child.get_node("condition").add_theme_color_override("font_color", Color.WHITE)
 			child.texture_normal = reg
 			child.modulate = Color(1, 1, 1)
 	
@@ -345,7 +350,8 @@ func validate():
 			emit_signal("showError", "NO END LOOP")
 		elif(loops < 0):
 			emit_signal("showError", "EXTRA END LOOP")
-		
+		elif(ifs > 0):
+			emit_signal("showError", "NO END IF")
 		# if no errors, then start reading command list
 		else:
 			realReadList()
@@ -438,10 +444,13 @@ func ifNode(num: int, button: TextureButton):
 	var the_name = ""
 	var i = num + 1
 	var child
-	var isTrue = GLOBAL_TRUE
+	
 	var elseTime = false
 	var retSpot = num
 	
+	var condition = button.get_node("condition").text
+	
+	var isTrue = testCondition(condition)
 	# does through the if's sections until endif then return the index
 	while the_name != "ENDIF" && !cleared:
 		# gets node info
@@ -467,6 +476,19 @@ func ifNode(num: int, button: TextureButton):
 		
 		i += 1
 	return retSpot
+
+
+func testCondition(condition: String):
+	var isTrue
+	var tileData
+	if condition == "WALL":
+		var next_tile = rootNode.getNextTile()
+		var object = rootNode. gameGetTileType(next_tile)
+		if (object == "Wall") || (object == "Object"):
+			isTrue = true
+	elif condition == "EMPTY":
+		isTrue = false
+	return isTrue
 
 
 func readFunctionList(file_name: String):

@@ -3,11 +3,16 @@ extends Node
 var currentMapIndex = -1
 
 var maps = [
-	#"res://Scenes/Map_Scenes/ParentMap.tscn",
 	"res://Scenes/Map_Scenes/map1.tscn",
 	"res://Scenes/Map_Scenes/map2.tscn",
 	"res://Scenes/Map_Scenes/map3.tscn",
 	
+]
+
+var models = [
+	"BOT",
+	"CAR",
+	"BOT"
 ]
 
 
@@ -17,6 +22,9 @@ func get_next_map():
 	return maps[currentMapIndex]
 	pass
 
+func getBotModel():
+	return models[getCurrentMap()]
+	pass
 
 func getCurrentMap():
 	return currentMapIndex
