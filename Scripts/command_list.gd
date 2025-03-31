@@ -1,5 +1,6 @@
 extends VBoxContainer
 
+@onready var people = preload("res://Scenes/robot.tscn")
 @onready var WalkButton = preload("res://Scenes/Button_Scenes/button_walk.tscn")
 @onready var LeftButton = preload("res://Scenes/Button_Scenes/button_left.tscn")
 @onready var RightButton = preload("res://Scenes/Button_Scenes/button_right.tscn")
@@ -33,6 +34,8 @@ var running = false		# flag to disable things that interact with command list
 var preLoaded = false
 var scrollguy
 var rootNode
+var characters: Array[CharacterBody2D] = []
+var char_spots: Array[Vector2i] = []
 
 #######################################
 var GLOBAL_TRUE = false
@@ -154,6 +157,9 @@ func processNode(the_name: String, child: Node, i: int):
 
 # does the function of basic nodes
 func doFunc(the_name: String, child: Node):
+	if characters.size() > 0:
+		movePeople()
+	
 	# apply green filter
 	child.modulate = Color(.2588, .6275, 0)
 	# switch based of label's text
@@ -300,7 +306,6 @@ func validate():
 	# diables the clear flag to allow the running of the commad list 
 	cleared = false
 	
-	
 	var i = get_child_count()
 	var loops = 0
 	var ifs = 0
@@ -355,7 +360,6 @@ func validate():
 		# if no errors, then start reading command list
 		else:
 			realReadList()
-
 
 # waits 1 frame n times
 func wait_frames(frame_count: int):
@@ -488,6 +492,11 @@ func testCondition(condition: String):
 			isTrue = true
 	elif condition == "EMPTY":
 		isTrue = false
+	elif condition == "PERSON":
+		var charLoc = rootNode.getNextTile()
+		for i in char_spots.size():
+			if char_spots[i] == charLoc:
+				isTrue = true
 	return isTrue
 
 
@@ -590,3 +599,76 @@ func _on_function_maker_nameconfirmed(saveName: String) -> void:
 func _on_run_button_pressed33() -> void:
 	readFunctionList("SAVEA")
 	pass # Replace with function body.
+
+func createPeople(scaleX: float, scaleY: float, spawn: Vector2, point: Vector2i):
+	var character_instance = people.instantiate()
+	character_instance.position = spawn
+	
+	var character_holder = rootNode.get_node("PeopleHolder")
+	character_holder.add_child(character_instance)
+	characters.append(character_instance)
+	char_spots.append(point)
+	character_instance.SetMapStuff(scaleX, scaleY)
+
+func movePeople():
+	for index in characters.size():
+		var guy = characters[index]
+		var r = randi_range(4, 4)
+		match r:
+			1:
+				guy._turnRight()
+				peopleWalker(guy, index)
+			2:
+				guy._turnLeft()
+				peopleWalker(guy, index)
+			3:
+				guy._turnLeft()
+				guy._turnLeft()
+				peopleWalker(guy, index)
+			4:
+				peopleWalker(guy, index)
+			5: 
+				pass
+
+func peopleWalker(guy: CharacterBody2D, index: int):
+	var compass = guy.getFacing()
+	var loc = char_spots[index]
+	var new_tile
+	var walkable = true
+	match compass:
+		"north":
+			new_tile = loc + Vector2i(0,-1)
+		"south":
+			new_tile = loc + Vector2i(0,1)
+		"east":
+			new_tile = loc + Vector2i(1,0)
+		"west":
+			new_tile = loc + Vector2i(-1,0)
+	var tile_type = rootNode.gameGetTileType(new_tile)
+	
+	match tile_type:
+		"Wall":
+			walkable = false
+			pass
+		"Object":
+			walkable = false
+			pass
+	var charLoc = rootNode.getCurrentTile()
+	for i in char_spots.size():
+		if char_spots[i] == new_tile:
+			walkable = false
+		elif new_tile == charLoc:
+			print("RAN PLAYER")
+			walkable = false
+	if walkable:
+		char_spots[index] = new_tile
+		guy._walk()
+	pass
+
+func clearPeople():
+	for i in characters:
+		i.queue_free()
+	characters.clear()
+
+func getLocationArray():
+	return char_spots
