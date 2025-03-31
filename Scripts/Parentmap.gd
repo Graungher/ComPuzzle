@@ -25,6 +25,8 @@ func getTileType(theTile: Vector2i):
 			objectType = "Wall"
 		elif tile_data.get_custom_data("Object"):
 			objectType = "Object"
+		elif tile_data.get_custom_data("WanderSpawner"):
+			objectType = "WanderSpawner"
 	return objectType
 
 func find_start_tile():

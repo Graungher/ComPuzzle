@@ -13,6 +13,7 @@ var defaultScaleY = 0.664
 signal tookStep
 
 @onready var anim: AnimatedSprite2D = $AnimatedSprite2D
+@onready var label = $Label
 
 func _ready():
 	pass
@@ -98,3 +99,9 @@ func SetMapStuff(scaleX: float, scaleY: float):
 	
 	anim.scale = Vector2(defaultScaleX * scaleX, defaultScaleY * scaleY)
 	pass
+	
+func setLabel(words: String):
+	label.text = words
+	
+func getLabel():
+	return label.text

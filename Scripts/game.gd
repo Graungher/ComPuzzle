@@ -52,8 +52,8 @@ func get_current_map():
 func spawnBot():
 	if spawn_position:
 		var bot_instance = robot.instantiate()
-		
 		add_child(bot_instance)  # Add bot to scene
+		
 	
 		current_tile = start_tile
 		walk_signal.connect(bot_instance._walk)
@@ -64,6 +64,7 @@ func spawnBot():
 		theRobot = bot_instance
 		theRobot.SetMapStuff(scaleX, scaleY)
 		bot_instance.global_position = spawn_position
+		
 	pass
 
 
@@ -123,6 +124,18 @@ func mapSetup():
 	
 	spawn_position *= current_map.scale 
 	spawnBot()
+	
+	cmdList.clearPeople() 
+	for x in width_in_tiles:
+		for y in height_in_tiles:
+			var point = Vector2i(x,y)
+			var tile = current_map.getTileType(point)
+			if tile == "WanderSpawner":
+				var spawn = current_map.map_to_local(point)
+				spawn += Vector2(0, tile_size.y / 2)
+				spawn *= current_map.scale 
+				cmdList.createPeople(scaleX, scaleY, spawn, point)
+				
 	pass
 	
 
@@ -140,6 +153,9 @@ func getNextTile():
 			next_tile = current_tile + Vector2i(-1,0)
 	return next_tile
 	
+func getCurrentTile():
+	return current_tile
+
 	
 func gameGetTileType(next_tile: Vector2i):
 	var tile_type = current_map.getTileType(next_tile)
@@ -154,6 +170,11 @@ func botControl():
 	var tile_type = gameGetTileType(next_tile)
 	
 	#print("CURRENT TILE: ", current_tile, "  | NEXT TILE", next_tile)
+	var spots = cmdList.getLocationArray()
+	
+	for i in spots.size():
+		if spots[i] == next_tile:
+			walkable = false
 	
 	match tile_type:
 		"Wall":
@@ -181,11 +202,18 @@ func botControl():
 				feet = sideFeet
 		
 		current_map.set_cell(2,current_tile,0,feet,0)
+		await  wait_frames(15)
+		current_map.set_cell(2,next_tile,0,feet,0)
 		
 		current_tile = next_tile
 		pass
 	pass
 
+# waits 1 frame n times
+func wait_frames(frame_count: int):
+	# waits 1 fram frame_count times
+	for i in range(frame_count):
+		await get_tree().process_frame
 
 func checkGoal():
 	if current_tile == end_tile:
