@@ -2,8 +2,9 @@
 
 [ext_resource type="PackedScene" uid="uid://blltddyh63pjq" path="res://Scenes/Map_Scenes/ParentMap.tscn" id="1_bxtno"]
 [ext_resource type="Script" uid="uid://c35evgsqk2ae" path="res://Scripts/help_scripts/help_walk.gd" id="1_l7g27"]
-[ext_resource type="PackedScene" uid="uid://dut7sncjon3br" path="res://Scenes/robot.tscn" id="2_l7g27"]
+[ext_resource type="PackedScene" uid="uid://dut7sncjon3br" path="res://Scenes/Characters/robot.tscn" id="2_l7g27"]
 [ext_resource type="Texture2D" uid="uid://bb4c8bmvjc8af" path="res://ComPuzzle Assets/buttons/WALK/Walk.png" id="4_bhpug"]
+
 
 [node name="Help_Walk" type="AcceptDialog"]
 title = "WALK BUTTON"

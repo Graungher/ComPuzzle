@@ -1,6 +1,6 @@
 extends VBoxContainer
 
-@onready var people = preload("res://Scenes/robot.tscn")
+@onready var people = preload("res://Scenes/Characters/robot.tscn")
 @onready var WalkButton = preload("res://Scenes/Button_Scenes/button_walk.tscn")
 @onready var LeftButton = preload("res://Scenes/Button_Scenes/button_left.tscn")
 @onready var RightButton = preload("res://Scenes/Button_Scenes/button_right.tscn")
@@ -157,14 +157,15 @@ func processNode(the_name: String, child: Node, i: int):
 
 # does the function of basic nodes
 func doFunc(the_name: String, child: Node):
-	if characters.size() > 0:
-		movePeople()
+	
 	
 	# apply green filter
 	child.modulate = Color(.2588, .6275, 0)
 	# switch based of label's text
 	match the_name:
 			"WALK":
+				if characters.size() > 0:
+					movePeople()
 				var reg = child.texture_normal
 				child.texture_normal = load(whiteWalk)
 				emit_signal("walk_signal")
@@ -172,6 +173,8 @@ func doFunc(the_name: String, child: Node):
 				if child:
 					child.texture_normal = reg
 			"LEFT":
+				if characters.size() > 0:
+					movePeople()
 				var reg = child.texture_normal
 				child.texture_normal = load(whiteLeft)
 				emit_signal("turn_left_signal")
@@ -179,6 +182,8 @@ func doFunc(the_name: String, child: Node):
 				if child:
 					child.texture_normal = reg
 			"RIGHT":
+				if characters.size() > 0:
+					movePeople()
 				var reg = child.texture_normal
 				child.texture_normal = load(whiteRight)
 				emit_signal("turn_right_signal")
@@ -241,7 +246,8 @@ func realLoop(num: int, button: TextureButton):
 	if totals == 0:
 		retspot = findEndLoop(num)
 	# reset the label
-	button.get_node("loopCount").text = str(totals)
+	if button:
+		button.get_node("loopCount").text = str(totals)
 	return retspot
 
 # only used for loop = 0
@@ -483,7 +489,7 @@ func ifNode(num: int, button: TextureButton):
 
 
 func testCondition(condition: String):
-	var isTrue
+	var isTrue = false
 	var tileData
 	if condition == "WALL":
 		var next_tile = rootNode.getNextTile()
@@ -613,7 +619,7 @@ func createPeople(scaleX: float, scaleY: float, spawn: Vector2, point: Vector2i)
 func movePeople():
 	for index in characters.size():
 		var guy = characters[index]
-		var r = randi_range(4, 4)
+		var r = randi_range(1, 5)
 		match r:
 			1:
 				guy._turnRight()
@@ -669,6 +675,8 @@ func clearPeople():
 	for i in characters:
 		i.queue_free()
 	characters.clear()
+	char_spots.clear()
+		
 
 func getLocationArray():
 	return char_spots

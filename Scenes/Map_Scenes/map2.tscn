@@ -2,6 +2,6 @@
 
 [ext_resource type="PackedScene" uid="uid://81v5qentxbgv" path="res://Scenes/Map_Scenes/map1.tscn" id="1_ph4wr"]
 
-[node name="TileMap" instance=ExtResource("1_ph4wr")]
+[node name="TileMap2" instance=ExtResource("1_ph4wr")]
 layer_0/tile_data = PackedInt32Array(65540, 65547, 0, 65539, 65547, 0, 65538, 65547, 0, 65537, 65547, 0)
-layer_1/tile_data = PackedInt32Array(5, 11, 0, 4, 11, 0, 3, 11, 0, 2, 11, 0, 1, 11, 0, 0, 11, 0, 65536, 11, 0, 131072, 11, 0, 131074, 11, 0, 65540, 131083, 0, 65537, 196619, 0, 131076, 11, 0, 131075, 11, 0, 131073, 11, 0, 65541, 11, 0, 131077, 11, 0)
+layer_1/tile_data = PackedInt32Array(5, 11, 0, 4, 11, 0, 3, 11, 0, 2, 11, 0, 1, 11, 0, 0, 11, 0, 65536, 11, 0, 131072, 11, 0, 131076, 11, 0, 131074, 11, 0, 65540, 131083, 0, 65537, 65538, 65536, 131075, 11, 0, 131073, 11, 0, 65541, 11, 0, 131077, 11, 0, 65539, 65538, 131073)
