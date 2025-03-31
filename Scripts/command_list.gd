@@ -1,5 +1,6 @@
 extends VBoxContainer
 
+@onready var people = preload("res://Scenes/robot.tscn")
 @onready var WalkButton = preload("res://Scenes/Button_Scenes/button_walk.tscn")
 @onready var LeftButton = preload("res://Scenes/Button_Scenes/button_left.tscn")
 @onready var RightButton = preload("res://Scenes/Button_Scenes/button_right.tscn")
@@ -22,6 +23,7 @@ signal next_map
 signal showError(err: String)
 signal reset
 signal checkGoal
+signal runtime
 
 var totalmoves = 0
 var loopcounter = 0		# 0 if number of loops and endloops are equal
@@ -31,7 +33,9 @@ var cleared = false		# flag to stop the running of the command list
 var running = false		# flag to disable things that interact with command list
 var preLoaded = false
 var scrollguy
-
+var rootNode
+var characters: Array[CharacterBody2D] = []
+var char_spots: Array[Vector2i] = []
 
 #######################################
 var GLOBAL_TRUE = false
@@ -45,6 +49,7 @@ var tempArray = ["LEFT", "WALK", "WALK"]
 # once instantiated 
 func _ready() -> void:
 	scrollguy = get_parent()
+	rootNode = get_tree().get_current_scene()
 	#preloadCommands(tempArray)
 	pass # Replace with function body.
 
@@ -81,6 +86,7 @@ func realReadList():
 	# set running to true to disable the nodes that interact
 	#  with the command list
 	running = true
+	emit_signal("runtime")
 	
 	# i = index, totals = total children, cleared = quit out of reading the list
 	while i < totals && !cleared:
@@ -127,6 +133,7 @@ func processNode(the_name: String, child: Node, i: int):
 		# apply a blue filter
 		var reg = child.texture_normal
 		child.texture_normal = load(whiteIf)
+		child.get_node("condition").add_theme_color_override("font_color", Color.BLACK)
 		child.modulate = Color(0, .36, .85)
 		
 		#call the if function
@@ -135,6 +142,7 @@ func processNode(the_name: String, child: Node, i: int):
 		# make sure that there is still a child before resetting
 		# (child may be gone if level reset before current action ended)
 		if child:
+			child.get_node("condition").add_theme_color_override("font_color", Color.WHITE)
 			child.texture_normal = reg
 			child.modulate = Color(1, 1, 1)
 	
@@ -149,6 +157,9 @@ func processNode(the_name: String, child: Node, i: int):
 
 # does the function of basic nodes
 func doFunc(the_name: String, child: Node):
+	if characters.size() > 0:
+		movePeople()
+	
 	# apply green filter
 	child.modulate = Color(.2588, .6275, 0)
 	# switch based of label's text
@@ -158,19 +169,22 @@ func doFunc(the_name: String, child: Node):
 				child.texture_normal = load(whiteWalk)
 				emit_signal("walk_signal")
 				await wait_frames(framelen)
-				child.texture_normal = reg
+				if child:
+					child.texture_normal = reg
 			"LEFT":
 				var reg = child.texture_normal
 				child.texture_normal = load(whiteLeft)
 				emit_signal("turn_left_signal")
 				await wait_frames(framelen)
-				child.texture_normal = reg
+				if child:
+					child.texture_normal = reg
 			"RIGHT":
 				var reg = child.texture_normal
 				child.texture_normal = load(whiteRight)
 				emit_signal("turn_right_signal")
 				await wait_frames(framelen)
-				child.texture_normal = reg
+				if child:
+					child.texture_normal = reg
 	
 	# make sure that there is still a child before resetting
 	# (child may be gone if level reset before current action ended)
@@ -215,7 +229,6 @@ func realLoop(num: int, button: TextureButton):
 			# get next node info
 			j += 1
 			child = get_child(num + j)
-			index = child.get_index()
 			the_name = child.get_node("Label").text
 			
 			# exit loop and return index
@@ -293,7 +306,6 @@ func validate():
 	# diables the clear flag to allow the running of the commad list 
 	cleared = false
 	
-	
 	var i = get_child_count()
 	var loops = 0
 	var ifs = 0
@@ -343,11 +355,11 @@ func validate():
 			emit_signal("showError", "NO END LOOP")
 		elif(loops < 0):
 			emit_signal("showError", "EXTRA END LOOP")
-		
+		elif(ifs > 0):
+			emit_signal("showError", "NO END IF")
 		# if no errors, then start reading command list
 		else:
 			realReadList()
-			#_read_list()
 
 # waits 1 frame n times
 func wait_frames(frame_count: int):
@@ -436,10 +448,13 @@ func ifNode(num: int, button: TextureButton):
 	var the_name = ""
 	var i = num + 1
 	var child
-	var isTrue = GLOBAL_TRUE
+	
 	var elseTime = false
 	var retSpot = num
 	
+	var condition = button.get_node("condition").text
+	
+	var isTrue = testCondition(condition)
 	# does through the if's sections until endif then return the index
 	while the_name != "ENDIF" && !cleared:
 		# gets node info
@@ -465,6 +480,24 @@ func ifNode(num: int, button: TextureButton):
 		
 		i += 1
 	return retSpot
+
+
+func testCondition(condition: String):
+	var isTrue
+	var tileData
+	if condition == "WALL":
+		var next_tile = rootNode.getNextTile()
+		var object = rootNode. gameGetTileType(next_tile)
+		if (object == "Wall") || (object == "Object"):
+			isTrue = true
+	elif condition == "EMPTY":
+		isTrue = false
+	elif condition == "PERSON":
+		var charLoc = rootNode.getNextTile()
+		for i in char_spots.size():
+			if char_spots[i] == charLoc:
+				isTrue = true
+	return isTrue
 
 
 func readFunctionList(file_name: String):
@@ -566,3 +599,76 @@ func _on_function_maker_nameconfirmed(saveName: String) -> void:
 func _on_run_button_pressed33() -> void:
 	readFunctionList("SAVEA")
 	pass # Replace with function body.
+
+func createPeople(scaleX: float, scaleY: float, spawn: Vector2, point: Vector2i):
+	var character_instance = people.instantiate()
+	character_instance.position = spawn
+	
+	var character_holder = rootNode.get_node("PeopleHolder")
+	character_holder.add_child(character_instance)
+	characters.append(character_instance)
+	char_spots.append(point)
+	character_instance.SetMapStuff(scaleX, scaleY)
+
+func movePeople():
+	for index in characters.size():
+		var guy = characters[index]
+		var r = randi_range(4, 4)
+		match r:
+			1:
+				guy._turnRight()
+				peopleWalker(guy, index)
+			2:
+				guy._turnLeft()
+				peopleWalker(guy, index)
+			3:
+				guy._turnLeft()
+				guy._turnLeft()
+				peopleWalker(guy, index)
+			4:
+				peopleWalker(guy, index)
+			5: 
+				pass
+
+func peopleWalker(guy: CharacterBody2D, index: int):
+	var compass = guy.getFacing()
+	var loc = char_spots[index]
+	var new_tile
+	var walkable = true
+	match compass:
+		"north":
+			new_tile = loc + Vector2i(0,-1)
+		"south":
+			new_tile = loc + Vector2i(0,1)
+		"east":
+			new_tile = loc + Vector2i(1,0)
+		"west":
+			new_tile = loc + Vector2i(-1,0)
+	var tile_type = rootNode.gameGetTileType(new_tile)
+	
+	match tile_type:
+		"Wall":
+			walkable = false
+			pass
+		"Object":
+			walkable = false
+			pass
+	var charLoc = rootNode.getCurrentTile()
+	for i in char_spots.size():
+		if char_spots[i] == new_tile:
+			walkable = false
+		elif new_tile == charLoc:
+			print("RAN PLAYER")
+			walkable = false
+	if walkable:
+		char_spots[index] = new_tile
+		guy._walk()
+	pass
+
+func clearPeople():
+	for i in characters:
+		i.queue_free()
+	characters.clear()
+
+func getLocationArray():
+	return char_spots
