@@ -1,8 +1,8 @@
 [gd_resource type="TileSet" load_steps=13 format=3 uid="uid://cfqepkqqbipcw"]
 
 [ext_resource type="Texture2D" uid="uid://cy7k5vvcmdtlf" path="res://ComPuzzle Assets/megaGroup.png" id="1_damyf"]
-[ext_resource type="Texture2D" uid="uid://b75gt181eehku" path="res://ComPuzzle Assets/Footprints.png" id="1_m4pp1"]
-[ext_resource type="Texture2D" uid="uid://bv5mw7h2slaxx" path="res://ComPuzzle Assets/Desk.png" id="1_mv550"]
+[ext_resource type="Texture2D" uid="uid://d35ldgj3rvf38" path="res://ComPuzzle Assets/Footprints.png" id="1_m4pp1"]
+[ext_resource type="Texture2D" uid="uid://bmkwlsxg1f3g3" path="res://ComPuzzle Assets/Desk.png" id="1_mv550"]
 [ext_resource type="Texture2D" uid="uid://db8i510x2bkvp" path="res://ComPuzzle Assets/OtherFloor.png" id="3_m4pp1"]
 [ext_resource type="Texture2D" uid="uid://d3t0ouii6lgux" path="res://ComPuzzle Assets/Podium.png" id="4_63t4k"]
 [ext_resource type="Texture2D" uid="uid://b1xyn7kd6fet0" path="res://ComPuzzle Assets/Tree.png" id="5_7lgge"]
