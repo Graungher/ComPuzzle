@@ -1,6 +1,6 @@
 extends VBoxContainer
 
-@onready var people = preload("res://Scenes/robot.tscn")
+@onready var people = preload("res://Scenes/Characters/robot.tscn")
 @onready var WalkButton = preload("res://Scenes/Button_Scenes/button_walk.tscn")
 @onready var LeftButton = preload("res://Scenes/Button_Scenes/button_left.tscn")
 @onready var RightButton = preload("res://Scenes/Button_Scenes/button_right.tscn")

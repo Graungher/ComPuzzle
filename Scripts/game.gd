@@ -1,7 +1,7 @@
 extends Node2D
 
-@onready var bot = preload("res://Scenes/robot.tscn")
-@onready var car = preload("res://Scenes/car.tscn")
+@onready var bot = preload("res://Scenes/Characters/robot.tscn")
+@onready var car = preload("res://Scenes/Characters/car.tscn")
 @onready var current_map = $TileMap  # Initial TileMap
 @onready var cmdList = $ScrollContainer/Command_List
 @onready var errorWindow = $ErrorWindow
