@@ -14,7 +14,7 @@
 [ext_resource type="Texture2D" uid="uid://jriqneluvhn6" path="res://ComPuzzle Assets/buttons/Run_Button.png" id="10_su6ef"]
 [ext_resource type="PackedScene" uid="uid://crub3q5lo4g2r" path="res://Scenes/Function_Maker.tscn" id="13_rfjv2"]
 [ext_resource type="PackedScene" uid="uid://cnapfcrjygfn0" path="res://Scenes/Help_Windows/help_menu.tscn" id="14_1phco"]
-[ext_resource type="PackedScene" path="res://Scenes/Victory.tscn" id="15_nb51f"]
+[ext_resource type="PackedScene" uid="uid://b3fk4grjwfapc" path="res://Scenes/Victory.tscn" id="15_nb51f"]
 
 [sub_resource type="LabelSettings" id="LabelSettings_nb51f"]
 font_size = 53

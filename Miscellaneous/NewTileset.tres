@@ -1,18 +1,18 @@
 [gd_resource type="TileSet" load_steps=27 format=3 uid="uid://cfqepkqqbipcw"]
 
-[ext_resource type="Texture2D" uid="uid://d35ldgj3rvf38" path="res://ComPuzzle Assets/map assets/Footprints.png" id="1_7lgge"]
-[ext_resource type="Texture2D" uid="uid://bmkwlsxg1f3g3" path="res://ComPuzzle Assets/map assets/Desk.png" id="2_iwvek"]
-[ext_resource type="Texture2D" uid="uid://cy7k5vvcmdtlf" path="res://ComPuzzle Assets/map assets/megaGroup.png" id="3_gfxvy"]
-[ext_resource type="Texture2D" uid="uid://csckuli14fwm7" path="res://ComPuzzle Assets/map assets/Road_Yellow.png" id="3_pkfnb"]
-[ext_resource type="Texture2D" uid="uid://db8i510x2bkvp" path="res://ComPuzzle Assets/map assets/OtherFloor.png" id="4_ojpqi"]
-[ext_resource type="Texture2D" uid="uid://d3t0ouii6lgux" path="res://ComPuzzle Assets/map assets/Podium.png" id="5_fnykl"]
-[ext_resource type="Texture2D" uid="uid://pepyfmle6iqb" path="res://ComPuzzle Assets/map assets/Grass.png" id="5_ywm0s"]
-[ext_resource type="Texture2D" uid="uid://b1xyn7kd6fet0" path="res://ComPuzzle Assets/map assets/Tree.png" id="6_pkfnb"]
-[ext_resource type="Texture2D" uid="uid://78vx7doqv4mr" path="res://ComPuzzle Assets/map assets/Door.png" id="7_ywm0s"]
-[ext_resource type="Texture2D" uid="uid://d3qvydassgnrw" path="res://ComPuzzle Assets/map assets/Fountain.png" id="8_prhbk"]
-[ext_resource type="Texture2D" uid="uid://5rr6kitit1j8" path="res://ComPuzzle Assets/map assets/White_Board.png" id="9_iwvek"]
-[ext_resource type="Texture2D" uid="uid://dp47e50huajde" path="res://ComPuzzle Assets/map assets/Road.png" id="10_gfxvy"]
-[ext_resource type="Texture2D" uid="uid://bco2q6bt1eh01" path="res://ComPuzzle Assets/map assets/Road_White.png" id="13_prhbk"]
+[ext_resource type="Texture2D" uid="uid://cpdnv7wg5vg82" path="res://ComPuzzle Assets/map assets/Footprints.png" id="1_7lgge"]
+[ext_resource type="Texture2D" uid="uid://c1rpd5vfji7hv" path="res://ComPuzzle Assets/map assets/Desk.png" id="2_iwvek"]
+[ext_resource type="Texture2D" uid="uid://4m38k1kr7k68" path="res://ComPuzzle Assets/map assets/megaGroup.png" id="3_gfxvy"]
+[ext_resource type="Texture2D" uid="uid://y0wsq6fm4k0v" path="res://ComPuzzle Assets/map assets/Road_Yellow.png" id="3_pkfnb"]
+[ext_resource type="Texture2D" uid="uid://bu5xm866xtgbg" path="res://ComPuzzle Assets/map assets/OtherFloor.png" id="4_ojpqi"]
+[ext_resource type="Texture2D" uid="uid://cu42v5335pgwn" path="res://ComPuzzle Assets/map assets/Podium.png" id="5_fnykl"]
+[ext_resource type="Texture2D" uid="uid://cfjh8h6o6gji5" path="res://ComPuzzle Assets/map assets/Grass.png" id="5_ywm0s"]
+[ext_resource type="Texture2D" uid="uid://btunhabuysg4" path="res://ComPuzzle Assets/map assets/Tree.png" id="6_pkfnb"]
+[ext_resource type="Texture2D" uid="uid://d1utqm7geq1me" path="res://ComPuzzle Assets/map assets/Door.png" id="7_ywm0s"]
+[ext_resource type="Texture2D" uid="uid://ckemntvll18xq" path="res://ComPuzzle Assets/map assets/Fountain.png" id="8_prhbk"]
+[ext_resource type="Texture2D" uid="uid://bp2uidi6buwno" path="res://ComPuzzle Assets/map assets/White_Board.png" id="9_iwvek"]
+[ext_resource type="Texture2D" uid="uid://chs7qda75ig5j" path="res://ComPuzzle Assets/map assets/Road.png" id="10_gfxvy"]
+[ext_resource type="Texture2D" uid="uid://diww5du8nqha0" path="res://ComPuzzle Assets/map assets/Road_White.png" id="13_prhbk"]
 
 [sub_resource type="TileSetAtlasSource" id="TileSetAtlasSource_63t4k"]
 texture = ExtResource("1_7lgge")
@@ -53,6 +53,7 @@ texture_region_size = Vector2i(32, 32)
 2:1/0 = 0
 2:1/0/custom_data_0 = true
 3:1/0 = 0
+3:1/0/custom_data_0 = true
 0:2/size_in_atlas = Vector2i(2, 2)
 0:2/0 = 0
 0:2/0/custom_data_0 = true
