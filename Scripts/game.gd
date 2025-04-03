@@ -93,7 +93,7 @@ func show_error(err: String):
 
 func mapSetup():
 	
-	var defaultX = 53
+	var defaultX = 50
 	var defaultY = 25
 	
 	var model = mapList.getBotModel()
