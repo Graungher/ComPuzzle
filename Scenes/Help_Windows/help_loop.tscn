@@ -1,0 +1,74 @@
+[gd_scene load_steps=9 format=3 uid="uid://breuskf0gnydd"]
+
+[ext_resource type="PackedScene" uid="uid://blltddyh63pjq" path="res://Scenes/Map_Scenes/ParentMap.tscn" id="2_6i1s4"]
+[ext_resource type="Script" uid="uid://cctpi4jc53nuk" path="res://Scripts/help_scripts/help_loop.gd" id="2_lghpo"]
+[ext_resource type="PackedScene" uid="uid://dut7sncjon3br" path="res://Scenes/Characters/robot.tscn" id="3_373ih"]
+[ext_resource type="Texture2D" uid="uid://h3vpqvtxc12c" path="res://ComPuzzle Assets/buttons/LOOP/Loop_Button.png" id="4_2vb5p"]
+[ext_resource type="Texture2D" uid="uid://ckf3awdrcux34" path="res://ComPuzzle Assets/buttons/WALK/Walk_Button.png" id="5_gy5yj"]
+[ext_resource type="Texture2D" uid="uid://40rh7j4xdq0s" path="res://ComPuzzle Assets/buttons/TURNLEFT/Turn_Left_Button.png" id="6_nf65f"]
+[ext_resource type="Texture2D" uid="uid://i0gwwttbpc8v" path="res://ComPuzzle Assets/buttons/ENDLOOP/End_Loop_Button.png" id="7_shw5l"]
+
+[sub_resource type="LabelSettings" id="LabelSettings_6i1s4"]
+font_color = Color(0, 0, 0, 1)
+
+[node name="Help_Loop" type="AcceptDialog"]
+title = "WALK BUTTON"
+initial_position = 1
+size = Vector2i(600, 650)
+visible = true
+popup_window = true
+sharp_corners = true
+ok_button_text = "Run"
+dialog_hide_on_ok = false
+script = ExtResource("2_lghpo")
+
+[node name="Node2D" type="Node2D" parent="."]
+
+[node name="TileMap" parent="Node2D" instance=ExtResource("2_6i1s4")]
+position = Vector2(29, 43)
+
+[node name="Label" type="Label" parent="Node2D"]
+offset_left = 8.0
+offset_top = 8.0
+offset_right = 592.0
+offset_bottom = 601.0
+text = "This is the Walk Button. Click the run button to see how it works."
+horizontal_alignment = 1
+
+[node name="Robot" parent="Node2D" instance=ExtResource("3_373ih")]
+position = Vector2(301, 332)
+
+[node name="VBoxContainer" type="VBoxContainer" parent="Node2D"]
+offset_left = 477.0
+offset_top = 75.0
+offset_right = 541.0
+offset_bottom = 343.0
+
+[node name="TextureRect2" type="TextureButton" parent="Node2D/VBoxContainer"]
+layout_mode = 2
+texture_normal = ExtResource("4_2vb5p")
+
+[node name="TextureRect5" type="TextureButton" parent="Node2D/VBoxContainer"]
+layout_mode = 2
+texture_normal = ExtResource("5_gy5yj")
+
+[node name="TextureRect3" type="TextureButton" parent="Node2D/VBoxContainer"]
+layout_mode = 2
+texture_normal = ExtResource("6_nf65f")
+
+[node name="TextureRect4" type="TextureButton" parent="Node2D/VBoxContainer"]
+layout_mode = 2
+texture_normal = ExtResource("7_shw5l")
+
+[node name="Label2" type="Label" parent="Node2D"]
+offset_left = 482.0
+offset_top = 75.0
+offset_right = 522.0
+offset_bottom = 98.0
+text = "4"
+label_settings = SubResource("LabelSettings_6i1s4")
+
+[connection signal="LEFT" from="." to="Node2D/Robot" method="_turnLeft"]
+[connection signal="WALK" from="." to="Node2D/Robot" method="_walk"]
+[connection signal="canceled" from="." to="." method="_on_canceled"]
+[connection signal="confirmed" from="." to="." method="_on_confirmed"]
