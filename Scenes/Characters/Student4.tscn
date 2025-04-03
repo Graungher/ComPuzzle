@@ -1,0 +1,77 @@
+[gd_scene load_steps=11 format=3 uid="uid://dr1cgyl6b88xi"]
+
+[ext_resource type="Script" uid="uid://dkoyg18sf0e5m" path="res://Scripts/robot.gd" id="1_ala5x"]
+[ext_resource type="Texture2D" uid="uid://c2j2ixkvifd3w" path="res://ComPuzzle Assets/student sprites/Student4PNG/Student4.png" id="2_ala5x"]
+[ext_resource type="Texture2D" uid="uid://cigh8rkuwimwu" path="res://ComPuzzle Assets/student sprites/Student4PNG/Student4_Idle.png" id="3_kehm6"]
+[ext_resource type="Texture2D" uid="uid://dqxgy367wbown" path="res://ComPuzzle Assets/student sprites/Student4PNG/Student4_Down_Walk1.png" id="4_hnc4p"]
+[ext_resource type="Texture2D" uid="uid://buh0nriu6ti7f" path="res://ComPuzzle Assets/student sprites/Student4PNG/Student4_Down_Walk2.png" id="5_hy4u6"]
+[ext_resource type="Texture2D" uid="uid://ccym147wj2xri" path="res://ComPuzzle Assets/student sprites/Student4PNG/Student4_Up_Walk1.png" id="6_htigx"]
+[ext_resource type="Texture2D" uid="uid://bj4yq5h5qjo4a" path="res://ComPuzzle Assets/student sprites/Student4PNG/Student4_Up_Walk2.png" id="7_fd5u8"]
+[ext_resource type="Texture2D" uid="uid://btpg36mdpqpq5" path="res://ComPuzzle Assets/student sprites/Student4PNG/Student4_Side.png" id="8_8tqtw"]
+[ext_resource type="Texture2D" uid="uid://444bjw3qav8n" path="res://ComPuzzle Assets/student sprites/Student4PNG/Student4_Side_Walk.png" id="9_0sm8x"]
+
+[sub_resource type="SpriteFrames" id="SpriteFrames_kyys1"]
+animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": ExtResource("2_ala5x")
+}, {
+"duration": 1.0,
+"texture": ExtResource("3_kehm6")
+}],
+"loop": true,
+"name": &"Idle",
+"speed": 5.0
+}, {
+"frames": [{
+"duration": 1.0,
+"texture": ExtResource("4_hnc4p")
+}, {
+"duration": 1.0,
+"texture": ExtResource("5_hy4u6")
+}],
+"loop": true,
+"name": &"Walk down",
+"speed": 10.0
+}, {
+"frames": [{
+"duration": 1.0,
+"texture": ExtResource("6_htigx")
+}, {
+"duration": 1.0,
+"texture": ExtResource("7_fd5u8")
+}],
+"loop": true,
+"name": &"Walk up",
+"speed": 10.0
+}, {
+"frames": [{
+"duration": 1.0,
+"texture": ExtResource("8_8tqtw")
+}, {
+"duration": 1.0,
+"texture": ExtResource("9_0sm8x")
+}],
+"loop": true,
+"name": &"walk",
+"speed": 10.0
+}]
+
+[node name="Robot" type="CharacterBody2D"]
+collision_layer = 2
+script = ExtResource("1_ala5x")
+
+[node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="."]
+light_mask = 2
+texture_filter = 1
+position = Vector2(0, 1.78814e-07)
+scale = Vector2(0.484375, 0.664063)
+sprite_frames = SubResource("SpriteFrames_kyys1")
+animation = &"walk"
+autoplay = "Idle"
+offset = Vector2(0, -28)
+
+[node name="Label" type="Label" parent="."]
+visible = false
+offset_right = 40.0
+offset_bottom = 23.0

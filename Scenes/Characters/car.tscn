@@ -1,12 +1,12 @@
 [gd_scene load_steps=9 format=3 uid="uid://bfw424orwgs6g"]
 
 [ext_resource type="Script" uid="uid://dkoyg18sf0e5m" path="res://Scripts/robot.gd" id="1_q21gf"]
-[ext_resource type="Texture2D" uid="uid://bn70hlgdo6s02" path="res://ComPuzzle Assets/car sprites/Car_Down.png" id="2_2k6ts"]
-[ext_resource type="Texture2D" uid="uid://bo4wsd7buwjcl" path="res://ComPuzzle Assets/car sprites/Car_Down_Move.png" id="3_ba4uh"]
-[ext_resource type="Texture2D" uid="uid://dkmimbwepqd8y" path="res://ComPuzzle Assets/car sprites/Car_Move.png" id="4_15qso"]
-[ext_resource type="Texture2D" uid="uid://dehdag74gug0k" path="res://ComPuzzle Assets/car sprites/Car.png" id="5_1liju"]
-[ext_resource type="Texture2D" uid="uid://cup32llpn2lud" path="res://ComPuzzle Assets/car sprites/Car_Side.png" id="6_hcigx"]
-[ext_resource type="Texture2D" uid="uid://mux4k6ic8ttu" path="res://ComPuzzle Assets/car sprites/Car_Side_Move.png" id="7_nyjvt"]
+[ext_resource type="Texture2D" uid="uid://de134wd4g0tc4" path="res://ComPuzzle Assets/car sprites/Car_Down.png" id="2_2k6ts"]
+[ext_resource type="Texture2D" uid="uid://c0at7tiqfjwxm" path="res://ComPuzzle Assets/car sprites/Car_Down_Move.png" id="3_ba4uh"]
+[ext_resource type="Texture2D" uid="uid://cj4ofa2t6mdwo" path="res://ComPuzzle Assets/car sprites/Car_Move.png" id="4_15qso"]
+[ext_resource type="Texture2D" uid="uid://cwu1m3hujlgrh" path="res://ComPuzzle Assets/car sprites/Car.png" id="5_1liju"]
+[ext_resource type="Texture2D" uid="uid://cimkvwgeusna2" path="res://ComPuzzle Assets/car sprites/Car_Side.png" id="6_hcigx"]
+[ext_resource type="Texture2D" uid="uid://bdbc5l8gwndg4" path="res://ComPuzzle Assets/car sprites/Car_Side_Move.png" id="7_nyjvt"]
 
 [sub_resource type="SpriteFrames" id="SpriteFrames_uoj53"]
 animations = [{
