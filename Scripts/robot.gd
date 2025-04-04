@@ -7,8 +7,8 @@ var VERTICAL_TILE_DISTANCE = 32
 var HORIZONTAL_TILE_DISTANCE = 32
 var compass: String = "south"
 var is_moving = false
-var defaultScaleX = 0.484
-var defaultScaleY = 0.664
+var defaultScaleX
+var defaultScaleY
 
 signal tookStep
 
@@ -16,6 +16,8 @@ signal tookStep
 @onready var label = $Label
 
 func _ready():
+	defaultScaleX = anim.scale.x
+	defaultScaleY = anim.scale.y
 	pass
 
 func _turnLeft():

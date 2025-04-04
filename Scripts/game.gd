@@ -90,11 +90,12 @@ func show_error(err: String):
 	errorWindow.popup()
 	pass
 
-
 func mapSetup():
 	
 	var defaultX = 50
 	var defaultY = 25
+	var defaultTileSizeX = 32
+	var defaultTileSizeY = 32
 	
 	var model = mapList.getBotModel()
 	
@@ -104,7 +105,11 @@ func mapSetup():
 		robot = bot
 	
 	
+	
 	var tile_size = current_map.tile_set.tile_size
+	
+	var tilescalex = float(defaultTileSizeX) / float(tile_size.x)
+	var tilescaley = float(defaultTileSizeY) / float(tile_size.y)
 	start_tile = current_map.get_start_tile()
 	current_tile = start_tile
 	
@@ -118,6 +123,7 @@ func mapSetup():
 	scaleY = float(defaultY) / float(height_in_tiles)
 	
 	current_map.scale = Vector2(scaleX, scaleY)
+	current_map.scale *= Vector2(tilescalex, tilescaley)
 	
 	spawn_position = current_map.map_to_local(start_tile)
 	spawn_position += Vector2(0, tile_size.y / 2)

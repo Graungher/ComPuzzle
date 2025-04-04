@@ -16,6 +16,12 @@ var models = [
 	"CAR"
 ]
 
+var wander_model = [
+	"BOT",
+	"BOT",
+	"BOT",
+	"CAR"
+]
 
 func get_next_map():
 	
@@ -26,7 +32,11 @@ func get_next_map():
 func getBotModel():
 	return models[getCurrentMap()]
 	pass
-
+	
+func getWanderModel():
+	return wander_model[getCurrentMap()]
+	pass
+	
 func getCurrentMap():
 	return currentMapIndex
 

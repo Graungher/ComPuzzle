@@ -1,21 +1,21 @@
-[gd_scene load_steps=9 format=3 uid="uid://bc5cv2gs83d81"]
+[gd_scene load_steps=9 format=3 uid="uid://bfw424orwgs6g"]
 
 [ext_resource type="Script" uid="uid://dkoyg18sf0e5m" path="res://Scripts/robot.gd" id="1_db4r4"]
-[ext_resource type="Texture2D" uid="uid://de134wd4g0tc4" path="res://ComPuzzle Assets/car sprites/Car_Down.png" id="2_4jdwi"]
-[ext_resource type="Texture2D" uid="uid://c0at7tiqfjwxm" path="res://ComPuzzle Assets/car sprites/Car_Down_Move.png" id="3_twnxq"]
-[ext_resource type="Texture2D" uid="uid://cj4ofa2t6mdwo" path="res://ComPuzzle Assets/car sprites/Car_Move.png" id="4_0gi7k"]
-[ext_resource type="Texture2D" uid="uid://cwu1m3hujlgrh" path="res://ComPuzzle Assets/car sprites/Car.png" id="5_ddg2o"]
-[ext_resource type="Texture2D" uid="uid://cimkvwgeusna2" path="res://ComPuzzle Assets/car sprites/Car_Side.png" id="6_hya0q"]
-[ext_resource type="Texture2D" uid="uid://bdbc5l8gwndg4" path="res://ComPuzzle Assets/car sprites/Car_Side_Move.png" id="7_b0563"]
+[ext_resource type="Texture2D" uid="uid://c57wr7thcxvry" path="res://ComPuzzle Assets/car sprites/Car2_Down.png" id="2_db4r4"]
+[ext_resource type="Texture2D" uid="uid://bjq0ypj4igcsj" path="res://ComPuzzle Assets/car sprites/Car2_Down_Move.png" id="3_4jdwi"]
+[ext_resource type="Texture2D" uid="uid://gpcfcmgtq2q5" path="res://ComPuzzle Assets/car sprites/Car2.png" id="4_twnxq"]
+[ext_resource type="Texture2D" uid="uid://crdymc6ojd8k7" path="res://ComPuzzle Assets/car sprites/Car2_Move.png" id="5_0gi7k"]
+[ext_resource type="Texture2D" uid="uid://ckbm5cdxwa41a" path="res://ComPuzzle Assets/car sprites/Car2_Side.png" id="6_ddg2o"]
+[ext_resource type="Texture2D" uid="uid://djlunrxfrds7d" path="res://ComPuzzle Assets/car sprites/Car2_Side_Move.png" id="7_hya0q"]
 
 [sub_resource type="SpriteFrames" id="SpriteFrames_uoj53"]
 animations = [{
 "frames": [{
 "duration": 1.0,
-"texture": ExtResource("2_4jdwi")
+"texture": ExtResource("2_db4r4")
 }, {
 "duration": 1.0,
-"texture": ExtResource("3_twnxq")
+"texture": ExtResource("3_4jdwi")
 }],
 "loop": true,
 "name": &"Idle",
@@ -23,10 +23,10 @@ animations = [{
 }, {
 "frames": [{
 "duration": 1.0,
-"texture": ExtResource("2_4jdwi")
+"texture": ExtResource("2_db4r4")
 }, {
 "duration": 1.0,
-"texture": ExtResource("3_twnxq")
+"texture": ExtResource("3_4jdwi")
 }],
 "loop": true,
 "name": &"Walk down",
@@ -34,10 +34,10 @@ animations = [{
 }, {
 "frames": [{
 "duration": 1.0,
-"texture": ExtResource("4_0gi7k")
+"texture": ExtResource("4_twnxq")
 }, {
 "duration": 1.0,
-"texture": ExtResource("5_ddg2o")
+"texture": ExtResource("5_0gi7k")
 }],
 "loop": true,
 "name": &"Walk up",
@@ -45,10 +45,10 @@ animations = [{
 }, {
 "frames": [{
 "duration": 1.0,
-"texture": ExtResource("6_hya0q")
+"texture": ExtResource("6_ddg2o")
 }, {
 "duration": 1.0,
-"texture": ExtResource("7_b0563")
+"texture": ExtResource("7_hya0q")
 }],
 "loop": true,
 "name": &"walk",
@@ -59,7 +59,9 @@ animations = [{
 script = ExtResource("1_db4r4")
 
 [node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="."]
+scale = Vector2(0.3, 0.3)
 sprite_frames = SubResource("SpriteFrames_uoj53")
 animation = &"walk"
 autoplay = "Walk down"
-frame_progress = 0.79164
+centered = false
+offset = Vector2(-48, -97)

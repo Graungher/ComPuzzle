@@ -59,8 +59,11 @@ animations = [{
 script = ExtResource("1_ot8d5")
 
 [node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="."]
+scale = Vector2(0.3, 0.3)
 sprite_frames = SubResource("SpriteFrames_uoj53")
 animation = &"Idle"
 autoplay = "Walk down"
 frame = 1
 frame_progress = 0.109946
+centered = false
+offset = Vector2(-48, -97)

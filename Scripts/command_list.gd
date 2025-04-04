@@ -4,6 +4,10 @@ extends VBoxContainer
 @onready var student2 = preload("res://Scenes/Characters/Student2.tscn")
 @onready var student3 = preload("res://Scenes/Characters/Student3.tscn")
 @onready var student4 = preload("res://Scenes/Characters/Student4.tscn")
+@onready var car2 = preload("res://Scenes/Characters/car2.tscn")
+@onready var car3 = preload("res://Scenes/Characters/car3.tscn")
+@onready var car4 = preload("res://Scenes/Characters/car4.tscn")
+@onready var car5 = preload("res://Scenes/Characters/car5.tscn")
 @onready var WalkButton = preload("res://Scenes/Button_Scenes/button_walk.tscn")
 @onready var LeftButton = preload("res://Scenes/Button_Scenes/button_left.tscn")
 @onready var RightButton = preload("res://Scenes/Button_Scenes/button_right.tscn")
@@ -611,9 +615,17 @@ func _on_run_button_pressed33() -> void:
 
 func createPeople(scaleX: float, scaleY: float, spawn: Vector2, point: Vector2i):
 	var student_variants = [student1, student2, student3, student4]
-	var random_student = student_variants[randi() % student_variants.size()]
-	
-	var character_instance = random_student.instantiate()
+	var car_variants = [car2, car3, car4, car5]
+	var character_instance
+	var wandermodel = mapList.getWanderModel()
+	if wandermodel == "CAR":
+		var random_car = car_variants[randi() % car_variants.size()]
+		character_instance = random_car.instantiate()
+
+	else:
+		var random_student = student_variants[randi() % student_variants.size()]
+		character_instance = random_student.instantiate()
+
 	character_instance.position = spawn
 	
 	var character_holder = rootNode.get_node("PeopleHolder")

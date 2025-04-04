@@ -59,7 +59,10 @@ animations = [{
 script = ExtResource("1_a5w1c")
 
 [node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="."]
+scale = Vector2(0.3, 0.3)
 sprite_frames = SubResource("SpriteFrames_uoj53")
 animation = &"walk"
 autoplay = "Walk down"
 frame_progress = 0.994423
+centered = false
+offset = Vector2(-48, -97)
