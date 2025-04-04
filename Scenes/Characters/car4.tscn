@@ -1,0 +1,65 @@
+[gd_scene load_steps=9 format=3 uid="uid://cj20d6cm3ilv6"]
+
+[ext_resource type="Script" uid="uid://dkoyg18sf0e5m" path="res://Scripts/robot.gd" id="1_a5w1c"]
+[ext_resource type="Texture2D" uid="uid://co7mlh5y6sgjt" path="res://ComPuzzle Assets/car sprites/Car4_Down.png" id="2_a5w1c"]
+[ext_resource type="Texture2D" uid="uid://ejatecg62nma" path="res://ComPuzzle Assets/car sprites/Car4_Down_Move.png" id="3_g8prn"]
+[ext_resource type="Texture2D" uid="uid://cf5am0bul2iy" path="res://ComPuzzle Assets/car sprites/Car4.png" id="4_0mikn"]
+[ext_resource type="Texture2D" uid="uid://cqb0m8x8eslwk" path="res://ComPuzzle Assets/car sprites/Car4_Move.png" id="5_adxw1"]
+[ext_resource type="Texture2D" uid="uid://ckvc17eyqeh5r" path="res://ComPuzzle Assets/car sprites/Car4_Side.png" id="6_hav81"]
+[ext_resource type="Texture2D" uid="uid://bk3sghmq4aswh" path="res://ComPuzzle Assets/car sprites/Car4_Side_Move.png" id="7_bo4vv"]
+
+[sub_resource type="SpriteFrames" id="SpriteFrames_uoj53"]
+animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": ExtResource("2_a5w1c")
+}, {
+"duration": 1.0,
+"texture": ExtResource("3_g8prn")
+}],
+"loop": true,
+"name": &"Idle",
+"speed": 5.0
+}, {
+"frames": [{
+"duration": 1.0,
+"texture": ExtResource("2_a5w1c")
+}, {
+"duration": 1.0,
+"texture": ExtResource("3_g8prn")
+}],
+"loop": true,
+"name": &"Walk down",
+"speed": 5.0
+}, {
+"frames": [{
+"duration": 1.0,
+"texture": ExtResource("4_0mikn")
+}, {
+"duration": 1.0,
+"texture": ExtResource("5_adxw1")
+}],
+"loop": true,
+"name": &"Walk up",
+"speed": 5.0
+}, {
+"frames": [{
+"duration": 1.0,
+"texture": ExtResource("6_hav81")
+}, {
+"duration": 1.0,
+"texture": ExtResource("7_bo4vv")
+}],
+"loop": true,
+"name": &"walk",
+"speed": 5.0
+}]
+
+[node name="CAR VRMMMMM" type="CharacterBody2D"]
+script = ExtResource("1_a5w1c")
+
+[node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="."]
+sprite_frames = SubResource("SpriteFrames_uoj53")
+animation = &"walk"
+autoplay = "Walk down"
+frame_progress = 0.994423

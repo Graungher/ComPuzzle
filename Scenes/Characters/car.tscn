@@ -1,21 +1,21 @@
 [gd_scene load_steps=9 format=3 uid="uid://bfw424orwgs6g"]
 
 [ext_resource type="Script" uid="uid://dkoyg18sf0e5m" path="res://Scripts/robot.gd" id="1_q21gf"]
-[ext_resource type="Texture2D" uid="uid://de134wd4g0tc4" path="res://ComPuzzle Assets/car sprites/Car_Down.png" id="2_2k6ts"]
-[ext_resource type="Texture2D" uid="uid://c0at7tiqfjwxm" path="res://ComPuzzle Assets/car sprites/Car_Down_Move.png" id="3_ba4uh"]
-[ext_resource type="Texture2D" uid="uid://cj4ofa2t6mdwo" path="res://ComPuzzle Assets/car sprites/Car_Move.png" id="4_15qso"]
-[ext_resource type="Texture2D" uid="uid://cwu1m3hujlgrh" path="res://ComPuzzle Assets/car sprites/Car.png" id="5_1liju"]
-[ext_resource type="Texture2D" uid="uid://cimkvwgeusna2" path="res://ComPuzzle Assets/car sprites/Car_Side.png" id="6_hcigx"]
-[ext_resource type="Texture2D" uid="uid://bdbc5l8gwndg4" path="res://ComPuzzle Assets/car sprites/Car_Side_Move.png" id="7_nyjvt"]
+[ext_resource type="Texture2D" uid="uid://c57wr7thcxvry" path="res://ComPuzzle Assets/car sprites/Car2_Down.png" id="2_q21gf"]
+[ext_resource type="Texture2D" uid="uid://bjq0ypj4igcsj" path="res://ComPuzzle Assets/car sprites/Car2_Down_Move.png" id="3_2k6ts"]
+[ext_resource type="Texture2D" uid="uid://gpcfcmgtq2q5" path="res://ComPuzzle Assets/car sprites/Car2.png" id="4_ba4uh"]
+[ext_resource type="Texture2D" uid="uid://crdymc6ojd8k7" path="res://ComPuzzle Assets/car sprites/Car2_Move.png" id="5_15qso"]
+[ext_resource type="Texture2D" uid="uid://ckbm5cdxwa41a" path="res://ComPuzzle Assets/car sprites/Car2_Side.png" id="6_1liju"]
+[ext_resource type="Texture2D" uid="uid://djlunrxfrds7d" path="res://ComPuzzle Assets/car sprites/Car2_Side_Move.png" id="7_hcigx"]
 
 [sub_resource type="SpriteFrames" id="SpriteFrames_uoj53"]
 animations = [{
 "frames": [{
 "duration": 1.0,
-"texture": ExtResource("2_2k6ts")
+"texture": ExtResource("2_q21gf")
 }, {
 "duration": 1.0,
-"texture": ExtResource("3_ba4uh")
+"texture": ExtResource("3_2k6ts")
 }],
 "loop": true,
 "name": &"Idle",
@@ -23,10 +23,10 @@ animations = [{
 }, {
 "frames": [{
 "duration": 1.0,
-"texture": ExtResource("2_2k6ts")
+"texture": ExtResource("2_q21gf")
 }, {
 "duration": 1.0,
-"texture": ExtResource("3_ba4uh")
+"texture": ExtResource("3_2k6ts")
 }],
 "loop": true,
 "name": &"Walk down",
@@ -34,10 +34,10 @@ animations = [{
 }, {
 "frames": [{
 "duration": 1.0,
-"texture": ExtResource("4_15qso")
+"texture": ExtResource("4_ba4uh")
 }, {
 "duration": 1.0,
-"texture": ExtResource("5_1liju")
+"texture": ExtResource("5_15qso")
 }],
 "loop": true,
 "name": &"Walk up",
@@ -45,10 +45,10 @@ animations = [{
 }, {
 "frames": [{
 "duration": 1.0,
-"texture": ExtResource("6_hcigx")
+"texture": ExtResource("6_1liju")
 }, {
 "duration": 1.0,
-"texture": ExtResource("7_nyjvt")
+"texture": ExtResource("7_hcigx")
 }],
 "loop": true,
 "name": &"walk",
@@ -62,4 +62,3 @@ script = ExtResource("1_q21gf")
 sprite_frames = SubResource("SpriteFrames_uoj53")
 animation = &"walk"
 autoplay = "Walk down"
-frame_progress = 0.79164
