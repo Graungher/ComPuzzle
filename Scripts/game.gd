@@ -275,3 +275,7 @@ func _on_command_list_runtime() -> void:
 func _on_function_selector_open_creator() -> void:
 	funcmaker.popup()
 	pass # Replace with function body.
+
+
+func _on_function_maker_window_confirmed() -> void:
+	pass # Replace with function body.

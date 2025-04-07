@@ -1,10 +1,10 @@
 [gd_scene load_steps=3 format=3 uid="uid://crphf1tyadpfg"]
 
 [ext_resource type="PackedScene" uid="uid://cghshp176xdq1" path="res://Scenes/Button_Scenes/button_walk.tscn" id="1_x6wxh"]
-[ext_resource type="Texture2D" uid="uid://bn38kpo8gvagb" path="res://ComPuzzle Assets/buttons/CUSTOM/Function.png" id="2_g3ea4"]
+[ext_resource type="Texture2D" uid="uid://bix6dhxtqe6gc" path="res://ComPuzzle Assets/buttons/CUSTOM/Func_Button.png" id="2_x6wxh"]
 
 [node name="Custom_Button" instance=ExtResource("1_x6wxh")]
-texture_normal = ExtResource("2_g3ea4")
+texture_normal = ExtResource("2_x6wxh")
 
 [node name="Label" parent="." index="1"]
 text = "CUSTOM"
@@ -12,13 +12,16 @@ text = "CUSTOM"
 [node name="FuncName" type="Label" parent="." index="2"]
 visible = false
 layout_mode = 0
-offset_right = 45.0
-offset_bottom = 23.0
-text = "TEST"
+offset_right = 40.0
+offset_bottom = 49.0
+clip_text = true
+text_overrun_behavior = 1
 
 [node name="Display_name" type="Label" parent="." index="3"]
 layout_mode = 0
-offset_left = 2.0
-offset_top = 4.0
-offset_right = 47.0
-offset_bottom = 27.0
+offset_left = 4.0
+offset_right = 49.0
+offset_bottom = 23.0
+
+[node name="index_label" parent="." index="7"]
+visible = true

@@ -14,13 +14,10 @@
 [ext_resource type="Texture2D" uid="uid://c4n2jn14q7fc2" path="res://ComPuzzle Assets/buttons/ELSE/ElseButton.png" id="11_2r048"]
 [ext_resource type="Texture2D" uid="uid://jriqneluvhn6" path="res://ComPuzzle Assets/buttons/Run_Button.png" id="12_450yh"]
 
-[node name="FunctionMakerWindow" type="ConfirmationDialog"]
+[node name="FunctionMakerWindow" type="Window"]
 title = "Function Creator"
 initial_position = 1
-size = Vector2i(700, 900)
-visible = true
-borderless = true
-ok_button_text = "Accept"
+size = Vector2i(700, 869)
 
 [node name="FunctionMaker" type="Node2D" parent="."]
 script = ExtResource("1_ir32n")
@@ -129,17 +126,27 @@ autowrap_mode = 3
 auto_translate_mode = 1
 title = "NAME:"
 initial_position = 2
-size = Vector2i(200, 140)
+size = Vector2i(200, 123)
 
-[node name="LineEdit" type="LineEdit" parent="FunctionMaker/FuncName"]
+[node name="VBoxContainer" type="VBoxContainer" parent="FunctionMaker/FuncName"]
 offset_left = 8.0
 offset_top = 8.0
-offset_right = 121.0
-offset_bottom = 91.0
-placeholder_text = "Enter FunctionL Name"
+offset_right = 192.0
+offset_bottom = 74.0
+
+[node name="LineEdit" type="LineEdit" parent="FunctionMaker/FuncName/VBoxContainer"]
+layout_mode = 2
+placeholder_text = "Enter Function Name"
 alignment = 1
 
-[connection signal="confirmed" from="." to="FunctionMaker" method="_on_function_maker_window_confirmed"]
+[node name="LineEdit2" type="LineEdit" parent="FunctionMaker/FuncName/VBoxContainer"]
+layout_mode = 2
+placeholder_text = "Enter Nickname"
+alignment = 1
+max_length = 7
+
+[connection signal="about_to_popup" from="." to="FunctionMaker" method="_on_function_maker_window_about_to_popup"]
+[connection signal="close_requested" from="." to="FunctionMaker" method="_on_function_maker_window_close_requested"]
 [connection signal="SaveThis" from="FunctionMaker" to="FunctionMaker/ScrollContainer/Command_List" method="_on_function_maker_nameconfirmed"]
 [connection signal="checkGoal" from="FunctionMaker/ScrollContainer/Command_List" to="FunctionMaker" method="checkGoal"]
 [connection signal="reset" from="FunctionMaker/ScrollContainer/Command_List" to="FunctionMaker" method="_on_reset_button_pressed"]

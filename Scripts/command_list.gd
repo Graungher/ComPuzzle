@@ -45,6 +45,7 @@ var rootNode
 var characters: Array[CharacterBody2D] = []
 var char_spots: Array[Vector2i] = []
 var funcName = ""
+var dispName = ""
 
 #######################################
 var GLOBAL_TRUE = false
@@ -455,7 +456,7 @@ func _on_make_node(the_name: String):
 				button_instance.get_node("loopCount").visible = true
 			elif button_instance.get_node("FuncName"):
 				button_instance.get_node("FuncName").text = funcName
-				button_instance.get_node("Display_name").text = "TEST"
+				button_instance.get_node("Display_name").text = dispName
 			button_instance.get_node("index_label").visible = true
 			button_instance.get_node("index_label").text = str(get_child_count())
 			button_instance.get_node("up_button").visible = true
@@ -643,16 +644,20 @@ func preloadCommands(theWords: Array):
 	pass
 
 
-func _on_function_maker_nameconfirmed(saveName: String) -> void:
+func _on_function_maker_nameconfirmed(saveName: String, dispName: String) -> void:
 	var file = FileAccess.open("LIST.txt", FileAccess.READ_WRITE)
-	file.seek_end()
-	file.store_line(saveName)
+	while not file.eof_reached():
+		var line = file.get_line()
+		if line != saveName:
+			file.seek_end()
+			file.store_line(saveName)
+			break
 	file.close()
 	
 	file = FileAccess.open("user://%s.txt" % saveName, FileAccess.WRITE)
 	var line
 	
-	line = "temper"
+	line = dispName
 	file.store_line(line)
 	
 	for child in get_children():
@@ -666,8 +671,7 @@ func _on_function_maker_nameconfirmed(saveName: String) -> void:
 			var selected_text = condition.get_item_text(condition.get_selected())
 			line = selected_text
 		file.store_line(line)
-		pass
-	pass # Replace with function body.
+		rootNode._on_make_a_func_pressed()
 	
 
 
@@ -764,5 +768,19 @@ func getLocationArray():
 
 func _on_function_selector_load_me(file_name: String) -> void:
 	funcName = file_name
+	var path = "user://%s.txt" % file_name
+	var file = FileAccess.open(path, FileAccess.READ)
+	dispName = file.get_line()  # Reads the first line
+	if dispName.length() > 4:
+		var break_index = 3
+		for i in range(3):
+			if dispName[i] == " ":
+				break_index = i
+				break
+
+		var line1 = dispName.substr(0, break_index)
+		var line2 = dispName.substr(break_index + 1) if dispName[break_index] == " " else dispName.substr(break_index)
+		dispName = line1 + "-\n" + line2
+	
 	_on_make_node("CUSTOM")
 	pass # Replace with function body.
