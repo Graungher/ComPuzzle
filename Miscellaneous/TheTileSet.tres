@@ -1,22 +1,58 @@
-[gd_resource type="TileSet" load_steps=13 format=3 uid="uid://b54fwt4qq5dpt"]
+[gd_resource type="TileSet" load_steps=29 format=3 uid="uid://b54fwt4qq5dpt"]
 
-[ext_resource type="Texture2D" uid="uid://ckemntvll18xq" path="res://ComPuzzle Assets/map assets/Fountain.png" id="1_l3i1p"]
-[ext_resource type="Texture2D" uid="uid://cfjh8h6o6gji5" path="res://ComPuzzle Assets/map assets/Grass.png" id="2_ifxte"]
-[ext_resource type="Texture2D" uid="uid://4m38k1kr7k68" path="res://ComPuzzle Assets/map assets/megaGroup.png" id="3_mgxcs"]
-[ext_resource type="Texture2D" uid="uid://chs7qda75ig5j" path="res://ComPuzzle Assets/map assets/Road.png" id="4_6jtq4"]
-[ext_resource type="Texture2D" uid="uid://b3d6otpr77k7y" path="res://ComPuzzle Assets/map assets/Tire_Marks.png" id="5_5mnjb"]
-[ext_resource type="Texture2D" uid="uid://btunhabuysg4" path="res://ComPuzzle Assets/map assets/Tree.png" id="6_r1cr7"]
+[ext_resource type="Texture2D" uid="uid://d3qvydassgnrw" path="res://ComPuzzle Assets/map assets/Fountain.png" id="1_l3i1p"]
+[ext_resource type="Texture2D" uid="uid://pepyfmle6iqb" path="res://ComPuzzle Assets/map assets/Grass.png" id="2_ifxte"]
+[ext_resource type="Texture2D" uid="uid://cf5am0bul2iy" path="res://ComPuzzle Assets/car sprites/Car4.png" id="3_glovu"]
+[ext_resource type="Texture2D" uid="uid://cy7k5vvcmdtlf" path="res://ComPuzzle Assets/map assets/megaGroup.png" id="3_mgxcs"]
+[ext_resource type="Texture2D" uid="uid://5xdfe06dbh3h" path="res://ComPuzzle Assets/map assets/Road.png" id="4_6jtq4"]
+[ext_resource type="Texture2D" uid="uid://c1w7c5is6d5ho" path="res://ComPuzzle Assets/map assets/Tire_Marks.png" id="5_5mnjb"]
+[ext_resource type="Texture2D" uid="uid://dwdrenguwxd2d" path="res://ComPuzzle Assets/car sprites/Car5.png" id="5_m7l4u"]
+[ext_resource type="Texture2D" uid="uid://dnmtpl6vfq76j" path="res://ComPuzzle Assets/map assets/Road_Goal_Tile.png" id="5_t03jg"]
+[ext_resource type="Texture2D" uid="uid://dx6cvvw01t1j1" path="res://ComPuzzle Assets/map assets/Around_Road_Goal_Tile.png" id="6_ewpph"]
+[ext_resource type="Texture2D" uid="uid://b1xyn7kd6fet0" path="res://ComPuzzle Assets/map assets/Tree.png" id="6_r1cr7"]
+[ext_resource type="Texture2D" uid="uid://c80vu8xiinixs" path="res://ComPuzzle Assets/map assets/FLOOR.png" id="7_glovu"]
+[ext_resource type="Texture2D" uid="uid://vwh8l1uyh48d" path="res://ComPuzzle Assets/map assets/Road_White2.png" id="7_mgxcs"]
+[ext_resource type="Texture2D" uid="uid://dd5bjfvieadw7" path="res://ComPuzzle Assets/map assets/Road_White.png" id="8_6jtq4"]
+[ext_resource type="Texture2D" uid="uid://bwmjtruek2ewd" path="res://ComPuzzle Assets/car sprites/Car3.png" id="13_bgcig"]
 
 [sub_resource type="TileSetAtlasSource" id="TileSetAtlasSource_t03jg"]
 texture = ExtResource("1_l3i1p")
 texture_region_size = Vector2i(96, 96)
 0:0/0 = 0
+0:0/0/custom_data_0 = true
 
 [sub_resource type="TileSetAtlasSource" id="TileSetAtlasSource_ewpph"]
 texture = ExtResource("2_ifxte")
 texture_region_size = Vector2i(96, 96)
 0:0/0 = 0
 0:0/0/custom_data_3 = true
+
+[sub_resource type="TileSetAtlasSource" id="TileSetAtlasSource_umemt"]
+texture = ExtResource("3_glovu")
+texture_region_size = Vector2i(96, 96)
+0:0/0 = 0
+0:0/0/custom_data_0 = true
+
+[sub_resource type="TileSetAtlasSource" id="TileSetAtlasSource_veg1s"]
+texture = ExtResource("5_m7l4u")
+texture_region_size = Vector2i(96, 96)
+0:0/0 = 0
+0:0/0/custom_data_0 = true
+
+[sub_resource type="TileSetAtlasSource" id="TileSetAtlasSource_bgcig"]
+texture = ExtResource("5_t03jg")
+texture_region_size = Vector2i(96, 96)
+0:0/0 = 0
+0:0/0/custom_data_2 = true
+
+[sub_resource type="TileSetAtlasSource" id="TileSetAtlasSource_by0dl"]
+texture = ExtResource("6_ewpph")
+texture_region_size = Vector2i(96, 96)
+0:0/0 = 0
+
+[sub_resource type="TileSetAtlasSource" id="TileSetAtlasSource_q65nf"]
+texture = ExtResource("7_glovu")
+texture_region_size = Vector2i(96, 96)
 
 [sub_resource type="TileSetAtlasSource" id="TileSetAtlasSource_glovu"]
 texture = ExtResource("3_mgxcs")
@@ -45,6 +81,22 @@ texture = ExtResource("6_r1cr7")
 texture_region_size = Vector2i(96, 96)
 0:0/0 = 0
 
+[sub_resource type="TileSetAtlasSource" id="TileSetAtlasSource_5mnjb"]
+texture = ExtResource("7_mgxcs")
+texture_region_size = Vector2i(96, 96)
+0:0/0 = 0
+
+[sub_resource type="TileSetAtlasSource" id="TileSetAtlasSource_r1cr7"]
+texture = ExtResource("8_6jtq4")
+texture_region_size = Vector2i(96, 96)
+0:0/0 = 0
+
+[sub_resource type="TileSetAtlasSource" id="TileSetAtlasSource_xu2lk"]
+texture = ExtResource("13_bgcig")
+texture_region_size = Vector2i(96, 96)
+0:0/0 = 0
+0:0/0/custom_data_0 = true
+
 [resource]
 tile_size = Vector2i(96, 96)
 custom_data_layer_0/name = "Object"
@@ -63,3 +115,11 @@ sources/2 = SubResource("TileSetAtlasSource_glovu")
 sources/3 = SubResource("TileSetAtlasSource_wsivd")
 sources/4 = SubResource("TileSetAtlasSource_m7l4u")
 sources/5 = SubResource("TileSetAtlasSource_4mjkg")
+sources/6 = SubResource("TileSetAtlasSource_5mnjb")
+sources/7 = SubResource("TileSetAtlasSource_r1cr7")
+sources/8 = SubResource("TileSetAtlasSource_xu2lk")
+sources/10 = SubResource("TileSetAtlasSource_umemt")
+sources/12 = SubResource("TileSetAtlasSource_veg1s")
+sources/14 = SubResource("TileSetAtlasSource_bgcig")
+sources/15 = SubResource("TileSetAtlasSource_by0dl")
+sources/16 = SubResource("TileSetAtlasSource_q65nf")
