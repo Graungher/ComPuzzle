@@ -171,7 +171,6 @@ func openNameWindow():
 	nameWindow.popup()
 	
 
-
 func _on_func_name_confirmed() -> void:
 	customFuncName = funcName.text
 	displayName = dispName.text

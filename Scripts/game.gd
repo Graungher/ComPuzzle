@@ -10,6 +10,7 @@ extends Node2D
 @onready var funcselect = $FunctionSelector
 @onready var helper = $HelpWindow
 @onready var victory = $Victory
+@onready var menu = $Panel
 
 var spawn_position = null
 var robot
@@ -278,4 +279,19 @@ func _on_function_selector_open_creator() -> void:
 
 
 func _on_function_maker_window_confirmed() -> void:
+	pass # Replace with function body.
+
+
+func _on_show_menu_pressed() -> void:
+	menu.visible = not menu.visible
+	pass # Replace with function body.
+
+
+func _on_button_2_pressed() -> void:
+	get_tree().change_scene_to_file("res://Scenes/main.tscn")
+	pass # Replace with function body.
+
+
+func _on_select_map_pressed() -> void:
+	get_tree().change_scene_to_file("res://Scenes/level_select.tscn")
 	pass # Replace with function body.
