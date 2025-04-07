@@ -1,6 +1,7 @@
-[gd_scene load_steps=14 format=3 uid="uid://crub3q5lo4g2r"]
+[gd_scene load_steps=15 format=3 uid="uid://crub3q5lo4g2r"]
 
 [ext_resource type="PackedScene" uid="uid://blltddyh63pjq" path="res://Scenes/Map_Scenes/ParentMap.tscn" id="1_7b0fl"]
+[ext_resource type="Script" uid="uid://bgajjjluitoti" path="res://Scenes/function_maker.gd" id="1_7bge2"]
 [ext_resource type="Script" uid="uid://bwed4f4vbk8f1" path="res://Scripts/function_maker.gd" id="1_ir32n"]
 [ext_resource type="Script" uid="uid://cwxre8kpmj7hi" path="res://Scripts/command_list.gd" id="2_7hquj"]
 [ext_resource type="Script" uid="uid://djiyhpf2cilsw" path="res://Scripts/spawnButtons.gd" id="3_450yh"]
@@ -18,6 +19,7 @@
 title = "Function Creator"
 initial_position = 1
 size = Vector2i(700, 868)
+script = ExtResource("1_7bge2")
 
 [node name="FunctionMaker" type="Node2D" parent="."]
 script = ExtResource("1_ir32n")
@@ -147,7 +149,7 @@ max_length = 7
 
 [connection signal="about_to_popup" from="." to="FunctionMaker" method="_on_function_maker_window_about_to_popup"]
 [connection signal="close_requested" from="." to="FunctionMaker" method="_on_function_maker_window_close_requested"]
-[connection signal="SaveThis" from="FunctionMaker" to="FunctionMaker/ScrollContainer/Command_List" method="_on_function_maker_nameconfirmed"]
+[connection signal="SaveThis" from="FunctionMaker" to="." method="_on_function_maker_save_this"]
 [connection signal="checkGoal" from="FunctionMaker/ScrollContainer/Command_List" to="FunctionMaker" method="checkGoal"]
 [connection signal="reset" from="FunctionMaker/ScrollContainer/Command_List" to="FunctionMaker" method="_on_reset_button_pressed"]
 [connection signal="showError" from="FunctionMaker/ScrollContainer/Command_List" to="FunctionMaker" method="show_error"]

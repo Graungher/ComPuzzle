@@ -174,7 +174,8 @@ func openNameWindow():
 func _on_func_name_confirmed() -> void:
 	customFuncName = funcName.text
 	displayName = dispName.text
-	print(displayName)
+	print("MAKER TEST")
+	
 	emit_signal("SaveThis", customFuncName, displayName)
 	get_parent().hide()
 	pass # Replace with function body.

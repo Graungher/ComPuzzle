@@ -212,6 +212,7 @@ text = "QUIT"
 [connection signal="pressed" from="OtherButtons/Run_button" to="ScrollContainer/Command_List" method="validate"]
 [connection signal="pressed" from="OtherButtons/HELP" to="." method="_on_help_pressed"]
 [connection signal="pressed" from="OtherButtons/showMenu" to="." method="_on_show_menu_pressed"]
+[connection signal="SaveThis" from="FunctionMakerWindow" to="ScrollContainer/Command_List" method="_on_function_maker_nameconfirmed"]
 [connection signal="close_requested" from="FunctionMakerWindow" to="." method="_on_make_a_func_pressed"]
 [connection signal="loadMe" from="FunctionSelector" to="ScrollContainer/Command_List" method="_on_function_selector_load_me"]
 [connection signal="openCreator" from="FunctionSelector" to="." method="_on_function_selector_open_creator"]
