@@ -1,0 +1,24 @@
+[gd_scene load_steps=3 format=3 uid="uid://crphf1tyadpfg"]
+
+[ext_resource type="PackedScene" uid="uid://cghshp176xdq1" path="res://Scenes/Button_Scenes/button_walk.tscn" id="1_x6wxh"]
+[ext_resource type="Texture2D" uid="uid://bn38kpo8gvagb" path="res://ComPuzzle Assets/buttons/CUSTOM/Function.png" id="2_g3ea4"]
+
+[node name="Custom_Button" instance=ExtResource("1_x6wxh")]
+texture_normal = ExtResource("2_g3ea4")
+
+[node name="Label" parent="." index="1"]
+text = "CUSTOM"
+
+[node name="FuncName" type="Label" parent="." index="2"]
+visible = false
+layout_mode = 0
+offset_right = 45.0
+offset_bottom = 23.0
+text = "TEST"
+
+[node name="Display_name" type="Label" parent="." index="3"]
+layout_mode = 0
+offset_left = 2.0
+offset_top = 4.0
+offset_right = 47.0
+offset_bottom = 27.0
