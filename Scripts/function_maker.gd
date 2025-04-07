@@ -24,10 +24,12 @@ signal goAway
 signal walk_signal
 signal NAMECONFIRMED
 signal SaveThis(customFuncName: String, displayName)
+signal openSelect
 
 func _ready() -> void:
 	mapSetup()
 	spawnBot()
+	#get_parent().popup_hide_on_window_lose_focus = false
 	pass
 
 
@@ -179,10 +181,6 @@ func _on_func_name_confirmed() -> void:
 	pass # Replace with function body.
 
 
-func _on_function_maker_window_confirmed() -> void:
-	cmdList.clearList()
-	pass # Replace with function body.
-
-
-func _on_function_maker_window_about_to_popup() -> void:
+func _on_function_maker_window_close_requested() -> void:
+	get_parent().hide()
 	pass # Replace with function body.

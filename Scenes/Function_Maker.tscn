@@ -14,13 +14,10 @@
 [ext_resource type="Texture2D" uid="uid://c4n2jn14q7fc2" path="res://ComPuzzle Assets/buttons/ELSE/ElseButton.png" id="11_2r048"]
 [ext_resource type="Texture2D" uid="uid://jriqneluvhn6" path="res://ComPuzzle Assets/buttons/Run_Button.png" id="12_450yh"]
 
-[node name="FunctionMakerWindow" type="ConfirmationDialog"]
+[node name="FunctionMakerWindow" type="Window"]
 title = "Function Creator"
 initial_position = 1
-size = Vector2i(700, 900)
-visible = true
-borderless = true
-ok_button_text = "Accept"
+size = Vector2i(700, 869)
 
 [node name="FunctionMaker" type="Node2D" parent="."]
 script = ExtResource("1_ir32n")
@@ -149,7 +146,7 @@ alignment = 1
 max_length = 7
 
 [connection signal="about_to_popup" from="." to="FunctionMaker" method="_on_function_maker_window_about_to_popup"]
-[connection signal="confirmed" from="." to="FunctionMaker" method="_on_function_maker_window_confirmed"]
+[connection signal="close_requested" from="." to="FunctionMaker" method="_on_function_maker_window_close_requested"]
 [connection signal="SaveThis" from="FunctionMaker" to="FunctionMaker/ScrollContainer/Command_List" method="_on_function_maker_nameconfirmed"]
 [connection signal="checkGoal" from="FunctionMaker/ScrollContainer/Command_List" to="FunctionMaker" method="checkGoal"]
 [connection signal="reset" from="FunctionMaker/ScrollContainer/Command_List" to="FunctionMaker" method="_on_reset_button_pressed"]
