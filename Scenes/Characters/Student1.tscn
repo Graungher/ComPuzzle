@@ -1,14 +1,14 @@
 [gd_scene load_steps=11 format=3 uid="uid://da3bitfbqteo6"]
 
-[ext_resource type="Texture2D" uid="uid://bltjetofs2psp" path="res://ComPuzzle Assets/student sprites/Student1PNG/Student_Side.png" id="1_31q6u"]
-[ext_resource type="Texture2D" uid="uid://bjvyjxavnx5om" path="res://ComPuzzle Assets/student sprites/Student1PNG/Student_Down_Walk1.png" id="1_dab3q"]
-[ext_resource type="Texture2D" uid="uid://ilaejfkvpitd" path="res://ComPuzzle Assets/student sprites/Student1PNG/Student_Up_Walk1.png" id="1_gpjae"]
-[ext_resource type="Texture2D" uid="uid://pykgsod6fhpu" path="res://ComPuzzle Assets/student sprites/Student1PNG/Student.png" id="1_kffmp"]
+[ext_resource type="Texture2D" uid="uid://dxlsfn43uycdh" path="res://ComPuzzle Assets/student sprites/Student1PNG/Student_Side.png" id="1_31q6u"]
+[ext_resource type="Texture2D" uid="uid://cupr3ou6n6uny" path="res://ComPuzzle Assets/student sprites/Student1PNG/Student_Down_Walk1.png" id="1_dab3q"]
+[ext_resource type="Texture2D" uid="uid://ddae21j1cpme7" path="res://ComPuzzle Assets/student sprites/Student1PNG/Student_Up_Walk1.png" id="1_gpjae"]
+[ext_resource type="Texture2D" uid="uid://pxc85wl7nrb5" path="res://ComPuzzle Assets/student sprites/Student1PNG/Student.png" id="1_kffmp"]
 [ext_resource type="Script" uid="uid://dkoyg18sf0e5m" path="res://Scripts/robot.gd" id="1_r4ebt"]
-[ext_resource type="Texture2D" uid="uid://dwmbggtr4uwm4" path="res://ComPuzzle Assets/student sprites/Student1PNG/Student_Up_Walk2.png" id="2_7yl5p"]
-[ext_resource type="Texture2D" uid="uid://02bt3ts7t7jp" path="res://ComPuzzle Assets/student sprites/Student1PNG/Student_Down_Walk2.png" id="2_md2w8"]
-[ext_resource type="Texture2D" uid="uid://cb60qftqwpcwr" path="res://ComPuzzle Assets/student sprites/Student1PNG/Student_Idle.png" id="2_nqrmv"]
-[ext_resource type="Texture2D" uid="uid://dw33gi7n7exoi" path="res://ComPuzzle Assets/student sprites/Student1PNG/Student_Side_Walk.png" id="2_r4ebt"]
+[ext_resource type="Texture2D" uid="uid://bukc707wivo46" path="res://ComPuzzle Assets/student sprites/Student1PNG/Student_Up_Walk2.png" id="2_7yl5p"]
+[ext_resource type="Texture2D" uid="uid://ci6wvsydsqvo5" path="res://ComPuzzle Assets/student sprites/Student1PNG/Student_Down_Walk2.png" id="2_md2w8"]
+[ext_resource type="Texture2D" uid="uid://dayo6pl8p8rte" path="res://ComPuzzle Assets/student sprites/Student1PNG/Student_Idle.png" id="2_nqrmv"]
+[ext_resource type="Texture2D" uid="uid://bbsjpikqlwnpj" path="res://ComPuzzle Assets/student sprites/Student1PNG/Student_Side_Walk.png" id="2_r4ebt"]
 
 [sub_resource type="SpriteFrames" id="SpriteFrames_v3t5e"]
 animations = [{
@@ -68,4 +68,4 @@ sprite_frames = SubResource("SpriteFrames_v3t5e")
 animation = &"idle"
 autoplay = "idle"
 frame_progress = 0.0579153
-offset = Vector2(0, -28)
+offset = Vector2(0, -32)

@@ -1,11 +1,11 @@
 [gd_resource type="TileSet" load_steps=13 format=3 uid="uid://b54fwt4qq5dpt"]
 
-[ext_resource type="Texture2D" uid="uid://d3qvydassgnrw" path="res://ComPuzzle Assets/map assets/Fountain.png" id="1_l3i1p"]
-[ext_resource type="Texture2D" uid="uid://pepyfmle6iqb" path="res://ComPuzzle Assets/map assets/Grass.png" id="2_ifxte"]
-[ext_resource type="Texture2D" uid="uid://cy7k5vvcmdtlf" path="res://ComPuzzle Assets/map assets/megaGroup.png" id="3_mgxcs"]
-[ext_resource type="Texture2D" uid="uid://5xdfe06dbh3h" path="res://ComPuzzle Assets/map assets/Road.png" id="4_6jtq4"]
-[ext_resource type="Texture2D" uid="uid://c1w7c5is6d5ho" path="res://ComPuzzle Assets/map assets/Tire_Marks.png" id="5_5mnjb"]
-[ext_resource type="Texture2D" uid="uid://b1xyn7kd6fet0" path="res://ComPuzzle Assets/map assets/Tree.png" id="6_r1cr7"]
+[ext_resource type="Texture2D" uid="uid://ckemntvll18xq" path="res://ComPuzzle Assets/map assets/Fountain.png" id="1_l3i1p"]
+[ext_resource type="Texture2D" uid="uid://cfjh8h6o6gji5" path="res://ComPuzzle Assets/map assets/Grass.png" id="2_ifxte"]
+[ext_resource type="Texture2D" uid="uid://4m38k1kr7k68" path="res://ComPuzzle Assets/map assets/megaGroup.png" id="3_mgxcs"]
+[ext_resource type="Texture2D" uid="uid://chs7qda75ig5j" path="res://ComPuzzle Assets/map assets/Road.png" id="4_6jtq4"]
+[ext_resource type="Texture2D" uid="uid://b3d6otpr77k7y" path="res://ComPuzzle Assets/map assets/Tire_Marks.png" id="5_5mnjb"]
+[ext_resource type="Texture2D" uid="uid://btunhabuysg4" path="res://ComPuzzle Assets/map assets/Tree.png" id="6_r1cr7"]
 
 [sub_resource type="TileSetAtlasSource" id="TileSetAtlasSource_t03jg"]
 texture = ExtResource("1_l3i1p")

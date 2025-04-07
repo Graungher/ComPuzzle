@@ -516,14 +516,15 @@ func testCondition(condition: String):
 func readFunctionList(file_name: String):
 	var path = "user://%s.txt" % file_name
 	var file = FileAccess.open(path, FileAccess.READ)
-	var nickName = file.get_line()  # Reads the first line
-	var line
-	var commands: Array
-	while not file.eof_reached():
-		line = file.get_line()  # Reads the first line
-		commands.append(line)
-		print(line)
-	runCommands(commands)
+	if file:
+		var nickName = file.get_line()  # Reads the first line
+		var line
+		var commands: Array
+		while not file.eof_reached():
+			line = file.get_line()  # Reads the first line
+			commands.append(line)
+			print(line)
+		runCommands(commands)
 
 func runCommands(commands: Array):
 	var i = 0
@@ -593,7 +594,12 @@ func preloadCommands(theWords: Array):
 
 
 func _on_function_maker_nameconfirmed(saveName: String) -> void:
-	var file = FileAccess.open("user://%s.txt" % saveName, FileAccess.WRITE)
+	var file = FileAccess.open("LIST.txt", FileAccess.READ_WRITE)
+	file.seek_end()
+	file.store_line(saveName)
+	file.close()
+	
+	file = FileAccess.open("user://%s.txt" % saveName, FileAccess.WRITE)
 	var line
 	
 	line = "temper"
@@ -604,9 +610,15 @@ func _on_function_maker_nameconfirmed(saveName: String) -> void:
 		if line == "LOOP":
 			file.store_line(line)
 			line = child.get_node("loopCount").text
+		elif line == "IF":
+			file.store_line(line)
+			var condition = child.get_node("condition")
+			var selected_text = condition.get_item_text(condition.get_selected())
+			line = selected_text
 		file.store_line(line)
 		pass
 	pass # Replace with function body.
+	
 
 
 func _on_run_button_pressed33() -> void:

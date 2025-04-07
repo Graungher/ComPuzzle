@@ -7,6 +7,7 @@ extends Node2D
 @onready var errorWindow = $ErrorWindow
 @onready var errorLabel = $ErrorWindow/Label
 @onready var funcmaker = $FunctionMakerWindow
+@onready var funcselect = $FunctionSelector
 @onready var helper = $HelpWindow
 @onready var victory = $Victory
 
@@ -226,6 +227,7 @@ func checkGoal():
 		cmdList.clearList()
 		emit_signal("goAway")
 		victory.show()
+		cmdList.clearPeople()
 	else:
 		emit_signal("goAway")
 		spawnBot()
@@ -249,7 +251,7 @@ func _on_command_list_reset() -> void:
 
 
 func _on_make_a_func_pressed() -> void:
-	funcmaker.popup()
+	funcselect.popup()
 	pass # Replace with function body.
 
 
@@ -261,10 +263,15 @@ func _on_help_pressed() -> void:
 func Replay() -> void:
 	cmdList.clearList()
 	cmdList.fakeClearList()
-	spawnBot()
+	mapSetup()
 	pass # Replace with function body.
 
 
 func _on_command_list_runtime() -> void:
 	current_map.clear_layer(2)
+	pass # Replace with function body.
+
+
+func _on_function_selector_open_creator() -> void:
+	funcmaker.popup()
 	pass # Replace with function body.
