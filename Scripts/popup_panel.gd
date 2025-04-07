@@ -8,7 +8,7 @@ signal loadMe(file_name: String)
 signal openCreator
 
 func loadList():
-	var path = "LIST.txt"
+	var path = "user://LIST.txt"
 	var file = FileAccess.open(path, FileAccess.READ)
 	var line
 	while not file.eof_reached():
@@ -59,7 +59,7 @@ func _on_button_pressed() -> void:
 	pass # Replace with function body.
 
 func remove_line_from_list_file(target_line: String):
-	var path = "LIST.txt"
+	var path = "user://LIST.txt"
 
 	# Make sure the file exists
 	if not FileAccess.file_exists(path):
