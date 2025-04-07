@@ -195,6 +195,7 @@ grow_vertical = 2
 [connection signal="pressed" from="OtherButtons/nextMap" to="." method="switch_map"]
 [connection signal="pressed" from="OtherButtons/Clear_List" to="ScrollContainer/Command_List" method="clearList"]
 [connection signal="pressed" from="OtherButtons/HELP" to="." method="_on_help_pressed"]
+[connection signal="confirmed" from="FunctionMakerWindow" to="." method="_on_function_maker_window_confirmed"]
 [connection signal="loadMe" from="FunctionSelector" to="ScrollContainer/Command_List" method="_on_function_selector_load_me"]
 [connection signal="openCreator" from="FunctionSelector" to="." method="_on_function_selector_open_creator"]
 [connection signal="change" from="Victory" to="." method="switch_map"]

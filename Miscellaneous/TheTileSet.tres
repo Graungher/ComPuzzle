@@ -7,10 +7,11 @@
 [ext_resource type="Texture2D" uid="uid://b3d6otpr77k7y" path="res://ComPuzzle Assets/map assets/Tire_Marks.png" id="5_5mnjb"]
 [ext_resource type="Texture2D" uid="uid://btunhabuysg4" path="res://ComPuzzle Assets/map assets/Tree.png" id="6_r1cr7"]
 
-[sub_resource type="TileSetAtlasSource" id="TileSetAtlasSource_t03jg"]
-texture = ExtResource("1_l3i1p")
+[sub_resource type="TileSetAtlasSource" id="TileSetAtlasSource_m7l4u"]
+texture = ExtResource("5_5mnjb")
 texture_region_size = Vector2i(96, 96)
 0:0/0 = 0
+0:1/0 = 0
 
 [sub_resource type="TileSetAtlasSource" id="TileSetAtlasSource_ewpph"]
 texture = ExtResource("2_ifxte")
@@ -35,8 +36,8 @@ texture_region_size = Vector2i(96, 96)
 0:0/3 = 3
 0:0/3/custom_data_4 = true
 
-[sub_resource type="TileSetAtlasSource" id="TileSetAtlasSource_m7l4u"]
-texture = ExtResource("5_5mnjb")
+[sub_resource type="TileSetAtlasSource" id="TileSetAtlasSource_t03jg"]
+texture = ExtResource("1_l3i1p")
 texture_region_size = Vector2i(96, 96)
 0:0/0 = 0
 
@@ -57,9 +58,9 @@ custom_data_layer_3/name = "Wall"
 custom_data_layer_3/type = 1
 custom_data_layer_4/name = "WanderSpawner"
 custom_data_layer_4/type = 1
-sources/0 = SubResource("TileSetAtlasSource_t03jg")
 sources/1 = SubResource("TileSetAtlasSource_ewpph")
 sources/2 = SubResource("TileSetAtlasSource_glovu")
 sources/3 = SubResource("TileSetAtlasSource_wsivd")
-sources/4 = SubResource("TileSetAtlasSource_m7l4u")
 sources/5 = SubResource("TileSetAtlasSource_4mjkg")
+sources/0 = SubResource("TileSetAtlasSource_m7l4u")
+sources/4 = SubResource("TileSetAtlasSource_t03jg")

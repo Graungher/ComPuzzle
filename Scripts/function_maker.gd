@@ -6,7 +6,8 @@ extends Node2D
 @onready var errorWindow = $ErrorWindow
 @onready var errorLabel = $ErrorPopup/Label
 @onready var nameWindow = $FuncName
-@onready var funcName = $FuncName/LineEdit
+@onready var funcName = $FuncName/VBoxContainer/LineEdit
+@onready var dispName = $FuncName/VBoxContainer/LineEdit2
 
 var spawn_position = null
 var theRobot
@@ -16,12 +17,13 @@ var current_tile
 var next_tile
 var scaleX = 1
 var scaleY = 1
-var customFuncName = ""
+var customFuncName = "DEFAULT"
+var displayName = "DEFAULT"
 
 signal goAway
 signal walk_signal
 signal NAMECONFIRMED
-signal SaveThis(customFuncName: String)
+signal SaveThis(customFuncName: String, displayName)
 
 func _ready() -> void:
 	mapSetup()
@@ -170,11 +172,17 @@ func openNameWindow():
 
 func _on_func_name_confirmed() -> void:
 	customFuncName = funcName.text
-	print(customFuncName)
-	emit_signal("SaveThis", customFuncName)
+	displayName = dispName.text
+	print(displayName)
+	emit_signal("SaveThis", customFuncName, displayName)
+	get_parent().hide()
 	pass # Replace with function body.
 
 
 func _on_function_maker_window_confirmed() -> void:
-	
+	cmdList.clearList()
+	pass # Replace with function body.
+
+
+func _on_function_maker_window_about_to_popup() -> void:
 	pass # Replace with function body.
