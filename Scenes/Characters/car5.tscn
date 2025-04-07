@@ -1,0 +1,69 @@
+[gd_scene load_steps=9 format=3 uid="uid://dmtyw2bmh5k22"]
+
+[ext_resource type="Script" uid="uid://dkoyg18sf0e5m" path="res://Scripts/robot.gd" id="1_ot8d5"]
+[ext_resource type="Texture2D" uid="uid://i02gyo40buiy" path="res://ComPuzzle Assets/car sprites/Car5_Down.png" id="2_ot8d5"]
+[ext_resource type="Texture2D" uid="uid://copbbwessiefx" path="res://ComPuzzle Assets/car sprites/Car5_Down_Move.png" id="3_i28ol"]
+[ext_resource type="Texture2D" uid="uid://dwdrenguwxd2d" path="res://ComPuzzle Assets/car sprites/Car5.png" id="4_53ltg"]
+[ext_resource type="Texture2D" uid="uid://d6ddjm1xc6vb" path="res://ComPuzzle Assets/car sprites/Car5_Move.png" id="5_1gr2d"]
+[ext_resource type="Texture2D" uid="uid://opo5uniuy6b0" path="res://ComPuzzle Assets/car sprites/Car5_Side.png" id="6_mo2tb"]
+[ext_resource type="Texture2D" uid="uid://bpk8rpk3h2e6f" path="res://ComPuzzle Assets/car sprites/Car5_Side_Move.png" id="7_eooka"]
+
+[sub_resource type="SpriteFrames" id="SpriteFrames_uoj53"]
+animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": ExtResource("2_ot8d5")
+}, {
+"duration": 1.0,
+"texture": ExtResource("3_i28ol")
+}],
+"loop": true,
+"name": &"Idle",
+"speed": 5.0
+}, {
+"frames": [{
+"duration": 1.0,
+"texture": ExtResource("2_ot8d5")
+}, {
+"duration": 1.0,
+"texture": ExtResource("3_i28ol")
+}],
+"loop": true,
+"name": &"Walk down",
+"speed": 5.0
+}, {
+"frames": [{
+"duration": 1.0,
+"texture": ExtResource("4_53ltg")
+}, {
+"duration": 1.0,
+"texture": ExtResource("5_1gr2d")
+}],
+"loop": true,
+"name": &"Walk up",
+"speed": 5.0
+}, {
+"frames": [{
+"duration": 1.0,
+"texture": ExtResource("6_mo2tb")
+}, {
+"duration": 1.0,
+"texture": ExtResource("7_eooka")
+}],
+"loop": true,
+"name": &"walk",
+"speed": 5.0
+}]
+
+[node name="CAR VRMMMMM" type="CharacterBody2D"]
+script = ExtResource("1_ot8d5")
+
+[node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="."]
+scale = Vector2(0.3, 0.3)
+sprite_frames = SubResource("SpriteFrames_uoj53")
+animation = &"Idle"
+autoplay = "Walk down"
+frame = 1
+frame_progress = 0.109946
+centered = false
+offset = Vector2(-48, -97)

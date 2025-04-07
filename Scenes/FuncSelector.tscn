@@ -1,0 +1,50 @@
+[gd_scene load_steps=2 format=3 uid="uid://bxas6ke2om5b6"]
+
+[ext_resource type="Script" uid="uid://bf0w6t0gmv06p" path="res://Scripts/popup_panel.gd" id="1_rgewe"]
+
+[node name="PopupPanel" type="PopupPanel"]
+initial_position = 1
+size = Vector2i(240, 300)
+visible = true
+borderless = false
+script = ExtResource("1_rgewe")
+
+[node name="Node2D" type="Node2D" parent="."]
+
+[node name="VBoxContainer" type="VBoxContainer" parent="."]
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_left = 4.0
+offset_top = 4.0
+offset_right = 236.0
+offset_bottom = 296.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="ScrollContainer" type="ScrollContainer" parent="VBoxContainer"]
+layout_mode = 2
+size_flags_vertical = 3
+
+[node name="VBoxContainer" type="VBoxContainer" parent="VBoxContainer/ScrollContainer"]
+layout_mode = 2
+size_flags_horizontal = 3
+alignment = 1
+
+[node name="HBoxContainer" type="HBoxContainer" parent="VBoxContainer"]
+layout_mode = 2
+theme_override_constants/separation = 20
+alignment = 1
+
+[node name="loadButton" type="Button" parent="VBoxContainer/HBoxContainer"]
+layout_mode = 2
+text = " LOAD "
+
+[node name="createButton" type="Button" parent="VBoxContainer/HBoxContainer"]
+layout_mode = 2
+text = "CREATE"
+
+[connection signal="about_to_popup" from="." to="." method="_on_about_to_popup"]
+[connection signal="ready" from="." to="." method="_on_ready"]
+[connection signal="pressed" from="VBoxContainer/HBoxContainer/loadButton" to="." method="_on_load_button_pressed"]
+[connection signal="pressed" from="VBoxContainer/HBoxContainer/createButton" to="." method="_on_create_button_pressed"]

@@ -6,15 +6,22 @@ var maps = [
 	"res://Scenes/Map_Scenes/map1.tscn",
 	"res://Scenes/Map_Scenes/map2.tscn",
 	"res://Scenes/Map_Scenes/map3.tscn",
-	
+	"res://Scenes/Map_Scenes/map4.tscn"
 ]
 
 var models = [
 	"BOT",
-	"CAR",
-	"BOT"
+	"BOT",
+	"BOT",
+	"CAR"
 ]
 
+var wander_model = [
+	"BOT",
+	"BOT",
+	"BOT",
+	"CAR"
+]
 
 func get_next_map():
 	
@@ -25,7 +32,11 @@ func get_next_map():
 func getBotModel():
 	return models[getCurrentMap()]
 	pass
-
+	
+func getWanderModel():
+	return wander_model[getCurrentMap()]
+	pass
+	
 func getCurrentMap():
 	return currentMapIndex
 

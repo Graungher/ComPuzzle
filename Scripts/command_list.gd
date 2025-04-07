@@ -4,6 +4,10 @@ extends VBoxContainer
 @onready var student2 = preload("res://Scenes/Characters/Student2.tscn")
 @onready var student3 = preload("res://Scenes/Characters/Student3.tscn")
 @onready var student4 = preload("res://Scenes/Characters/Student4.tscn")
+@onready var car2 = preload("res://Scenes/Characters/car2.tscn")
+@onready var car3 = preload("res://Scenes/Characters/car3.tscn")
+@onready var car4 = preload("res://Scenes/Characters/car4.tscn")
+@onready var car5 = preload("res://Scenes/Characters/car5.tscn")
 @onready var WalkButton = preload("res://Scenes/Button_Scenes/button_walk.tscn")
 @onready var LeftButton = preload("res://Scenes/Button_Scenes/button_left.tscn")
 @onready var RightButton = preload("res://Scenes/Button_Scenes/button_right.tscn")
@@ -512,14 +516,15 @@ func testCondition(condition: String):
 func readFunctionList(file_name: String):
 	var path = "user://%s.txt" % file_name
 	var file = FileAccess.open(path, FileAccess.READ)
-	var nickName = file.get_line()  # Reads the first line
-	var line
-	var commands: Array
-	while not file.eof_reached():
-		line = file.get_line()  # Reads the first line
-		commands.append(line)
-		print(line)
-	runCommands(commands)
+	if file:
+		var nickName = file.get_line()  # Reads the first line
+		var line
+		var commands: Array
+		while not file.eof_reached():
+			line = file.get_line()  # Reads the first line
+			commands.append(line)
+			print(line)
+		runCommands(commands)
 
 func runCommands(commands: Array):
 	var i = 0
@@ -589,7 +594,12 @@ func preloadCommands(theWords: Array):
 
 
 func _on_function_maker_nameconfirmed(saveName: String) -> void:
-	var file = FileAccess.open("user://%s.txt" % saveName, FileAccess.WRITE)
+	var file = FileAccess.open("LIST.txt", FileAccess.READ_WRITE)
+	file.seek_end()
+	file.store_line(saveName)
+	file.close()
+	
+	file = FileAccess.open("user://%s.txt" % saveName, FileAccess.WRITE)
 	var line
 	
 	line = "temper"
@@ -600,9 +610,15 @@ func _on_function_maker_nameconfirmed(saveName: String) -> void:
 		if line == "LOOP":
 			file.store_line(line)
 			line = child.get_node("loopCount").text
+		elif line == "IF":
+			file.store_line(line)
+			var condition = child.get_node("condition")
+			var selected_text = condition.get_item_text(condition.get_selected())
+			line = selected_text
 		file.store_line(line)
 		pass
 	pass # Replace with function body.
+	
 
 
 func _on_run_button_pressed33() -> void:
@@ -611,9 +627,17 @@ func _on_run_button_pressed33() -> void:
 
 func createPeople(scaleX: float, scaleY: float, spawn: Vector2, point: Vector2i):
 	var student_variants = [student1, student2, student3, student4]
-	var random_student = student_variants[randi() % student_variants.size()]
-	
-	var character_instance = random_student.instantiate()
+	var car_variants = [car2, car3, car4, car5]
+	var character_instance
+	var wandermodel = mapList.getWanderModel()
+	if wandermodel == "CAR":
+		var random_car = car_variants[randi() % car_variants.size()]
+		character_instance = random_car.instantiate()
+
+	else:
+		var random_student = student_variants[randi() % student_variants.size()]
+		character_instance = random_student.instantiate()
+
 	character_instance.position = spawn
 	
 	var character_holder = rootNode.get_node("PeopleHolder")

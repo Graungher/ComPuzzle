@@ -7,6 +7,7 @@ extends Node2D
 @onready var errorWindow = $ErrorWindow
 @onready var errorLabel = $ErrorWindow/Label
 @onready var funcmaker = $FunctionMakerWindow
+@onready var funcselect = $FunctionSelector
 @onready var helper = $HelpWindow
 @onready var victory = $Victory
 
@@ -90,11 +91,12 @@ func show_error(err: String):
 	errorWindow.popup()
 	pass
 
-
 func mapSetup():
 	
-	var defaultX = 53
+	var defaultX = 50
 	var defaultY = 25
+	var defaultTileSizeX = 32
+	var defaultTileSizeY = 32
 	
 	var model = mapList.getBotModel()
 	
@@ -104,7 +106,11 @@ func mapSetup():
 		robot = bot
 	
 	
+	
 	var tile_size = current_map.tile_set.tile_size
+	
+	var tilescalex = float(defaultTileSizeX) / float(tile_size.x)
+	var tilescaley = float(defaultTileSizeY) / float(tile_size.y)
 	start_tile = current_map.get_start_tile()
 	current_tile = start_tile
 	
@@ -118,6 +124,7 @@ func mapSetup():
 	scaleY = float(defaultY) / float(height_in_tiles)
 	
 	current_map.scale = Vector2(scaleX, scaleY)
+	current_map.scale *= Vector2(tilescalex, tilescaley)
 	
 	spawn_position = current_map.map_to_local(start_tile)
 	spawn_position += Vector2(0, tile_size.y / 2)
@@ -220,6 +227,7 @@ func checkGoal():
 		cmdList.clearList()
 		emit_signal("goAway")
 		victory.show()
+		cmdList.clearPeople()
 	else:
 		emit_signal("goAway")
 		spawnBot()
@@ -243,7 +251,7 @@ func _on_command_list_reset() -> void:
 
 
 func _on_make_a_func_pressed() -> void:
-	funcmaker.popup()
+	funcselect.popup()
 	pass # Replace with function body.
 
 
@@ -255,10 +263,15 @@ func _on_help_pressed() -> void:
 func Replay() -> void:
 	cmdList.clearList()
 	cmdList.fakeClearList()
-	spawnBot()
+	mapSetup()
 	pass # Replace with function body.
 
 
 func _on_command_list_runtime() -> void:
 	current_map.clear_layer(2)
+	pass # Replace with function body.
+
+
+func _on_function_selector_open_creator() -> void:
+	funcmaker.popup()
 	pass # Replace with function body.
