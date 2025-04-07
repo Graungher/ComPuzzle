@@ -41,7 +41,7 @@ func getCurrentMap():
 	return currentMapIndex
 
 func select_map(map: int):
-	return maps[map]
+	currentMapIndex = map - 1
 
 
 func _ready() -> void:

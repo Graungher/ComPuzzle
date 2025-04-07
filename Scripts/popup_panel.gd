@@ -49,3 +49,34 @@ func _on_about_to_popup() -> void:
 		child.queue_free()
 	loadList()
 	pass # Replace with function body.
+
+
+func _on_button_pressed() -> void:
+	DirAccess.remove_absolute("user://%s.txt" % selected_file)
+	remove_line_from_list_file(selected_file)
+	hide()
+	popup()
+	pass # Replace with function body.
+
+func remove_line_from_list_file(target_line: String):
+	var path = "LIST.txt"
+
+	# Make sure the file exists
+	if not FileAccess.file_exists(path):
+		push_error("LIST.txt not found.")
+		return
+
+	# Read all lines
+	var file = FileAccess.open(path, FileAccess.READ)
+	var lines = []
+	while not file.eof_reached():
+		var line = file.get_line()
+		if line.strip_edges() != target_line:
+			lines.append(line)
+	file.close()
+
+	# Rewrite the file without the target line
+	file = FileAccess.open(path, FileAccess.WRITE)
+	for line in lines:
+		file.store_line(line)
+	file.close()
