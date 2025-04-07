@@ -16,6 +16,7 @@ extends VBoxContainer
 @onready var EndIfButton = preload("res://Scenes/Button_Scenes/button_endif.tscn")
 @onready var IfButton = preload("res://Scenes/Button_Scenes/button_if.tscn")
 @onready var ElseButton = preload("res://Scenes/Button_Scenes/button_else.tscn")
+@onready var CustButton = preload("res://Scenes/Button_Scenes/custom_button.tscn")
 
 @onready var whiteLoop = "res://ComPuzzle Assets/buttons/LOOP/Loop_Button_White.png"
 @onready var whiteIf = "res://ComPuzzle Assets/buttons/IF/If_Button_White.png"
@@ -43,6 +44,7 @@ var scrollguy
 var rootNode
 var characters: Array[CharacterBody2D] = []
 var char_spots: Array[Vector2i] = []
+var funcName = ""
 
 #######################################
 var GLOBAL_TRUE = false
@@ -154,7 +156,8 @@ func processNode(the_name: String, child: Node, i: int):
 			child.modulate = Color(1, 1, 1)
 	
 	elif the_name == "CUSTOM":
-		await readFunctionList(tempArray)
+		#await readFunctionList(tempArray)
+		await readFunctionList(child.get_node("FuncName").text)
 		
 	else:
 		# call dofunc
@@ -440,12 +443,19 @@ func _on_make_node(the_name: String):
 				else:
 					error += 1
 					emit_signal("showError", "TOO MANY END LOOPS")
+			"CUSTOM":
+				button_instance = CustButton.instantiate()	
+				
+				pass
 					
 		# if no errors, then make the node, connect signals, and add to list
 		if !error:
 			add_child(button_instance)
 			if button_instance.get_node("loopCount"):
 				button_instance.get_node("loopCount").visible = true
+			elif button_instance.get_node("FuncName"):
+				button_instance.get_node("FuncName").text = funcName
+				button_instance.get_node("Display_name").text = "TEST"
 			button_instance.get_node("index_label").visible = true
 			button_instance.get_node("index_label").text = str(get_child_count())
 			button_instance.get_node("up_button").visible = true
@@ -524,7 +534,8 @@ func readFunctionList(file_name: String):
 			line = file.get_line()  # Reads the first line
 			commands.append(line)
 			print(line)
-		runCommands(commands)
+		await runCommands(commands)
+		print("DONE")
 
 func runCommands(commands: Array):
 	var i = 0
@@ -542,6 +553,8 @@ func processCommands(TheCommand: String, commands: Array, i: int):
 		i = (await commandLoops(commands, i, count))
 		pass
 	elif TheCommand == "IF":
+		var cond = commands[i+1]
+		i = await commandIf(commands, i, cond)
 		pass
 	else:
 		await commandDo(TheCommand)
@@ -552,13 +565,50 @@ func commandDo(TheCommand: String):
 	match TheCommand:
 			"WALK":
 				emit_signal("walk_signal")
+				movePeople()
 				await wait_frames(framelen)
 			"LEFT":
 				emit_signal("turn_left_signal")
+				movePeople()
 				await wait_frames(framelen)
+				print("AAAA")
 			"RIGHT":
 				emit_signal("turn_right_signal")
+				movePeople()
 				await wait_frames(framelen)
+				
+func commandIf(commands: Array, index: int, cond: String):
+	var i = index + 1
+	var elseTime = false
+	var retSpot = index
+	var TheCommand
+	var condition = cond	
+	var isTrue = testCondition(condition)
+	
+	# does through the if's sections until endif then return the index
+	while TheCommand != "ENDIF" && !cleared:
+		# gets node info
+		if cleared:
+			return 0
+		
+		TheCommand = commands[index + i]
+		# else flag
+		if TheCommand == "ELSE":
+			elseTime = true
+		elif TheCommand == "ENDIF":
+			retSpot = index + i
+			break
+		# 'then' section, if True and not at else yet
+		if isTrue && !elseTime:
+			# process node and get new index
+			i = (await processCommands(TheCommand, commands, i))
+		# if there is an else, then do the else stuff if flase
+		elif !isTrue && elseTime: 
+			# process node and get new index
+			i = (await processCommands(TheCommand, commands, i))
+		else:
+			i+= 1
+	return retSpot
 
 func commandLoops(commands: Array, index: int, count: int):
 	var retspot = index + 1
@@ -710,3 +760,9 @@ func clearPeople():
 
 func getLocationArray():
 	return char_spots
+
+
+func _on_function_selector_load_me(file_name: String) -> void:
+	funcName = file_name
+	_on_make_node("CUSTOM")
+	pass # Replace with function body.

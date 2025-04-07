@@ -17,8 +17,8 @@ anchor_right = 1.0
 anchor_bottom = 1.0
 offset_left = 4.0
 offset_top = 4.0
-offset_right = 236.0
-offset_bottom = 296.0
+offset_right = -4.0
+offset_bottom = -4.0
 grow_horizontal = 2
 grow_vertical = 2
 
@@ -44,7 +44,12 @@ text = " LOAD "
 layout_mode = 2
 text = "CREATE"
 
+[node name="Button" type="Button" parent="VBoxContainer/HBoxContainer"]
+layout_mode = 2
+text = "DELETE"
+
 [connection signal="about_to_popup" from="." to="." method="_on_about_to_popup"]
 [connection signal="ready" from="." to="." method="_on_ready"]
 [connection signal="pressed" from="VBoxContainer/HBoxContainer/loadButton" to="." method="_on_load_button_pressed"]
 [connection signal="pressed" from="VBoxContainer/HBoxContainer/createButton" to="." method="_on_create_button_pressed"]
+[connection signal="pressed" from="VBoxContainer/HBoxContainer/Button" to="." method="_on_button_pressed"]
