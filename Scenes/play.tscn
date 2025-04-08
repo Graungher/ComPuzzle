@@ -1,4 +1,4 @@
-[gd_scene load_steps=8 format=3 uid="uid://csmqt3ohp2y6b"]
+[gd_scene load_steps=8 format=3 uid="uid://to5rjfkjrveg"]
 
 [ext_resource type="Script" uid="uid://befhy7jnxl7g0" path="res://Scripts/play.gd" id="1_el5ma"]
 [ext_resource type="Texture2D" uid="uid://cc2c1y0tud5dc" path="res://ComPuzzle Assets/Menus/Menu.png" id="2_el5ma"]

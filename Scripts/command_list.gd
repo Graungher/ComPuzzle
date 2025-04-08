@@ -40,12 +40,14 @@ var framelen = 40		# number of frames to wait for animations
 var cleared = false		# flag to stop the running of the command list
 var running = false		# flag to disable things that interact with command list
 var preLoaded = false
+var innerLoop = 0
 var scrollguy
 var rootNode
 var characters: Array[CharacterBody2D] = []
 var char_spots: Array[Vector2i] = []
 var funcName = ""
 var dispName = ""
+
 
 #######################################
 var GLOBAL_TRUE = false
@@ -147,7 +149,7 @@ func processNode(the_name: String, child: Node, i: int):
 		child.modulate = Color(0, .36, .85)
 		
 		#call the if function
-		i =  (await ifNode(child.get_index(), child))
+		i = (await ifNode(child.get_index(), child))
 		
 		# make sure that there is still a child before resetting
 		# (child may be gone if level reset before current action ended)
@@ -159,10 +161,12 @@ func processNode(the_name: String, child: Node, i: int):
 	elif the_name == "CUSTOM":
 		#await readFunctionList(tempArray)
 		await readFunctionList(child.get_node("FuncName").text)
+		#i += 1
 		
 	else:
 		# call dofunc
 		await doFunc(the_name, child)
+		#i += 1
 
 	return i
 
@@ -175,6 +179,7 @@ func doFunc(the_name: String, child: Node):
 	# switch based of label's text
 	match the_name:
 			"WALK":
+				print(the_name)
 				if characters.size() > 0:
 					movePeople()
 				var reg = child.texture_normal
@@ -184,6 +189,7 @@ func doFunc(the_name: String, child: Node):
 				if child:
 					child.texture_normal = reg
 			"LEFT":
+				print(the_name)
 				if characters.size() > 0:
 					movePeople()
 				var reg = child.texture_normal
@@ -193,6 +199,7 @@ func doFunc(the_name: String, child: Node):
 				if child:
 					child.texture_normal = reg
 			"RIGHT":
+				print(the_name)
 				if characters.size() > 0:
 					movePeople()
 				var reg = child.texture_normal
@@ -209,57 +216,60 @@ func doFunc(the_name: String, child: Node):
 
 # loop will repeat all nodes between it and it's accociated end loop node
 func realLoop(num: int, button: TextureButton):
-	var the_name
-	var i = 0
-	var j = 1
+	# num: the index of the loop node
+	# button: the loop node itself (providing the "loopCount" text)
 	var retspot = num 
-	var child
-	var index
-	var loopsLeft
-	# total number of loops
+	# Total number of loop iterations
 	var totals = int(button.get_node("loopCount").text)
 	# Used to keep track of how many loops left to player
-	loopsLeft = totals
-	# check for a number
+	var loopsLeft = totals
+	
+	innerLoop += 1
+	
 	if !button.get_node("loopCount").text.is_valid_float():
 		emit_signal("showError", "LOOP NAN")
-		
-	# i = number of loops executed, totals = total loop times
-	# cleared is exit command list flag
-	while i < totals && !cleared:
-		# if cleared flag is true, return 0 to exit loop
+	
+	# The starting absolute index of the loop body is the node immediately after the loop node.
+	var body_start = num + 1  
+	var i = 0
+
+	while i < totals and !cleared:
 		if cleared:
 			return 0
+
 		i += 1
-		j = 0
-		the_name = ""
 		loopsLeft -= 1
 		
-		while the_name != "ENDLOOP" && !cleared:
-			
+		# Start at the beginning of the loop body for every outer-loop iteration
+		var currentIndex = body_start  
+		var the_name = ""
+		
+		while the_name != "ENDLOOP" and !cleared:
+			# Update the display so the player can see how many loops are left
 			button.get_node("loopCount").text = str(loopsLeft)
-			# if cleared flag is true, return 0 to exit loop
 			if cleared:
 				return 0
-			
-			# get next node info
-			j += 1
-			child = get_child(num + j)
+
+			# Using absolute index for node access
+			var child = get_child(currentIndex)
 			the_name = child.get_node("Label").text
 			
-			# exit loop and return index
 			if the_name == "ENDLOOP":
-				retspot = child.get_index()
+				retspot = currentIndex
 				break
-			# nested loop
-			else: 
-				j = (await processNode(the_name, child, j))
+			else:
+				# processNode now works with absolute indices.
+				# We update currentIndex with the absolute index returned by processNode.
+				currentIndex = await processNode(the_name, child, currentIndex) + 1
+	
 	if totals == 0:
 		retspot = findEndLoop(num)
-	# reset the label
+	
 	if button:
 		button.get_node("loopCount").text = str(totals)
+	
 	return retspot
+
 
 # only used for loop = 0
 func findEndLoop(num: int):
