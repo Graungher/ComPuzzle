@@ -15,11 +15,10 @@
 [ext_resource type="Texture2D" uid="uid://diww5du8nqha0" path="res://ComPuzzle Assets/map assets/Road_White.png" id="8_6jtq4"]
 [ext_resource type="Texture2D" uid="uid://bvb0g2mw3lfwq" path="res://ComPuzzle Assets/car sprites/Car3.png" id="13_bgcig"]
 
-[sub_resource type="TileSetAtlasSource" id="TileSetAtlasSource_t03jg"]
-texture = ExtResource("1_l3i1p")
+[sub_resource type="TileSetAtlasSource" id="TileSetAtlasSource_m7l4u"]
+texture = ExtResource("5_5mnjb")
 texture_region_size = Vector2i(96, 96)
 0:0/0 = 0
-0:0/0/custom_data_0 = true
 
 [sub_resource type="TileSetAtlasSource" id="TileSetAtlasSource_ewpph"]
 texture = ExtResource("2_ifxte")
@@ -71,10 +70,11 @@ texture_region_size = Vector2i(96, 96)
 0:0/3 = 3
 0:0/3/custom_data_4 = true
 
-[sub_resource type="TileSetAtlasSource" id="TileSetAtlasSource_m7l4u"]
-texture = ExtResource("5_5mnjb")
+[sub_resource type="TileSetAtlasSource" id="TileSetAtlasSource_t03jg"]
+texture = ExtResource("1_l3i1p")
 texture_region_size = Vector2i(96, 96)
 0:0/0 = 0
+0:0/0/custom_data_0 = true
 
 [sub_resource type="TileSetAtlasSource" id="TileSetAtlasSource_4mjkg"]
 texture = ExtResource("6_r1cr7")
@@ -109,11 +109,9 @@ custom_data_layer_3/name = "Wall"
 custom_data_layer_3/type = 1
 custom_data_layer_4/name = "WanderSpawner"
 custom_data_layer_4/type = 1
-sources/0 = SubResource("TileSetAtlasSource_t03jg")
 sources/1 = SubResource("TileSetAtlasSource_ewpph")
 sources/2 = SubResource("TileSetAtlasSource_glovu")
 sources/3 = SubResource("TileSetAtlasSource_wsivd")
-sources/4 = SubResource("TileSetAtlasSource_m7l4u")
 sources/5 = SubResource("TileSetAtlasSource_4mjkg")
 sources/6 = SubResource("TileSetAtlasSource_5mnjb")
 sources/7 = SubResource("TileSetAtlasSource_r1cr7")
@@ -123,3 +121,5 @@ sources/12 = SubResource("TileSetAtlasSource_veg1s")
 sources/14 = SubResource("TileSetAtlasSource_bgcig")
 sources/15 = SubResource("TileSetAtlasSource_by0dl")
 sources/16 = SubResource("TileSetAtlasSource_q65nf")
+sources/0 = SubResource("TileSetAtlasSource_m7l4u")
+sources/4 = SubResource("TileSetAtlasSource_t03jg")
