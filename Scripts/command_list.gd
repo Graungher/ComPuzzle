@@ -647,14 +647,12 @@ func preloadCommands(theWords: Array):
 func _on_function_maker_nameconfirmed(saveName: String, dispName: String) -> void:
 	var file = FileAccess.open("user://LIST.txt", FileAccess.READ_WRITE)
 	while not file.eof_reached():
-		
 		var line = file.get_line()
 		if line != saveName:
 			file.seek_end()
 			file.store_line(saveName)
 			break
 	file.close()
-	print("LAST TEST3")
 	
 	file = FileAccess.open("user://%s.txt" % saveName, FileAccess.WRITE)
 	var line
