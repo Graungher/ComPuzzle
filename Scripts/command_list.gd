@@ -645,7 +645,7 @@ func preloadCommands(theWords: Array):
 
 
 func _on_function_maker_nameconfirmed(saveName: String, dispName: String) -> void:
-	var file = FileAccess.open("LIST.txt", FileAccess.READ_WRITE)
+	var file = FileAccess.open("user://LIST.txt", FileAccess.READ_WRITE)
 	while not file.eof_reached():
 		var line = file.get_line()
 		if line != saveName:

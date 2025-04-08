@@ -33,6 +33,7 @@ func _on_main_menu_pressed() -> void:
 
 
 func _on_level_select_pressed() -> void:
+	emit_signal("select")
 	pass # Replace with function body.
 
 

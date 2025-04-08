@@ -1,0 +1,43 @@
+[gd_scene load_steps=7 format=3 uid="uid://csmqt3ohp2y6b"]
+
+[ext_resource type="Script" uid="uid://befhy7jnxl7g0" path="res://Scenes/play.gd" id="1_el5ma"]
+[ext_resource type="Texture2D" uid="uid://cc2c1y0tud5dc" path="res://ComPuzzle Assets/Menus/Menu.png" id="2_el5ma"]
+[ext_resource type="Texture2D" uid="uid://bff330hbmvcfp" path="res://ComPuzzle Assets/Menus/Continue.png" id="3_5go04"]
+[ext_resource type="Texture2D" uid="uid://bghw2hcnatqcm" path="res://ComPuzzle Assets/Menus/Start.png" id="3_cx082"]
+[ext_resource type="Texture2D" uid="uid://cbb07uq4ft1pr" path="res://ComPuzzle Assets/Menus/Level_Select.png" id="4_lebhg"]
+[ext_resource type="Texture2D" uid="uid://chjgsf44fbqie" path="res://ComPuzzle Assets/Menus/Tutorial.png" id="5_pbr5a"]
+
+[node name="Play" type="Node2D"]
+script = ExtResource("1_el5ma")
+
+[node name="TextureRect" type="TextureRect" parent="."]
+offset_right = 1920.0
+offset_bottom = 1080.0
+texture = ExtResource("2_el5ma")
+
+[node name="VBoxContainer" type="VBoxContainer" parent="."]
+offset_left = 610.0
+offset_top = 26.0
+offset_right = 1310.0
+offset_bottom = 1038.0
+
+[node name="New_Game" type="TextureButton" parent="VBoxContainer"]
+layout_mode = 2
+texture_normal = ExtResource("3_cx082")
+
+[node name="Continue" type="TextureButton" parent="VBoxContainer"]
+layout_mode = 2
+texture_normal = ExtResource("3_5go04")
+
+[node name="Level_Select" type="TextureButton" parent="VBoxContainer"]
+layout_mode = 2
+texture_normal = ExtResource("4_lebhg")
+
+[node name="Tutorial" type="TextureButton" parent="VBoxContainer"]
+layout_mode = 2
+texture_normal = ExtResource("5_pbr5a")
+
+[connection signal="pressed" from="VBoxContainer/New_Game" to="." method="_on_new_game_pressed"]
+[connection signal="pressed" from="VBoxContainer/Continue" to="." method="_on_continue_pressed"]
+[connection signal="pressed" from="VBoxContainer/Level_Select" to="." method="_on_level_select_pressed"]
+[connection signal="pressed" from="VBoxContainer/Tutorial" to="." method="_on_tutorial_pressed"]
