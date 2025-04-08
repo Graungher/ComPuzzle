@@ -229,6 +229,10 @@ func checkGoal():
 		emit_signal("goAway")
 		victory.show()
 		cmdList.clearPeople()
+		var path = "user://UNLOCKED.txt"
+		var file = FileAccess.open(path, FileAccess.WRITE)
+		file.store_line(str(mapList.getCurrentMap() + 2))
+		
 	else:
 		emit_signal("goAway")
 		spawnBot()

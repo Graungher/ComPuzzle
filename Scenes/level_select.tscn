@@ -1,8 +1,8 @@
 [gd_scene load_steps=5 format=3 uid="uid://bywwqlhh28osg"]
 
-[ext_resource type="Script" uid="uid://cvwnft7r6y6qk" path="res://Scenes/level_select.gd" id="1_2sqnl"]
+[ext_resource type="Script" uid="uid://cvwnft7r6y6qk" path="res://Scripts/level_select.gd" id="1_2sqnl"]
 [ext_resource type="TileSet" uid="uid://cfqepkqqbipcw" path="res://Miscellaneous/NewTileset.tres" id="2_lx4vd"]
-[ext_resource type="Script" uid="uid://ckoujrs6j34k4" path="res://Scenes/grid_container.gd" id="3_lx4vd"]
+[ext_resource type="Script" uid="uid://ckoujrs6j34k4" path="res://Scripts/grid_container.gd" id="3_lx4vd"]
 [ext_resource type="Texture2D" uid="uid://dt486tghau1hj" path="res://ComPuzzle Assets/buttons/Menu_Button.png" id="4_72w8f"]
 
 [node name="Level_Select" type="Node2D"]
@@ -37,86 +37,106 @@ script = ExtResource("3_lx4vd")
 [node name="map 1" type="Button" parent="GridContainer"]
 custom_minimum_size = Vector2(128, 128)
 layout_mode = 2
+disabled = true
 text = "LEVEL 1"
 
 [node name="map 2" type="Button" parent="GridContainer"]
 custom_minimum_size = Vector2(128, 128)
 layout_mode = 2
+disabled = true
 text = "LEVEL 2"
 
 [node name="map 3" type="Button" parent="GridContainer"]
 custom_minimum_size = Vector2(128, 128)
 layout_mode = 2
+disabled = true
 text = "LEVEL 3"
 
 [node name="map 4" type="Button" parent="GridContainer"]
 custom_minimum_size = Vector2(128, 128)
 layout_mode = 2
+disabled = true
 text = "LEVEL 4"
 
 [node name="map 5" type="Button" parent="GridContainer"]
 custom_minimum_size = Vector2(128, 128)
 layout_mode = 2
+disabled = true
 
 [node name="map 6" type="Button" parent="GridContainer"]
 custom_minimum_size = Vector2(128, 128)
 layout_mode = 2
+disabled = true
 
 [node name="map 7" type="Button" parent="GridContainer"]
 custom_minimum_size = Vector2(128, 128)
 layout_mode = 2
+disabled = true
 
 [node name="map 8" type="Button" parent="GridContainer"]
 custom_minimum_size = Vector2(128, 128)
 layout_mode = 2
+disabled = true
 
 [node name="map 9" type="Button" parent="GridContainer"]
 custom_minimum_size = Vector2(128, 128)
 layout_mode = 2
+disabled = true
 
-[node name="Button10" type="Button" parent="GridContainer"]
+[node name="map 10" type="Button" parent="GridContainer"]
 custom_minimum_size = Vector2(128, 128)
 layout_mode = 2
+disabled = true
 
-[node name="Button11" type="Button" parent="GridContainer"]
+[node name="map 11" type="Button" parent="GridContainer"]
 custom_minimum_size = Vector2(128, 128)
 layout_mode = 2
+disabled = true
 
-[node name="Button17" type="Button" parent="GridContainer"]
+[node name="map 12" type="Button" parent="GridContainer"]
 custom_minimum_size = Vector2(128, 128)
 layout_mode = 2
+disabled = true
 
-[node name="Button18" type="Button" parent="GridContainer"]
+[node name="map 13" type="Button" parent="GridContainer"]
 custom_minimum_size = Vector2(128, 128)
 layout_mode = 2
+disabled = true
 
-[node name="Button19" type="Button" parent="GridContainer"]
+[node name="map 14" type="Button" parent="GridContainer"]
 custom_minimum_size = Vector2(128, 128)
 layout_mode = 2
+disabled = true
 
-[node name="Button20" type="Button" parent="GridContainer"]
+[node name="map 15" type="Button" parent="GridContainer"]
 custom_minimum_size = Vector2(128, 128)
 layout_mode = 2
+disabled = true
 
-[node name="Button12" type="Button" parent="GridContainer"]
+[node name="map 16" type="Button" parent="GridContainer"]
 custom_minimum_size = Vector2(128, 128)
 layout_mode = 2
+disabled = true
 
-[node name="Button13" type="Button" parent="GridContainer"]
+[node name="map 17" type="Button" parent="GridContainer"]
 custom_minimum_size = Vector2(128, 128)
 layout_mode = 2
+disabled = true
 
-[node name="Button14" type="Button" parent="GridContainer"]
+[node name="map 18" type="Button" parent="GridContainer"]
 custom_minimum_size = Vector2(128, 128)
 layout_mode = 2
+disabled = true
 
-[node name="Button15" type="Button" parent="GridContainer"]
+[node name="map 19" type="Button" parent="GridContainer"]
 custom_minimum_size = Vector2(128, 128)
 layout_mode = 2
+disabled = true
 
-[node name="Button16" type="Button" parent="GridContainer"]
+[node name="map 20" type="Button" parent="GridContainer"]
 custom_minimum_size = Vector2(128, 128)
 layout_mode = 2
+disabled = true
 
 [node name="Panel" type="Panel" parent="."]
 visible = false
@@ -146,10 +166,27 @@ offset_right = 161.0
 offset_bottom = 1057.0
 texture_normal = ExtResource("4_72w8f")
 
+[connection signal="ready" from="." to="." method="_on_ready"]
 [connection signal="pressed" from="GridContainer/map 1" to="GridContainer" method="_on_map_1_pressed"]
 [connection signal="pressed" from="GridContainer/map 2" to="GridContainer" method="_on_map_2_pressed"]
 [connection signal="pressed" from="GridContainer/map 3" to="GridContainer" method="_on_map_3_pressed"]
 [connection signal="pressed" from="GridContainer/map 4" to="GridContainer" method="_on_map_4_pressed"]
-[connection signal="pressed" from="Panel/VBoxContainer/Main_Menu_button" to="." method="_on_button_2_pressed"]
+[connection signal="pressed" from="GridContainer/map 5" to="GridContainer" method="_on_map_5_pressed"]
+[connection signal="pressed" from="GridContainer/map 6" to="GridContainer" method="_on_map_6_pressed"]
+[connection signal="pressed" from="GridContainer/map 7" to="GridContainer" method="_on_map_7_pressed"]
+[connection signal="pressed" from="GridContainer/map 8" to="GridContainer" method="_on_map_8_pressed"]
+[connection signal="pressed" from="GridContainer/map 9" to="GridContainer" method="_on_map_9_pressed"]
+[connection signal="pressed" from="GridContainer/map 10" to="GridContainer" method="_on_map_10_pressed"]
+[connection signal="pressed" from="GridContainer/map 11" to="GridContainer" method="_on_map_11_pressed"]
+[connection signal="pressed" from="GridContainer/map 12" to="GridContainer" method="_on_map_12_pressed"]
+[connection signal="pressed" from="GridContainer/map 13" to="GridContainer" method="_on_map_13_pressed"]
+[connection signal="pressed" from="GridContainer/map 14" to="GridContainer" method="_on_map_14_pressed"]
+[connection signal="pressed" from="GridContainer/map 15" to="GridContainer" method="_on_map_15_pressed"]
+[connection signal="pressed" from="GridContainer/map 16" to="GridContainer" method="_on_map_16_pressed"]
+[connection signal="pressed" from="GridContainer/map 17" to="GridContainer" method="_on_map_17_pressed"]
+[connection signal="pressed" from="GridContainer/map 18" to="GridContainer" method="_on_map_18_pressed"]
+[connection signal="pressed" from="GridContainer/map 19" to="GridContainer" method="_on_map_19_pressed"]
+[connection signal="pressed" from="GridContainer/map 20" to="GridContainer" method="_on_map_20_pressed"]
+[connection signal="pressed" from="Panel/VBoxContainer/Main_Menu_button" to="." method="_on_main_menu_button_pressed"]
 [connection signal="pressed" from="Panel/VBoxContainer/Quit_Button" to="." method="_on_quit_button_pressed"]
 [connection signal="pressed" from="Menu_Button" to="." method="_on_menu_button_pressed"]
