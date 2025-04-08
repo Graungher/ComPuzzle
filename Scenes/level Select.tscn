@@ -1,0 +1,224 @@
+[gd_scene load_steps=20 format=3 uid="uid://ge4v2v4yg76"]
+
+[ext_resource type="Script" uid="uid://cgptds56vy7k1" path="res://Scripts/game.gd" id="1_t3dh1"]
+[ext_resource type="Script" uid="uid://djiyhpf2cilsw" path="res://Scripts/spawnButtons.gd" id="2_5v7jx"]
+[ext_resource type="Texture2D" uid="uid://bb4c8bmvjc8af" path="res://ComPuzzle Assets/buttons/WALK/Walk.png" id="3_h6f5o"]
+[ext_resource type="Texture2D" uid="uid://cwyomwbqxj00e" path="res://ComPuzzle Assets/buttons/TURNLEFT/Turn_Left.png" id="4_l8a2j"]
+[ext_resource type="Texture2D" uid="uid://boljr71gjawpo" path="res://ComPuzzle Assets/buttons/TURNRIGHT/Turn_Right.png" id="5_ypjo3"]
+[ext_resource type="Texture2D" uid="uid://cc75frmpp3gb4" path="res://ComPuzzle Assets/buttons/LOOP/Loop.png" id="6_fiqn4"]
+[ext_resource type="Texture2D" uid="uid://cj3ka2w0d6bb0" path="res://ComPuzzle Assets/buttons/ENDLOOP/EndLoop.png" id="7_bi1tg"]
+[ext_resource type="Texture2D" uid="uid://cl3h3685m0akx" path="res://ComPuzzle Assets/buttons/IF/If.png" id="8_wg475"]
+[ext_resource type="Texture2D" uid="uid://c6ulp76m6cvph" path="res://ComPuzzle Assets/buttons/ENDIF/EndIf.png" id="9_8xdm2"]
+[ext_resource type="Texture2D" uid="uid://c4n2jn14q7fc2" path="res://ComPuzzle Assets/buttons/ELSE/ElseButton.png" id="10_antcb"]
+[ext_resource type="Texture2D" uid="uid://bn38kpo8gvagb" path="res://ComPuzzle Assets/buttons/CUSTOM/Function.png" id="11_xwsfp"]
+[ext_resource type="Script" uid="uid://cwxre8kpmj7hi" path="res://Scripts/command_list.gd" id="12_88ntv"]
+[ext_resource type="Texture2D" uid="uid://jriqneluvhn6" path="res://ComPuzzle Assets/buttons/Run_Button.png" id="13_xed41"]
+[ext_resource type="Texture2D" uid="uid://dt486tghau1hj" path="res://ComPuzzle Assets/buttons/Menu_Button.png" id="14_f7lna"]
+[ext_resource type="PackedScene" uid="uid://crub3q5lo4g2r" path="res://Scenes/Function_Maker.tscn" id="15_w0qhd"]
+[ext_resource type="PackedScene" uid="uid://cnapfcrjygfn0" path="res://Scenes/Help_Windows/help_menu.tscn" id="16_65dcl"]
+[ext_resource type="PackedScene" uid="uid://bxas6ke2om5b6" path="res://Scenes/FuncSelector.tscn" id="17_7445w"]
+[ext_resource type="PackedScene" uid="uid://b3fk4grjwfapc" path="res://Scenes/Victory.tscn" id="18_wpkl2"]
+
+[sub_resource type="LabelSettings" id="LabelSettings_nb51f"]
+font_size = 53
+font_color = Color(1, 0, 0, 1)
+
+[node name="Game" type="Node2D"]
+script = ExtResource("1_t3dh1")
+metadata/_edit_lock_ = true
+
+[node name="Camera2D" type="Camera2D" parent="."]
+position = Vector2(873, 491)
+scale = Vector2(2, 5)
+zoom = Vector2(1.01, 1.01)
+metadata/_edit_lock_ = true
+
+[node name="Buttons" type="GridContainer" parent="."]
+offset_left = 249.0
+offset_top = 879.0
+offset_right = 857.0
+offset_bottom = 943.0
+scale = Vector2(2, 2)
+size_flags_horizontal = 6
+size_flags_vertical = 6
+columns = 20
+script = ExtResource("2_5v7jx")
+
+[node name="WalkButton" type="TextureButton" parent="Buttons"]
+layout_mode = 2
+texture_normal = ExtResource("3_h6f5o")
+
+[node name="LeftButton" type="TextureButton" parent="Buttons"]
+layout_mode = 2
+texture_normal = ExtResource("4_l8a2j")
+
+[node name="RightButton" type="TextureButton" parent="Buttons"]
+layout_mode = 2
+texture_normal = ExtResource("5_ypjo3")
+
+[node name="LoopButton" type="TextureButton" parent="Buttons"]
+layout_mode = 2
+texture_normal = ExtResource("6_fiqn4")
+
+[node name="EndLoopButton" type="TextureButton" parent="Buttons"]
+layout_mode = 2
+texture_normal = ExtResource("7_bi1tg")
+
+[node name="IfButton" type="TextureButton" parent="Buttons"]
+layout_mode = 2
+texture_normal = ExtResource("8_wg475")
+
+[node name="EndIfButton" type="TextureButton" parent="Buttons"]
+layout_mode = 2
+texture_normal = ExtResource("9_8xdm2")
+
+[node name="ElseButton" type="TextureButton" parent="Buttons"]
+layout_mode = 2
+texture_normal = ExtResource("10_antcb")
+
+[node name="ElseButton2" type="TextureButton" parent="Buttons"]
+layout_mode = 2
+texture_normal = ExtResource("11_xwsfp")
+
+[node name="ScrollContainer" type="ScrollContainer" parent="."]
+offset_left = 1679.0
+offset_right = 1758.0
+offset_bottom = 420.0
+scale = Vector2(2, 2)
+follow_focus = true
+metadata/_edit_lock_ = true
+
+[node name="Command_List" type="VBoxContainer" parent="ScrollContainer"]
+layout_mode = 2
+size_flags_horizontal = 2
+size_flags_vertical = 3
+script = ExtResource("12_88ntv")
+
+[node name="OtherButtons" type="Node2D" parent="."]
+
+[node name="Run_button" type="TextureButton" parent="OtherButtons"]
+offset_left = 1679.0
+offset_top = 879.0
+offset_right = 1743.0
+offset_bottom = 943.0
+scale = Vector2(2, 2)
+texture_normal = ExtResource("13_xed41")
+metadata/_edit_lock_ = true
+
+[node name="HELP" type="Button" parent="OtherButtons"]
+visible = false
+offset_left = -52.0
+offset_top = -39.0
+offset_right = 48.0
+offset_bottom = 61.0
+text = "HELP"
+autowrap_mode = 2
+metadata/_edit_lock_ = true
+
+[node name="showMenu" type="TextureButton" parent="OtherButtons"]
+offset_left = -55.0
+offset_top = 880.0
+offset_right = 73.0
+offset_bottom = 1008.0
+texture_normal = ExtResource("14_f7lna")
+
+[node name="ErrorWindow" type="AcceptDialog" parent="."]
+initial_position = 2
+size = Vector2i(129, 140)
+
+[node name="Label" type="Label" parent="ErrorWindow"]
+offset_left = 8.0
+offset_top = 8.0
+offset_right = 121.0
+offset_bottom = 91.0
+text = "this is an error"
+label_settings = SubResource("LabelSettings_nb51f")
+horizontal_alignment = 1
+vertical_alignment = 1
+autowrap_mode = 3
+
+[node name="FunctionMakerWindow" parent="." instance=ExtResource("15_w0qhd")]
+visible = false
+
+[node name="HelpWindow" parent="." instance=ExtResource("16_65dcl")]
+visible = false
+
+[node name="FunctionSelector" parent="." instance=ExtResource("17_7445w")]
+visible = false
+
+[node name="Victory" parent="." instance=ExtResource("18_wpkl2")]
+visible = false
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = 405.0
+offset_top = 18.0
+offset_right = 1385.0
+offset_bottom = 1004.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="PeopleHolder" type="Node2D" parent="."]
+
+[node name="Panel" type="Panel" parent="."]
+visible = false
+offset_left = -55.0
+offset_top = 708.0
+offset_right = 73.0
+offset_bottom = 880.0
+
+[node name="VBoxContainer" type="VBoxContainer" parent="Panel"]
+layout_mode = 0
+offset_right = 128.0
+offset_bottom = 171.0
+
+[node name="Button" type="Button" parent="Panel/VBoxContainer"]
+layout_mode = 2
+text = "RESET"
+
+[node name="nextMap" type="Button" parent="Panel/VBoxContainer"]
+layout_mode = 2
+text = "NEXT MAP"
+
+[node name="Clear_List" type="Button" parent="Panel/VBoxContainer"]
+layout_mode = 2
+text = "CLEAR LIST"
+
+[node name="Button2" type="Button" parent="Panel/VBoxContainer"]
+layout_mode = 2
+text = "MAIN MENU"
+
+[node name="Quit_Button" type="Button" parent="Panel/VBoxContainer"]
+layout_mode = 2
+text = "QUIT"
+
+[connection signal="makeNode" from="Buttons" to="ScrollContainer/Command_List" method="_on_make_node"]
+[connection signal="pressed" from="Buttons/WalkButton" to="Buttons" method="_on_walk_button_pressed"]
+[connection signal="pressed" from="Buttons/LeftButton" to="Buttons" method="_on_left_button_pressed"]
+[connection signal="pressed" from="Buttons/RightButton" to="Buttons" method="_on_right_button_pressed"]
+[connection signal="pressed" from="Buttons/LoopButton" to="Buttons" method="_on_loop_button_pressed"]
+[connection signal="pressed" from="Buttons/EndLoopButton" to="Buttons" method="_on_end_loop_button_pressed"]
+[connection signal="pressed" from="Buttons/IfButton" to="Buttons" method="_on_if_button_pressed"]
+[connection signal="pressed" from="Buttons/EndIfButton" to="Buttons" method="_on_end_if_button_pressed"]
+[connection signal="pressed" from="Buttons/ElseButton" to="Buttons" method="_on_else_button_pressed"]
+[connection signal="pressed" from="Buttons/ElseButton2" to="." method="_on_make_a_func_pressed"]
+[connection signal="checkGoal" from="ScrollContainer/Command_List" to="." method="checkGoal"]
+[connection signal="reset" from="ScrollContainer/Command_List" to="." method="_on_command_list_reset"]
+[connection signal="runtime" from="ScrollContainer/Command_List" to="." method="_on_command_list_runtime"]
+[connection signal="showError" from="ScrollContainer/Command_List" to="." method="show_error"]
+[connection signal="walk_signal" from="ScrollContainer/Command_List" to="." method="botControl"]
+[connection signal="pressed" from="OtherButtons/Run_button" to="ScrollContainer/Command_List" method="validate"]
+[connection signal="pressed" from="OtherButtons/HELP" to="." method="_on_help_pressed"]
+[connection signal="pressed" from="OtherButtons/showMenu" to="." method="_on_show_menu_pressed"]
+[connection signal="close_requested" from="FunctionMakerWindow" to="." method="_on_make_a_func_pressed"]
+[connection signal="loadMe" from="FunctionSelector" to="ScrollContainer/Command_List" method="_on_function_selector_load_me"]
+[connection signal="openCreator" from="FunctionSelector" to="." method="_on_function_selector_open_creator"]
+[connection signal="change" from="Victory" to="." method="switch_map"]
+[connection signal="replay" from="Victory" to="." method="Replay"]
+[connection signal="pressed" from="Panel/VBoxContainer/Button" to="ScrollContainer/Command_List" method="fakeClearList"]
+[connection signal="pressed" from="Panel/VBoxContainer/nextMap" to="." method="switch_map"]
+[connection signal="pressed" from="Panel/VBoxContainer/Clear_List" to="ScrollContainer/Command_List" method="clearList"]
+[connection signal="pressed" from="Panel/VBoxContainer/Button2" to="." method="_on_button_2_pressed"]
+[connection signal="pressed" from="Panel/VBoxContainer/Quit_Button" to="." method="_on_quit_button_pressed"]
