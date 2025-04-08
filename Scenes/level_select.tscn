@@ -1,9 +1,9 @@
 [gd_scene load_steps=5 format=3 uid="uid://bywwqlhh28osg"]
 
-[ext_resource type="Script" uid="uid://cvwnft7r6y6qk" path="res://Scripts/level_select.gd" id="1_2sqnl"]
-[ext_resource type="Texture2D" uid="uid://cc2c1y0tud5dc" path="res://ComPuzzle Assets/Menus/Menu.png" id="2_2sqnl"]
-[ext_resource type="Script" uid="uid://ckoujrs6j34k4" path="res://Scripts/grid_container.gd" id="3_lx4vd"]
-[ext_resource type="Texture2D" uid="uid://dt486tghau1hj" path="res://ComPuzzle Assets/buttons/Menu_Button.png" id="4_72w8f"]
+[ext_resource type="Script" path="res://Scripts/level_select.gd" id="1_2sqnl"]
+[ext_resource type="Texture2D" uid="uid://bekjvskqjw2vp" path="res://ComPuzzle Assets/Menus/Menu.png" id="2_2sqnl"]
+[ext_resource type="Script" path="res://Scripts/grid_container.gd" id="3_lx4vd"]
+[ext_resource type="Texture2D" uid="uid://cfxt6t42unvrd" path="res://ComPuzzle Assets/buttons/Menu_Button.png" id="4_72w8f"]
 
 [node name="Level_Select" type="Node2D"]
 script = ExtResource("1_2sqnl")
