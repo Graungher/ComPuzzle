@@ -50,10 +50,26 @@ var models = [
 ]
 
 var wander_model = [
+	"CAR",
 	"BOT",
 	"BOT",
 	"BOT",
-	"CAR"
+	"CAR",
+	"BOT",
+	"BOT",
+	"BOT",
+	"CAR",
+	"BOT",
+	"BOT",
+	"BOT",
+	"CAR",
+	"BOT",
+	"BOT",
+	"BOT",
+	"CAR",
+	"BOT",
+	"BOT",
+	"BOT"
 ]
 
 func get_next_map():
