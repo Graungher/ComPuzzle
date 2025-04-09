@@ -22,6 +22,7 @@
 texture = ExtResource("5_5mnjb")
 texture_region_size = Vector2i(96, 96)
 0:0/0 = 0
+0:1/0 = 0
 
 [sub_resource type="TileSetAtlasSource" id="TileSetAtlasSource_ewpph"]
 texture = ExtResource("2_ifxte")
