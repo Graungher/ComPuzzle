@@ -6,14 +6,47 @@ var maps = [
 	"res://Scenes/Map_Scenes/map1.tscn",
 	"res://Scenes/Map_Scenes/map2.tscn",
 	"res://Scenes/Map_Scenes/map3.tscn",
-	"res://Scenes/Map_Scenes/map4.tscn"
+	"res://Scenes/Map_Scenes/map4.tscn",
+	"res://Scenes/Map_Scenes/map5.tscn",
+	"res://Scenes/Map_Scenes/map6.tscn",
+	"res://Scenes/Map_Scenes/map7.tscn",
+	"res://Scenes/Map_Scenes/map8.tscn",
+	"res://Scenes/Map_Scenes/map9.tscn",
+	"res://Scenes/Map_Scenes/map10.tscn",
+	"res://Scenes/Map_Scenes/map11.tscn",
+	"res://Scenes/Map_Scenes/map12.tscn",
+	"res://Scenes/Map_Scenes/map13.tscn",
+	"res://Scenes/Map_Scenes/map14.tscn",
+	"res://Scenes/Map_Scenes/map15.tscn",
+	"res://Scenes/Map_Scenes/map16.tscn",
+	"res://Scenes/Map_Scenes/map17.tscn",
+	"res://Scenes/Map_Scenes/map18.tscn",
+	"res://Scenes/Map_Scenes/map19.tscn",
+	"res://Scenes/Map_Scenes/map20.tscn",
+
 ]
 
 var models = [
+	"CAR",
 	"BOT",
 	"BOT",
 	"BOT",
-	"CAR"
+	"CAR",
+	"BOT",
+	"BOT",
+	"BOT",
+	"CAR",
+	"BOT",
+	"BOT",
+	"BOT",
+	"CAR",
+	"BOT",
+	"BOT",
+	"BOT",
+	"CAR",
+	"BOT",
+	"BOT",
+	"BOT",
 ]
 
 var wander_model = [
