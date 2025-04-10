@@ -12,7 +12,6 @@ font_size = 103
 font_color = Color(0, 0, 0, 1)
 
 [node name="Victory" type="TextureRect"]
-anchors_preset = -1
 offset_right = 1920.0
 offset_bottom = 1080.0
 size_flags_horizontal = 3
@@ -23,11 +22,11 @@ metadata/_edit_vertical_guides_ = [1848.0, -366.0]
 
 [node name="HBoxContainer" type="HBoxContainer" parent="."]
 layout_mode = 0
-offset_left = 100.0
+offset_left = 30.0
 offset_top = 800.0
-offset_right = 2960.0
+offset_right = 2890.0
 offset_bottom = 1050.0
-scale = Vector2(0.6, 0.6)
+scale = Vector2(0.65, 0.65)
 theme_override_constants/separation = 20
 
 [node name="MainMenu" type="TextureButton" parent="HBoxContainer"]
