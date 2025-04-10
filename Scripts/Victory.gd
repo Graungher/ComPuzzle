@@ -3,7 +3,7 @@ signal change
 signal select
 signal replay
 
-@onready
+@onready var instructs_used = $Label
 
 var totalInstructions = 0
 
@@ -46,5 +46,13 @@ func _on_replay_pressed() -> void:
 func _on_button_pressed() -> void:
 	pass # Replace with function body.
 	
-func setTotalInst():
+func setTotalInst(instructions: int):
+	var str
+	if instructions < 10:
+		str[0] = '0'
+		str[1] = str(instructions)
+	else:
+		str = instructions
+		instructs_used.text = str
 	pass
+	

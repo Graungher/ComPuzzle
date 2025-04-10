@@ -225,8 +225,9 @@ func wait_frames(frame_count: int):
 
 func checkGoal():
 	if current_tile == end_tile:
-		print(cmdList.getTotalMoves())
+		var moves = cmdList.getTotalMoves()
 		print(cmdList.getTotalFuncs())
+		victory.setTotalInst(moves)
 		cmdList.clearList()
 		emit_signal("goAway")
 		victory.show()
