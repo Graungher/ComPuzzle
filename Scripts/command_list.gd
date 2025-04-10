@@ -767,6 +767,9 @@ func peopleWalker(guy: CharacterBody2D, index: int):
 		"Object":
 			walkable = false
 			pass
+		"Goal":
+			walkable = false
+			pass
 	var charLoc = rootNode.getCurrentTile()
 	for i in char_spots.size():
 		if char_spots[i] == new_tile:
