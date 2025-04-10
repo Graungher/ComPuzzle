@@ -11,11 +11,11 @@
 [ext_resource type="Texture2D" uid="uid://cl3h3685m0akx" path="res://ComPuzzle Assets/buttons/IF/If.png" id="8_ewbju"]
 [ext_resource type="Texture2D" uid="uid://c6ulp76m6cvph" path="res://ComPuzzle Assets/buttons/ENDIF/EndIf.png" id="9_85qyi"]
 [ext_resource type="Texture2D" uid="uid://c4n2jn14q7fc2" path="res://ComPuzzle Assets/buttons/ELSE/ElseButton.png" id="10_iivbl"]
-[ext_resource type="Texture2D" uid="uid://wcetjehggyeg" path="res://ComPuzzle Assets/buttons/CUSTOM/Function.png" id="11_ewbju"]
-[ext_resource type="Texture2D" uid="uid://sk47isy8kau6" path="res://ComPuzzle Assets/Menus/Run_Button.png" id="13_85qyi"]
+[ext_resource type="Texture2D" uid="uid://bn38kpo8gvagb" path="res://ComPuzzle Assets/buttons/CUSTOM/Function.png" id="11_ewbju"]
+[ext_resource type="Texture2D" uid="uid://jriqneluvhn6" path="res://ComPuzzle Assets/Menus/Run_Button.png" id="13_85qyi"]
 [ext_resource type="PackedScene" uid="uid://crub3q5lo4g2r" path="res://Scenes/Function_Maker.tscn" id="13_rfjv2"]
 [ext_resource type="PackedScene" uid="uid://cnapfcrjygfn0" path="res://Scenes/Help_Windows/help_menu.tscn" id="14_1phco"]
-[ext_resource type="Texture2D" uid="uid://cfxt6t42unvrd" path="res://ComPuzzle Assets/buttons/Menu_Button.png" id="14_85qyi"]
+[ext_resource type="Texture2D" uid="uid://dt486tghau1hj" path="res://ComPuzzle Assets/buttons/Menu_Button.png" id="14_85qyi"]
 [ext_resource type="PackedScene" uid="uid://e8efs086f240" path="res://Scenes/Victory.tscn" id="15_nb51f"]
 [ext_resource type="PackedScene" uid="uid://bxas6ke2om5b6" path="res://Scenes/FuncSelector.tscn" id="15_nnt18"]
 
@@ -147,16 +147,15 @@ visible = false
 visible = false
 
 [node name="Victory" parent="." instance=ExtResource("15_nb51f")]
-visible = false
 anchors_preset = 8
 anchor_left = 0.5
 anchor_top = 0.5
 anchor_right = 0.5
 anchor_bottom = 0.5
-offset_left = 405.0
-offset_top = 18.0
-offset_right = 1385.0
-offset_bottom = 1004.0
+offset_left = -78.0
+offset_top = -44.0
+offset_right = 1842.0
+offset_bottom = 1036.0
 grow_horizontal = 2
 grow_vertical = 2
 
