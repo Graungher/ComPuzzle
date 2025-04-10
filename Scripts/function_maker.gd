@@ -4,7 +4,7 @@ extends Node2D
 @onready var current_map = $TileMap  # Initial TileMap
 @onready var cmdList = $ScrollContainer/Command_List
 @onready var errorWindow = $ErrorWindow
-@onready var errorLabel = $ErrorPopup/Label
+@onready var errorLabel = $ErrorWindow/Label
 @onready var nameWindow = $FuncName
 @onready var funcName = $FuncName/VBoxContainer/LineEdit
 @onready var dispName = $FuncName/VBoxContainer/LineEdit2
@@ -59,8 +59,19 @@ func show_error(err: String):
 		errorLabel.text = "There are too many 'END LOOP's!"
 	elif err == "LOOP NAN":
 		errorLabel.text = "One of the loops had something that was not a number"
+	elif err == "END BEFORE LOOP":
+		errorLabel.text = "There is an End Loop with no open Loop"
+	elif err == "OUTSIDE ELSE":
+		errorLabel.text = "Else Needs to be inside the If and before the End If"
+	elif err == "EXTRA ELSE":
+		errorLabel.text = "There are too many elses in one IF"
+	elif err == "END BEFORE IF":
+		errorLabel.text = "There is an End If with no open If"
+	elif err == "NO END IF":
+		errorLabel.text = "There is an IF without an 'END IF'!"
+	else:
+		errorLabel.text = "UNKNOWN ERROR"
 	errorWindow.popup()
-	pass
 
 
 func mapSetup():

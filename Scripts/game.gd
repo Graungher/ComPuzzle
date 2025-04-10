@@ -88,7 +88,8 @@ func show_error(err: String):
 		errorLabel.text = "There is an End If with no open If"
 	elif err == "NO END IF":
 		errorLabel.text = "There is an IF without an 'END IF'!"
-		
+	else:
+		errorLabel.text = "UNKNOWN ERROR"
 	errorWindow.popup()
 	pass
 

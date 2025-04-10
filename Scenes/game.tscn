@@ -21,7 +21,6 @@
 
 [sub_resource type="LabelSettings" id="LabelSettings_nb51f"]
 font_size = 53
-font_color = Color(1, 0, 0, 1)
 
 [node name="Game" type="Node2D"]
 script = ExtResource("1_ln1c5")
@@ -123,14 +122,16 @@ offset_bottom = 1008.0
 texture_normal = ExtResource("14_85qyi")
 
 [node name="ErrorWindow" type="AcceptDialog" parent="."]
+title = "ERROR"
 initial_position = 2
-size = Vector2i(129, 140)
+size = Vector2i(400, 200)
+always_on_top = true
 
 [node name="Label" type="Label" parent="ErrorWindow"]
 offset_left = 8.0
 offset_top = 8.0
-offset_right = 121.0
-offset_bottom = 91.0
+offset_right = 392.0
+offset_bottom = 151.0
 text = "this is an error"
 label_settings = SubResource("LabelSettings_nb51f")
 horizontal_alignment = 1
@@ -139,12 +140,14 @@ autowrap_mode = 3
 
 [node name="FunctionMakerWindow" parent="." instance=ExtResource("13_rfjv2")]
 visible = false
+always_on_top = true
 
 [node name="HelpWindow" parent="." instance=ExtResource("14_1phco")]
 visible = false
 
 [node name="FunctionSelector" parent="." instance=ExtResource("15_nnt18")]
 visible = false
+always_on_top = true
 
 [node name="Victory" parent="." instance=ExtResource("15_nb51f")]
 visible = false
