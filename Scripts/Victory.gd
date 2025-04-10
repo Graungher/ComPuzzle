@@ -52,7 +52,7 @@ func setTotalInst(instructions: int):
 		str[0] = '0'
 		str[1] = str(instructions)
 	else:
-		str = instructions
-		instructs_used.text = str
+		str = str(instructions)
+	instructs_used.text = str
 	pass
 	
