@@ -1,49 +1,50 @@
-[gd_scene load_steps=8 format=3 uid="uid://b3fk4grjwfapc"]
+[gd_scene load_steps=8 format=3 uid="uid://e8efs086f240"]
 
-[ext_resource type="Texture2D" uid="uid://3uc5iucbngqc" path="res://ComPuzzle Assets/screen.png" id="1_vb8gj"]
+[ext_resource type="Texture2D" uid="uid://ddwf51lanm3kf" path="res://ComPuzzle Assets/Menus/Level_Completion.png" id="1_lh6sg"]
 [ext_resource type="Script" uid="uid://dcfw15rf65x01" path="res://Scripts/Victory.gd" id="2_ebubv"]
-[ext_resource type="Texture2D" uid="uid://cx4b8wvtfwi1w" path="res://ComPuzzle Assets/buttons/VICTORY/NextLevel.png" id="3_lh6sg"]
-[ext_resource type="Texture2D" uid="uid://tfwwksqy2mgq" path="res://ComPuzzle Assets/buttons/VICTORY/MainMenu.png" id="4_1ttpw"]
-[ext_resource type="Texture2D" uid="uid://c8hlwbboffqv1" path="res://ComPuzzle Assets/buttons/VICTORY/LevelSelect.png" id="5_f2md5"]
-[ext_resource type="Texture2D" uid="uid://bn6gng4obfth5" path="res://ComPuzzle Assets/buttons/VICTORY/Replay.png" id="6_ebpg4"]
+[ext_resource type="Texture2D" uid="uid://77vchjpabk0r" path="res://ComPuzzle Assets/Menus/Main_Menu.png" id="3_lh6sg"]
+[ext_resource type="Texture2D" uid="uid://hf1q7qax80u5" path="res://ComPuzzle Assets/Menus/Next_Level.png" id="4_f2md5"]
+[ext_resource type="Texture2D" uid="uid://dgkp2fyq0ck71" path="res://ComPuzzle Assets/Menus/Replay.png" id="5_ebpg4"]
+[ext_resource type="Texture2D" uid="uid://bhojqbxmkibbp" path="res://ComPuzzle Assets/Menus/Level_Select.png" id="6_e08bu"]
 
 [sub_resource type="LabelSettings" id="LabelSettings_lh6sg"]
 font_size = 103
 font_color = Color(0, 0, 0, 1)
 
 [node name="Victory" type="TextureRect"]
-offset_right = 980.0
-offset_bottom = 986.0
+anchors_preset = -1
+offset_right = 1920.0
+offset_bottom = 1080.0
 size_flags_horizontal = 3
 size_flags_vertical = 3
-texture = ExtResource("1_vb8gj")
+texture = ExtResource("1_lh6sg")
 script = ExtResource("2_ebubv")
 metadata/_edit_vertical_guides_ = [1848.0, -366.0]
 
 [node name="HBoxContainer" type="HBoxContainer" parent="."]
 layout_mode = 0
-offset_left = 91.0
-offset_top = 797.0
-offset_right = 407.0
-offset_bottom = 861.0
-scale = Vector2(2.5, 2.5)
+offset_left = 100.0
+offset_top = 800.0
+offset_right = 2960.0
+offset_bottom = 1050.0
+scale = Vector2(0.6, 0.6)
 theme_override_constants/separation = 20
 
 [node name="MainMenu" type="TextureButton" parent="HBoxContainer"]
 layout_mode = 2
-texture_normal = ExtResource("4_1ttpw")
+texture_normal = ExtResource("3_lh6sg")
 
 [node name="NextLevel" type="TextureButton" parent="HBoxContainer"]
 layout_mode = 2
-texture_normal = ExtResource("3_lh6sg")
+texture_normal = ExtResource("4_f2md5")
 
 [node name="Replay" type="TextureButton" parent="HBoxContainer"]
 layout_mode = 2
-texture_normal = ExtResource("6_ebpg4")
+texture_normal = ExtResource("5_ebpg4")
 
 [node name="LevelSelect" type="TextureButton" parent="HBoxContainer"]
 layout_mode = 2
-texture_normal = ExtResource("5_f2md5")
+texture_normal = ExtResource("6_e08bu")
 
 [node name="Label" type="Label" parent="."]
 visible = false

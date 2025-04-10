@@ -1,12 +1,13 @@
-[gd_scene load_steps=8 format=3 uid="uid://to5rjfkjrveg"]
+[gd_scene load_steps=9 format=3 uid="uid://b3b4ba03fdo0x"]
 
 [ext_resource type="Script" uid="uid://befhy7jnxl7g0" path="res://Scripts/play.gd" id="1_el5ma"]
-[ext_resource type="Texture2D" uid="uid://cc2c1y0tud5dc" path="res://ComPuzzle Assets/Menus/Menu.png" id="2_el5ma"]
-[ext_resource type="Texture2D" uid="uid://bff330hbmvcfp" path="res://ComPuzzle Assets/Menus/Continue.png" id="3_5go04"]
-[ext_resource type="Texture2D" uid="uid://bghw2hcnatqcm" path="res://ComPuzzle Assets/Menus/Start.png" id="3_cx082"]
-[ext_resource type="Texture2D" uid="uid://cbb07uq4ft1pr" path="res://ComPuzzle Assets/Menus/Level_Select.png" id="4_lebhg"]
-[ext_resource type="Texture2D" uid="uid://chjgsf44fbqie" path="res://ComPuzzle Assets/Menus/Tutorial.png" id="5_pbr5a"]
-[ext_resource type="Texture2D" uid="uid://dt486tghau1hj" path="res://ComPuzzle Assets/buttons/Menu_Button.png" id="7_cx082"]
+[ext_resource type="Texture2D" uid="uid://bekjvskqjw2vp" path="res://ComPuzzle Assets/Menus/Menu.png" id="2_el5ma"]
+[ext_resource type="Texture2D" uid="uid://bygelxxjeefis" path="res://ComPuzzle Assets/Menus/Continue.png" id="3_5go04"]
+[ext_resource type="Texture2D" uid="uid://btalih4auta4x" path="res://ComPuzzle Assets/Menus/Start.png" id="3_cx082"]
+[ext_resource type="Texture2D" uid="uid://bhojqbxmkibbp" path="res://ComPuzzle Assets/Menus/Level_Select.png" id="4_lebhg"]
+[ext_resource type="Texture2D" uid="uid://cvq0qxtxyu24n" path="res://ComPuzzle Assets/Menus/Tutorial.png" id="5_pbr5a"]
+[ext_resource type="Texture2D" uid="uid://cfxt6t42unvrd" path="res://ComPuzzle Assets/buttons/Menu_Button.png" id="7_cx082"]
+[ext_resource type="Texture2D" uid="uid://cwxuhs8m15jmx" path="res://ComPuzzle Assets/Menus/Back_Button.png" id="8_lebhg"]
 
 [node name="Play" type="Node2D"]
 script = ExtResource("1_el5ma")
@@ -85,6 +86,12 @@ offset_bottom = 1057.0
 texture_normal = ExtResource("7_cx082")
 metadata/_edit_use_anchors_ = true
 
+[node name="Back_Button" type="TextureButton" parent="."]
+custom_minimum_size = Vector2(128, 128)
+offset_right = 128.0
+offset_bottom = 128.0
+texture_normal = ExtResource("8_lebhg")
+
 [connection signal="pressed" from="VBoxContainer/New_Game" to="." method="_show_warning_window"]
 [connection signal="pressed" from="VBoxContainer/Continue" to="." method="_on_continue_pressed"]
 [connection signal="pressed" from="VBoxContainer/Level_Select" to="." method="_on_level_select_pressed"]
@@ -94,3 +101,4 @@ metadata/_edit_use_anchors_ = true
 [connection signal="pressed" from="Panel/VBoxContainer/Main_Menu_button" to="." method="_on_main_menu_button_pressed"]
 [connection signal="pressed" from="Panel/VBoxContainer/Quit_Button" to="." method="_on_quit_button_pressed"]
 [connection signal="pressed" from="Menu_Button" to="." method="_on_menu_button_pressed"]
+[connection signal="pressed" from="Back_Button" to="." method="_on_back_button_pressed"]
