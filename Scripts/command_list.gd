@@ -47,6 +47,7 @@ var characters: Array[CharacterBody2D] = []
 var char_spots: Array[Vector2i] = []
 var funcName = ""
 var dispName = ""
+var total_moves = 0
 
 
 #######################################
@@ -89,6 +90,12 @@ func reIndex():
 			child.get_node("index_label").text = str(index)
 			index += 1
 
+func getTotalMoves():
+	return total_moves
+
+func getTotalFuncs():
+	return get_child_count()
+
 # executes the command list in top down order
 func realReadList():
 	var the_name
@@ -97,6 +104,7 @@ func realReadList():
 	var totals = get_child_count()
 	# set running to true to disable the nodes that interact
 	#  with the command list
+	total_moves = 0
 	running = true
 	emit_signal("runtime")
 	
@@ -179,7 +187,7 @@ func doFunc(the_name: String, child: Node):
 	# switch based of label's text
 	match the_name:
 			"WALK":
-				print(the_name)
+				total_moves += 1
 				if characters.size() > 0:
 					movePeople()
 				var reg = child.texture_normal
@@ -189,7 +197,7 @@ func doFunc(the_name: String, child: Node):
 				if child:
 					child.texture_normal = reg
 			"LEFT":
-				print(the_name)
+				total_moves += 1
 				if characters.size() > 0:
 					movePeople()
 				var reg = child.texture_normal
@@ -199,7 +207,7 @@ func doFunc(the_name: String, child: Node):
 				if child:
 					child.texture_normal = reg
 			"RIGHT":
-				print(the_name)
+				total_moves += 1
 				if characters.size() > 0:
 					movePeople()
 				var reg = child.texture_normal
@@ -575,15 +583,17 @@ func processCommands(TheCommand: String, commands: Array, i: int):
 func commandDo(TheCommand: String):
 	match TheCommand:
 			"WALK":
+				total_moves += 1
 				emit_signal("walk_signal")
 				movePeople()
 				await wait_frames(framelen)
 			"LEFT":
+				total_moves += 1
 				emit_signal("turn_left_signal")
 				movePeople()
 				await wait_frames(framelen)
-				print("AAAA")
 			"RIGHT":
+				total_moves += 1
 				emit_signal("turn_right_signal")
 				movePeople()
 				await wait_frames(framelen)
