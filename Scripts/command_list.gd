@@ -78,8 +78,12 @@ func _on_texture_rect_mover(move: int, button: TextureButton):
 		# up or down depending on the button, then will call reindex 
 		var Index = button.get_index()
 		var newSpot = Index - move
-		move_child(button, newSpot)
-		reIndex()
+		if Index == get_child_count() - 1 && move == -1:
+			move_child(button, 0)
+			reIndex()
+		elif newSpot >= 0:
+			move_child(button, newSpot)
+			reIndex()
 
 # replaces the index label on a node to its current index number
 func reIndex():

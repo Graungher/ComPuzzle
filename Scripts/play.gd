@@ -17,6 +17,9 @@ func _on_level_select_pressed() -> void:
 	get_tree().change_scene_to_file("res://Scenes/level_select.tscn")
 	pass # Replace with function body.
 
+func _on_back_button_pressed() -> void:
+	get_tree().change_scene_to_file("res://Scenes/main.tscn")
+	pass
 
 func _on_tutorial_pressed() -> void:
 	pass # Replace with function body.

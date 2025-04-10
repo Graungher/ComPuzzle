@@ -88,7 +88,8 @@ func show_error(err: String):
 		errorLabel.text = "There is an End If with no open If"
 	elif err == "NO END IF":
 		errorLabel.text = "There is an IF without an 'END IF'!"
-		
+	else:
+		errorLabel.text = "UNKNOWN ERROR"
 	errorWindow.popup()
 	pass
 
@@ -225,8 +226,9 @@ func wait_frames(frame_count: int):
 
 func checkGoal():
 	if current_tile == end_tile:
-		print(cmdList.getTotalMoves())
+		var moves = cmdList.getTotalMoves()
 		print(cmdList.getTotalFuncs())
+		victory.setTotalInst(moves)
 		cmdList.clearList()
 		emit_signal("goAway")
 		victory.show()
