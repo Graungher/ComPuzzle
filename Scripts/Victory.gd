@@ -47,7 +47,7 @@ func _on_button_pressed() -> void:
 	pass # Replace with function body.
 	
 func setTotalInst(instructions: int):
-	var str
+	var str = "00"
 	if instructions < 10:
 		str[0] = '0'
 		str[1] = str(instructions)
