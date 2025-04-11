@@ -47,6 +47,7 @@ var characters: Array[CharacterBody2D] = []
 var char_spots: Array[Vector2i] = []
 var funcName = ""
 var dispName = ""
+var total_moves = 0
 
 
 #######################################
@@ -77,8 +78,12 @@ func _on_texture_rect_mover(move: int, button: TextureButton):
 		# up or down depending on the button, then will call reindex 
 		var Index = button.get_index()
 		var newSpot = Index - move
-		move_child(button, newSpot)
-		reIndex()
+		if Index == get_child_count() - 1 && move == -1:
+			move_child(button, 0)
+			reIndex()
+		elif newSpot >= 0:
+			move_child(button, newSpot)
+			reIndex()
 
 # replaces the index label on a node to its current index number
 func reIndex():
@@ -89,6 +94,12 @@ func reIndex():
 			child.get_node("index_label").text = str(index)
 			index += 1
 
+func getTotalMoves():
+	return total_moves
+
+func getTotalFuncs():
+	return get_child_count()
+
 # executes the command list in top down order
 func realReadList():
 	var the_name
@@ -97,6 +108,7 @@ func realReadList():
 	var totals = get_child_count()
 	# set running to true to disable the nodes that interact
 	#  with the command list
+	total_moves = 0
 	running = true
 	emit_signal("runtime")
 	
@@ -179,7 +191,7 @@ func doFunc(the_name: String, child: Node):
 	# switch based of label's text
 	match the_name:
 			"WALK":
-				print(the_name)
+				total_moves += 1
 				if characters.size() > 0:
 					movePeople()
 				var reg = child.texture_normal
@@ -189,7 +201,7 @@ func doFunc(the_name: String, child: Node):
 				if child:
 					child.texture_normal = reg
 			"LEFT":
-				print(the_name)
+				total_moves += 1
 				if characters.size() > 0:
 					movePeople()
 				var reg = child.texture_normal
@@ -199,7 +211,7 @@ func doFunc(the_name: String, child: Node):
 				if child:
 					child.texture_normal = reg
 			"RIGHT":
-				print(the_name)
+				total_moves += 1
 				if characters.size() > 0:
 					movePeople()
 				var reg = child.texture_normal
@@ -575,15 +587,17 @@ func processCommands(TheCommand: String, commands: Array, i: int):
 func commandDo(TheCommand: String):
 	match TheCommand:
 			"WALK":
+				total_moves += 1
 				emit_signal("walk_signal")
 				movePeople()
 				await wait_frames(framelen)
 			"LEFT":
+				total_moves += 1
 				emit_signal("turn_left_signal")
 				movePeople()
 				await wait_frames(framelen)
-				print("AAAA")
 			"RIGHT":
+				total_moves += 1
 				emit_signal("turn_right_signal")
 				movePeople()
 				await wait_frames(framelen)
@@ -751,6 +765,9 @@ func peopleWalker(guy: CharacterBody2D, index: int):
 			walkable = false
 			pass
 		"Object":
+			walkable = false
+			pass
+		"Goal":
 			walkable = false
 			pass
 	var charLoc = rootNode.getCurrentTile()

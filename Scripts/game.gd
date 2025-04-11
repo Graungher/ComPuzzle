@@ -88,7 +88,8 @@ func show_error(err: String):
 		errorLabel.text = "There is an End If with no open If"
 	elif err == "NO END IF":
 		errorLabel.text = "There is an IF without an 'END IF'!"
-		
+	else:
+		errorLabel.text = "UNKNOWN ERROR"
 	errorWindow.popup()
 	pass
 
@@ -225,13 +226,23 @@ func wait_frames(frame_count: int):
 
 func checkGoal():
 	if current_tile == end_tile:
+		var moves = cmdList.getTotalMoves()
+		print(cmdList.getTotalFuncs())
+		victory.setTotalInst(moves)
 		cmdList.clearList()
 		emit_signal("goAway")
 		victory.show()
 		cmdList.clearPeople()
 		var path = "user://UNLOCKED.txt"
-		var file = FileAccess.open(path, FileAccess.WRITE)
-		file.store_line(str(mapList.getCurrentMap() + 2))
+		var current_value = mapList.getCurrentMap() + 1
+		var stored_value = 0
+		var file = FileAccess.open(path, FileAccess.READ)
+		stored_value = int(file.get_line())
+		file.close()
+		if current_value >= stored_value:
+			file = FileAccess.open(path, FileAccess.WRITE)
+			file.store_line(str(mapList.getCurrentMap() + 2))
+			file.close()
 		
 	else:
 		emit_signal("goAway")

@@ -109,12 +109,12 @@ offset_bottom = 651.0
 scale = Vector2(2, 2)
 texture_normal = ExtResource("12_450yh")
 
-[node name="ErrorPopup" type="AcceptDialog" parent="FunctionMaker"]
+[node name="ErrorWindow" type="AcceptDialog" parent="FunctionMaker"]
 auto_translate_mode = 1
 initial_position = 2
 size = Vector2i(129, 140)
 
-[node name="Label" type="Label" parent="FunctionMaker/ErrorPopup"]
+[node name="Label" type="Label" parent="FunctionMaker/ErrorWindow"]
 offset_left = 8.0
 offset_top = 8.0
 offset_right = 121.0

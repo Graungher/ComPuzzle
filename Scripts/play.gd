@@ -5,9 +5,9 @@ extends Node2D
 
 
 func _on_continue_pressed() -> void:
-	var curMap = mapList.getCurrentMap()
-	if curMap == -1:
-		curMap = 0
+	var path = "user://UNLOCKED.txt"
+	var file = FileAccess.open(path, FileAccess.READ)
+	var curMap = int(file.get_line())
 	mapList.select_map(curMap)
 	get_tree().change_scene_to_file("res://Scenes/game.tscn")
 	pass # Replace with function body.
