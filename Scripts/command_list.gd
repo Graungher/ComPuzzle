@@ -225,6 +225,38 @@ func doFunc(the_name: String, child: Node):
 	# (child may be gone if level reset before current action ended)
 	if child:
 		child.modulate = Color(1, 1, 1)
+		
+		
+
+func commandLoops(commands: Array, index: int, count: int) -> int:
+	var retspot = index  # Start return spot as the LOOP node
+	var i = 0
+	var body_start = index + 1 
+	
+
+	if count == 0:
+		return findEndLoop(index)
+
+	while i < count and !cleared:
+		if cleared:
+			return 0
+		i += 1
+
+		var currentIndex = body_start
+		var the_name = ""
+		
+		while currentIndex < commands.size() and the_name != "ENDLOOP" and !cleared:
+			the_name = commands[currentIndex]
+
+			if the_name == "ENDLOOP":
+				retspot = currentIndex + 1
+				break
+			else:
+				# Await your async command processor
+				currentIndex = await processCommands(the_name, commands, currentIndex)
+				#currentIndex += 1
+
+	return retspot
 
 # loop will repeat all nodes between it and it's accociated end loop node
 func realLoop(num: int, button: TextureButton):
@@ -572,7 +604,7 @@ func processCommands(TheCommand: String, commands: Array, i: int):
 	
 	if TheCommand == "LOOP":
 		var count = int(commands[i + 1])
-		i += 1
+		i+= 1
 		i = (await commandLoops(commands, i, count))
 		pass
 	elif TheCommand == "IF":
@@ -588,16 +620,19 @@ func commandDo(TheCommand: String):
 	match TheCommand:
 			"WALK":
 				total_moves += 1
+				print("walk")
 				emit_signal("walk_signal")
 				movePeople()
 				await wait_frames(framelen)
 			"LEFT":
 				total_moves += 1
+				print("left")
 				emit_signal("turn_left_signal")
 				movePeople()
 				await wait_frames(framelen)
 			"RIGHT":
 				total_moves += 1
+				print("right")
 				emit_signal("turn_right_signal")
 				movePeople()
 				await wait_frames(framelen)
@@ -634,30 +669,10 @@ func commandIf(commands: Array, index: int, cond: String):
 		else:
 			i+= 1
 	return retSpot
-
-func commandLoops(commands: Array, index: int, count: int):
-	var retspot = index + 1
-	var theIndex = index
-	var TheCommand
-	var i = 0
-	var j = 0
 	
-	while i < count  && !cleared:
-		if cleared:
-			return 0
-		i += 1
-		j = 0
-		TheCommand = ""
-		
-		while TheCommand != "ENDLOOP" && !cleared:
-			j += 1
-			TheCommand = commands[theIndex + j]
-			if TheCommand == "ENDLOOP":
-				retspot = theIndex + j
-				break
-			else: 
-				await processCommands(TheCommand, commands, i)
-	return retspot
+
+
+
 
 func preloadCommands(theWords: Array):
 	if theWords.size() != 0:
