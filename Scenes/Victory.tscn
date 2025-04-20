@@ -1,15 +1,19 @@
-[gd_scene load_steps=8 format=3 uid="uid://e8efs086f240"]
+[gd_scene load_steps=9 format=3 uid="uid://e8efs086f240"]
 
-[ext_resource type="Texture2D" uid="uid://ddwf51lanm3kf" path="res://ComPuzzle Assets/Menus/Level_Completion.png" id="1_lh6sg"]
+[ext_resource type="Texture2D" uid="uid://du5ie1mh60m47" path="res://ComPuzzle Assets/Menus/Level_Completion.png" id="1_lh6sg"]
 [ext_resource type="Script" uid="uid://dcfw15rf65x01" path="res://Scripts/Victory.gd" id="2_ebubv"]
-[ext_resource type="Texture2D" uid="uid://77vchjpabk0r" path="res://ComPuzzle Assets/Menus/Main_Menu.png" id="3_lh6sg"]
-[ext_resource type="Texture2D" uid="uid://hf1q7qax80u5" path="res://ComPuzzle Assets/Menus/Next_Level.png" id="4_f2md5"]
-[ext_resource type="Texture2D" uid="uid://dgkp2fyq0ck71" path="res://ComPuzzle Assets/Menus/Replay.png" id="5_ebpg4"]
-[ext_resource type="Texture2D" uid="uid://bhojqbxmkibbp" path="res://ComPuzzle Assets/Menus/Level_Select.png" id="6_e08bu"]
+[ext_resource type="Texture2D" uid="uid://c8fc3626u16k3" path="res://ComPuzzle Assets/Menus/Main_Menu.png" id="3_lh6sg"]
+[ext_resource type="Texture2D" uid="uid://c6oshk6xvjqbe" path="res://ComPuzzle Assets/Menus/Next_Level.png" id="4_f2md5"]
+[ext_resource type="Texture2D" uid="uid://co6rqqc21kxie" path="res://ComPuzzle Assets/Menus/Replay.png" id="5_ebpg4"]
+[ext_resource type="Texture2D" uid="uid://cbb07uq4ft1pr" path="res://ComPuzzle Assets/Menus/Level_Select.png" id="6_e08bu"]
 
 [sub_resource type="LabelSettings" id="LabelSettings_lh6sg"]
 font_size = 133
-font_color = Color(0, 0, 0, 1)
+font_color = Color(0, 0.709804, 1, 1)
+
+[sub_resource type="LabelSettings" id="LabelSettings_1ttpw"]
+font_size = 133
+font_color = Color(0, 1, 0, 1)
 
 [node name="Victory" type="TextureRect"]
 offset_right = 1920.0
@@ -52,6 +56,14 @@ offset_top = 381.0
 offset_right = 956.0
 offset_bottom = 563.0
 label_settings = SubResource("LabelSettings_lh6sg")
+
+[node name="bestLabel" type="Label" parent="."]
+layout_mode = 0
+offset_left = 804.0
+offset_top = 543.0
+offset_right = 956.0
+offset_bottom = 725.0
+label_settings = SubResource("LabelSettings_1ttpw")
 
 [connection signal="pressed" from="HBoxContainer/MainMenu" to="." method="_on_main_menu_pressed"]
 [connection signal="pressed" from="HBoxContainer/NextLevel" to="." method="_on_next_level_pressed"]

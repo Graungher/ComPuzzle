@@ -8,7 +8,7 @@ func _on_continue_pressed() -> void:
 	var path = "user://UNLOCKED.txt"
 	var file = FileAccess.open(path, FileAccess.READ)
 	var curMap = int(file.get_line())
-	mapList.select_map(curMap)
+	mapList.select_map(curMap - 1)
 	get_tree().change_scene_to_file("res://Scenes/game.tscn")
 	pass # Replace with function body.
 
@@ -30,6 +30,13 @@ func _on_new_game_pressed() -> void:
 	var path = "user://UNLOCKED.txt"
 	var file = FileAccess.open(path, FileAccess.WRITE)
 	file.store_line(str(1))
+	file.close()
+	path = "user://BEST.txt"
+	file = FileAccess.open(path, FileAccess.WRITE)
+	for i in 21:
+		file.store_line("20")
+	file.close()
+	
 	get_tree().change_scene_to_file("res://Scenes/game.tscn")
 	pass # Replace with function body.
 

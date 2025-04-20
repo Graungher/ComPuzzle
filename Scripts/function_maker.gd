@@ -185,6 +185,10 @@ func openNameWindow():
 func _on_func_name_confirmed() -> void:
 	customFuncName = funcName.text
 	displayName = dispName.text
+	if customFuncName == "":
+		customFuncName = "TEMP"
+	if displayName == "":
+		displayName = "TEMP"
 	print("MAKER TEST")
 	
 	emit_signal("SaveThis", customFuncName, displayName)

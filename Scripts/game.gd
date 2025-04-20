@@ -227,8 +227,8 @@ func wait_frames(frame_count: int):
 func checkGoal():
 	if current_tile == end_tile:
 		var moves = cmdList.getTotalMoves()
-		print(cmdList.getTotalFuncs())
-		victory.setTotalInst(moves)
+		var funcs = cmdList.getTotalFuncs()
+		victory.setTotalInst(funcs)
 		cmdList.clearList()
 		emit_signal("goAway")
 		victory.show()
@@ -243,7 +243,32 @@ func checkGoal():
 			file = FileAccess.open(path, FileAccess.WRITE)
 			file.store_line(str(mapList.getCurrentMap() + 2))
 			file.close()
-		
+		var lines = []
+		path = "user://BEST.txt"
+		file = FileAccess.open(path, FileAccess.READ)
+		while not file.eof_reached():
+			lines.append(file.get_line())
+		file.close()
+		file = FileAccess.open(path, FileAccess.WRITE)
+		var best = 20
+		for i in 20:
+			if i == (current_value - 1):
+				if funcs < int(lines[i]):
+					if funcs < best:
+						best = funcs
+						file.store_line(str(funcs))
+					else:
+						best = int(lines[i])
+						file.store_line(lines[i])
+				else:
+					best = int(lines[i])
+					file.store_line(lines[i])
+			else:
+				if lines[i] != "":
+					file.store_line(lines[i])
+
+		file.close()
+		victory.setBest(best)
 	else:
 		emit_signal("goAway")
 		spawnBot()

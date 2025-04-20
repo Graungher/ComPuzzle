@@ -70,29 +70,7 @@ var wander_model = [
 	"BOT",
 	"BOT",
 	"BOT"
-]
-var optimal_moves = [
-	10,
-	10,
-	10,
-	10,
-	10,
-	10,
-	10,
-	10,
-	10,
-	10,
-	10,
-	10,
-	10,
-	10,
-	10,
-	10,
-	10,
-	10,
-	10,
-	10
-]
+	]
 
 func get_next_map():
 	
