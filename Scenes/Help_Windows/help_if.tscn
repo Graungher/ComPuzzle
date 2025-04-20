@@ -1,4 +1,4 @@
-[gd_scene load_steps=12 format=3 uid="uid://lqno2fftgtpd"]
+[gd_scene load_steps=13 format=3 uid="uid://lqno2fftgtpd"]
 
 [ext_resource type="Script" uid="uid://bpx0l8w5p0a4x" path="res://Scripts/help_scripts/help_if.gd" id="1_iirmf"]
 [ext_resource type="PackedScene" uid="uid://cwi36us3h1orx" path="res://Scenes/Map_Scenes/ParentMap2.tscn" id="2_7yksi"]
@@ -11,8 +11,12 @@
 [ext_resource type="Texture2D" uid="uid://dj672xa4o35sx" path="res://ComPuzzle Assets/buttons/ENDIF/End_If_button.png" id="9_fnsf1"]
 [ext_resource type="Texture2D" uid="uid://i0gwwttbpc8v" path="res://ComPuzzle Assets/buttons/ENDLOOP/End_Loop_Button.png" id="10_1g7m8"]
 
+[sub_resource type="LabelSettings" id="LabelSettings_mrqlj"]
+font_color = Color(0, 0, 0, 1)
+
 [sub_resource type="LabelSettings" id="LabelSettings_6xci2"]
-font_size = 13
+font_size = 10
+font_color = Color(0, 0, 0, 1)
 
 [node name="Help_Right" type="AcceptDialog"]
 title = "IF BUTTON"
@@ -82,14 +86,15 @@ offset_top = 75.0
 offset_right = 493.0
 offset_bottom = 98.0
 text = "3"
+label_settings = SubResource("LabelSettings_mrqlj")
 horizontal_alignment = 1
 
 [node name="Label3" type="Label" parent="Node2D"]
 offset_left = 477.0
-offset_top = 165.0
+offset_top = 168.0
 offset_right = 521.0
-offset_bottom = 188.0
-text = "WALL"
+offset_bottom = 191.0
+text = "EMPTY"
 label_settings = SubResource("LabelSettings_6xci2")
 horizontal_alignment = 1
 
