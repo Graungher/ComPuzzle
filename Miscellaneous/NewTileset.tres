@@ -1,4 +1,4 @@
-[gd_resource type="TileSet" load_steps=80 format=3 uid="uid://cfqepkqqbipcw"]
+[gd_resource type="TileSet" load_steps=82 format=3 uid="uid://cfqepkqqbipcw"]
 
 [ext_resource type="Texture2D" uid="uid://d35ldgj3rvf38" path="res://ComPuzzle Assets/map assets/Footprints.png" id="1_7lgge"]
 [ext_resource type="Texture2D" uid="uid://bmkwlsxg1f3g3" path="res://ComPuzzle Assets/map assets/Desk.png" id="2_iwvek"]
@@ -37,6 +37,7 @@
 [ext_resource type="Texture2D" uid="uid://cib8pv7lyfxt3" path="res://ComPuzzle Assets/map assets/Traffic_Cone_Small.png" id="30_413ij"]
 [ext_resource type="Texture2D" uid="uid://b3mwy1dmedwmk" path="res://ComPuzzle Assets/map assets/Crowd3.png" id="31_hb13c"]
 [ext_resource type="Texture2D" uid="uid://byxttflke6my0" path="res://ComPuzzle Assets/map assets/Diploma.png" id="33_1tnbg"]
+[ext_resource type="Texture2D" uid="uid://gfkcigx1bqd5" path="res://ComPuzzle Assets/map assets/Wooden_Wall.png" id="34_08xhi"]
 
 [sub_resource type="TileSetAtlasSource" id="TileSetAtlasSource_63t4k"]
 texture = ExtResource("1_7lgge")
@@ -114,10 +115,12 @@ texture_region_size = Vector2i(32, 32)
 [sub_resource type="TileSetAtlasSource" id="TileSetAtlasSource_prhbk"]
 texture = ExtResource("6_fnykl")
 texture_region_size = Vector2i(32, 32)
-0:0/next_alternative_id = 2
+0:0/next_alternative_id = 3
 0:0/0 = 0
 0:0/1 = 1
 0:0/1/custom_data_4 = true
+0:0/2 = 2
+0:0/2/custom_data_1 = true
 
 [sub_resource type="TileSetAtlasSource" id="TileSetAtlasSource_to3ax"]
 texture = ExtResource("7_pkfnb")
@@ -313,6 +316,12 @@ texture_region_size = Vector2i(32, 32)
 0:0/0 = 0
 0:0/0/custom_data_2 = true
 
+[sub_resource type="TileSetAtlasSource" id="TileSetAtlasSource_hl8fv"]
+texture = ExtResource("34_08xhi")
+texture_region_size = Vector2i(32, 32)
+0:0/0 = 0
+0:0/0/custom_data_3 = true
+
 [sub_resource type="TileSetAtlasSource" id="TileSetAtlasSource_8rqak"]
 texture = ExtResource("7_ywm0s")
 texture_region_size = Vector2i(32, 32)
@@ -424,3 +433,4 @@ sources/29 = SubResource("TileSetAtlasSource_n1klp")
 sources/35 = SubResource("TileSetAtlasSource_i4tsy")
 sources/39 = SubResource("TileSetAtlasSource_lgbcp")
 sources/40 = SubResource("TileSetAtlasSource_j4htx")
+sources/41 = SubResource("TileSetAtlasSource_hl8fv")

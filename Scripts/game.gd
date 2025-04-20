@@ -250,8 +250,8 @@ func checkGoal():
 			lines.append(file.get_line())
 		file.close()
 		file = FileAccess.open(path, FileAccess.WRITE)
-		var best = 20
-		for i in 20:
+		var best = 21
+		for i in 21:
 			if i == (current_value - 1):
 				if funcs < int(lines[i]):
 					if funcs < best:
