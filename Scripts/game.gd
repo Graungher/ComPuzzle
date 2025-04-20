@@ -228,47 +228,51 @@ func checkGoal():
 	if current_tile == end_tile:
 		var moves = cmdList.getTotalMoves()
 		var funcs = cmdList.getTotalFuncs()
-		victory.setTotalInst(funcs)
-		cmdList.clearList()
-		emit_signal("goAway")
-		victory.show()
-		cmdList.clearPeople()
-		var path = "user://UNLOCKED.txt"
-		var current_value = mapList.getCurrentMap() + 1
-		var stored_value = 0
-		var file = FileAccess.open(path, FileAccess.READ)
-		stored_value = int(file.get_line())
-		file.close()
-		if current_value >= stored_value:
-			file = FileAccess.open(path, FileAccess.WRITE)
-			file.store_line(str(mapList.getCurrentMap() + 2))
+		var lvl = mapList.getCurrentMap()
+		if lvl == 20:
+			get_tree().change_scene_to_file("res://Scenes/diploma.tscn")
+		else:
+			victory.setTotalInst(funcs)
+			cmdList.clearList()
+			emit_signal("goAway")
+			victory.show()
+			cmdList.clearPeople()
+			var path = "user://UNLOCKED.txt"
+			var current_value = mapList.getCurrentMap() + 1
+			var stored_value = 0
+			var file = FileAccess.open(path, FileAccess.READ)
+			stored_value = int(file.get_line())
 			file.close()
-		var lines = []
-		path = "user://BEST.txt"
-		file = FileAccess.open(path, FileAccess.READ)
-		while not file.eof_reached():
-			lines.append(file.get_line())
-		file.close()
-		file = FileAccess.open(path, FileAccess.WRITE)
-		var best = 21
-		for i in 21:
-			if i == (current_value - 1):
-				if funcs < int(lines[i]):
-					if funcs < best:
-						best = funcs
-						file.store_line(str(funcs))
+			if current_value >= stored_value:
+				file = FileAccess.open(path, FileAccess.WRITE)
+				file.store_line(str(mapList.getCurrentMap() + 2))
+				file.close()
+			var lines = []
+			path = "user://BEST.txt"
+			file = FileAccess.open(path, FileAccess.READ)
+			while not file.eof_reached():
+				lines.append(file.get_line())
+			file.close()
+			file = FileAccess.open(path, FileAccess.WRITE)
+			var best = 21
+			for i in 21:
+				if i == (current_value - 1):
+					if funcs < int(lines[i]):
+						if funcs < best:
+							best = funcs
+							file.store_line(str(funcs))
+						else:
+							best = int(lines[i])
+							file.store_line(lines[i])
 					else:
 						best = int(lines[i])
 						file.store_line(lines[i])
 				else:
-					best = int(lines[i])
-					file.store_line(lines[i])
-			else:
-				if lines[i] != "":
-					file.store_line(lines[i])
+					if lines[i] != "":
+						file.store_line(lines[i])
 
-		file.close()
-		victory.setBest(best)
+			file.close()
+			victory.setBest(best)
 	else:
 		emit_signal("goAway")
 		spawnBot()
