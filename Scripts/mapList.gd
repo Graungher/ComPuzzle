@@ -23,6 +23,7 @@ var maps = [
 	"res://Scenes/Map_Scenes/map18.tscn",
 	"res://Scenes/Map_Scenes/map19.tscn",
 	"res://Scenes/Map_Scenes/map20.tscn",
+	"res://Scenes/Map_Scenes/mapGraduation.tscn",
 
 ]
 
@@ -47,6 +48,7 @@ var models = [
 	"BOT",
 	"BOT",
 	"BOT",
+	"BOT"
 ]
 
 var wander_model = [
@@ -67,6 +69,7 @@ var wander_model = [
 	"BOT",
 	"BOT",
 	"CAR",
+	"BOT",
 	"BOT",
 	"BOT",
 	"BOT"
