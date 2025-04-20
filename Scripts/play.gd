@@ -2,6 +2,7 @@ extends Node2D
 
 @onready var warnWindow = $Warning_window
 @onready var menu = $Panel
+@onready var helper = $HelpWindow
 
 
 func _on_continue_pressed() -> void:
@@ -22,6 +23,7 @@ func _on_back_button_pressed() -> void:
 	pass
 
 func _on_tutorial_pressed() -> void:
+	helper.popup()
 	pass # Replace with function body.
 
 

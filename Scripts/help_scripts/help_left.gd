@@ -13,7 +13,9 @@ func _on_confirmed() -> void:
 	emit_signal("LEFT")
 	var reg = leftpng.texture
 	leftpng.texture = load(whiteLeft)
+	leftpng.modulate = Color(.2588, .6275, 0)
 	await wait_frames(40)
+	leftpng.modulate = Color(1, 1, 1)
 	leftpng.texture = reg
 	resetBot()
 	pass # Replace with function body.
