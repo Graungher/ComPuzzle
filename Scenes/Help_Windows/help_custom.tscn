@@ -1,0 +1,32 @@
+[gd_scene load_steps=3 format=3 uid="uid://dgexauwrdl6xu"]
+
+[ext_resource type="Script" uid="uid://dxpehsip4w5th" path="res://Scripts/help_scripts/help_custom.gd" id="1_0udoo"]
+[ext_resource type="Texture2D" uid="uid://dgmp8ahfa5io6" path="res://ComPuzzle Assets/Func_Maker_demo.png" id="2_0udoo"]
+
+[node name="Help_Custom" type="Window"]
+title = "FUNC BUTTON"
+initial_position = 1
+size = Vector2i(698, 930)
+popup_window = true
+sharp_corners = true
+script = ExtResource("1_0udoo")
+
+[node name="Node2D" type="Node2D" parent="."]
+
+[node name="TextureRect" type="TextureRect" parent="Node2D"]
+offset_top = 29.0
+offset_right = 696.0
+offset_bottom = 970.0
+texture = ExtResource("2_0udoo")
+expand_mode = 1
+stretch_mode = 3
+
+[node name="Label" type="Label" parent="Node2D"]
+offset_right = 40.0
+offset_bottom = 23.0
+text = "This is the Custom Function maker, you can create your own function just like the regular 
+game, when you are done, you can test it, then give it a name and a nickname between
+ 1 and 7 characters, it will hyphenate if the nickname is too long!"
+horizontal_alignment = 1
+
+[connection signal="close_requested" from="." to="." method="_on_canceled"]

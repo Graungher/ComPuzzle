@@ -1,10 +1,18 @@
-[gd_scene load_steps=3 format=3 uid="uid://cjw225ubjbiu8"]
+[gd_scene load_steps=4 format=3 uid="uid://cjw225ubjbiu8"]
 
 [ext_resource type="PackedScene" uid="uid://dvthoo6j7fhsu" path="res://Scenes/Help_Windows/help_walk.tscn" id="1_prnnc"]
 [ext_resource type="Script" uid="uid://djumohei70024" path="res://Scripts/help_scripts/help_left.gd" id="2_4efsv"]
+[ext_resource type="Texture2D" uid="uid://40rh7j4xdq0s" path="res://ComPuzzle Assets/buttons/TURNLEFT/Turn_Left_Button.png" id="3_4efsv"]
 
 [node name="Help_Left" instance=ExtResource("1_prnnc")]
+title = "LEFT BUTTON"
 script = ExtResource("2_4efsv")
+
+[node name="Label" parent="Node2D" index="1"]
+text = "This is the TURN LEFT Button. Click the run button to see how it works."
+
+[node name="TextureRect" parent="Node2D" index="3"]
+texture = ExtResource("3_4efsv")
 
 [connection signal="LEFT" from="." to="Node2D/Robot" method="_turnLeft"]
 [connection signal="RIGHT" from="." to="Node2D/Robot" method="_turnRight"]

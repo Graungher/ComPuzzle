@@ -1,0 +1,22 @@
+[gd_scene load_steps=4 format=3 uid="uid://bww7wcf2ujixh"]
+
+[ext_resource type="Texture2D" uid="uid://7fwwxb2oeo7l" path="res://ComPuzzle Assets/Menus/Graduation_Screen.png" id="1_g3s8e"]
+[ext_resource type="Script" uid="uid://cqm2c7g2s02n6" path="res://Scripts/diploma.gd" id="2_wayy1"]
+[ext_resource type="Texture2D" uid="uid://c8fc3626u16k3" path="res://ComPuzzle Assets/Menus/Main_Menu.png" id="3_ighlu"]
+
+[node name="TextureRect" type="TextureRect"]
+offset_right = 40.0
+offset_bottom = 40.0
+texture = ExtResource("1_g3s8e")
+script = ExtResource("2_wayy1")
+
+[node name="TextureButton" type="TextureButton" parent="."]
+layout_mode = 0
+offset_left = 886.0
+offset_top = 973.0
+offset_right = 1586.0
+offset_bottom = 1223.0
+scale = Vector2(0.2, 0.2)
+texture_normal = ExtResource("3_ighlu")
+
+[connection signal="pressed" from="TextureButton" to="." method="_on_texture_button_pressed"]

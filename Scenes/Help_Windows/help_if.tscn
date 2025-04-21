@@ -1,0 +1,105 @@
+[gd_scene load_steps=13 format=3 uid="uid://lqno2fftgtpd"]
+
+[ext_resource type="Script" uid="uid://bpx0l8w5p0a4x" path="res://Scripts/help_scripts/help_if.gd" id="1_iirmf"]
+[ext_resource type="PackedScene" uid="uid://cwi36us3h1orx" path="res://Scenes/Map_Scenes/ParentMap2.tscn" id="2_7yksi"]
+[ext_resource type="PackedScene" uid="uid://dut7sncjon3br" path="res://Scenes/Characters/robot.tscn" id="3_iirmf"]
+[ext_resource type="Texture2D" uid="uid://h3vpqvtxc12c" path="res://ComPuzzle Assets/buttons/LOOP/Loop_Button.png" id="4_6xci2"]
+[ext_resource type="Texture2D" uid="uid://ckf3awdrcux34" path="res://ComPuzzle Assets/buttons/WALK/Walk_Button.png" id="4_53qgg"]
+[ext_resource type="Texture2D" uid="uid://40rh7j4xdq0s" path="res://ComPuzzle Assets/buttons/TURNLEFT/Turn_Left_Button.png" id="5_1u414"]
+[ext_resource type="Texture2D" uid="uid://dfpr0es0wywrd" path="res://ComPuzzle Assets/buttons/IF/If_Button.png" id="5_mrqlj"]
+[ext_resource type="Texture2D" uid="uid://cbsl2ipv7h0k4" path="res://ComPuzzle Assets/buttons/ELSE/Else_Button.png" id="7_m8d66"]
+[ext_resource type="Texture2D" uid="uid://dj672xa4o35sx" path="res://ComPuzzle Assets/buttons/ENDIF/End_If_button.png" id="9_fnsf1"]
+[ext_resource type="Texture2D" uid="uid://i0gwwttbpc8v" path="res://ComPuzzle Assets/buttons/ENDLOOP/End_Loop_Button.png" id="10_1g7m8"]
+
+[sub_resource type="LabelSettings" id="LabelSettings_mrqlj"]
+font_color = Color(0, 0, 0, 1)
+
+[sub_resource type="LabelSettings" id="LabelSettings_6xci2"]
+font_size = 10
+font_color = Color(0, 0, 0, 1)
+
+[node name="Help_Right" type="AcceptDialog"]
+title = "IF BUTTON"
+initial_position = 1
+size = Vector2i(600, 650)
+visible = true
+popup_window = true
+sharp_corners = true
+ok_button_text = "Run"
+dialog_hide_on_ok = false
+script = ExtResource("1_iirmf")
+
+[node name="Node2D" type="Node2D" parent="."]
+
+[node name="TileMap" parent="Node2D" instance=ExtResource("2_7yksi")]
+position = Vector2(29, 43)
+layer_1/tile_data = PackedInt32Array(983040, 11, 0, 15, 11, 0, 14, 11, 0, 13, 11, 0, 12, 11, 0, 11, 11, 0, 10, 11, 0, 9, 11, 0, 8, 11, 0, 7, 11, 0, 6, 11, 0, 5, 11, 0, 4, 11, 0, 3, 11, 0, 2, 11, 0, 1, 11, 0, 0, 11, 0, 65536, 11, 0, 131072, 11, 0, 196608, 11, 0, 262144, 11, 0, 327680, 11, 0, 393216, 11, 0, 458752, 11, 0, 524288, 11, 0, 589824, 11, 0, 655360, 11, 0, 720896, 11, 0, 786432, 11, 0, 851968, 11, 0, 917504, 11, 0, 16, 11, 0, 65552, 11, 0, 131088, 11, 0, 196624, 11, 0, 262160, 11, 0, 327696, 11, 0, 655376, 11, 0, 720912, 11, 0, 786448, 11, 0, 851984, 11, 0, 917520, 11, 0, 983056, 11, 0, 1048592, 11, 0, 1048591, 11, 0, 1048590, 11, 0, 1048589, 11, 0, 1048588, 11, 0, 1048587, 11, 0, 1048586, 11, 0, 1048585, 11, 0, 1048584, 11, 0, 1048581, 11, 0, 1048580, 11, 0, 1048579, 11, 0, 1048578, 11, 0, 1048577, 11, 0, 1048576, 11, 0, 1048582, 11, 0, 1048583, 11, 0, 589840, 11, 0, 524304, 11, 0, 458768, 11, 0, 393232, 11, 0, 524296, 16, 65536, 1114141, 2, 0, 1114140, 2, 0, 1179678, 2, 0, 1507380, 2, 0)
+
+[node name="Label" type="Label" parent="Node2D"]
+offset_left = 8.0
+offset_top = 8.0
+offset_right = 592.0
+offset_bottom = 601.0
+text = "This is the IF Button. Click the run button to see how it works."
+horizontal_alignment = 1
+
+[node name="Robot" parent="Node2D" instance=ExtResource("3_iirmf")]
+position = Vector2(301, 332)
+
+[node name="VBoxContainer" type="VBoxContainer" parent="Node2D"]
+offset_left = 477.0
+offset_top = 75.0
+offset_right = 541.0
+offset_bottom = 343.0
+
+[node name="TextureRect2" type="TextureRect" parent="Node2D/VBoxContainer"]
+layout_mode = 2
+texture = ExtResource("4_6xci2")
+
+[node name="TextureRect6" type="TextureRect" parent="Node2D/VBoxContainer"]
+layout_mode = 2
+texture = ExtResource("5_mrqlj")
+
+[node name="TextureRect5" type="TextureRect" parent="Node2D/VBoxContainer"]
+layout_mode = 2
+texture = ExtResource("4_53qgg")
+
+[node name="TextureRect7" type="TextureButton" parent="Node2D/VBoxContainer"]
+layout_mode = 2
+texture_normal = ExtResource("7_m8d66")
+
+[node name="TextureRect3" type="TextureRect" parent="Node2D/VBoxContainer"]
+layout_mode = 2
+texture = ExtResource("5_1u414")
+
+[node name="TextureRect4" type="TextureButton" parent="Node2D/VBoxContainer"]
+layout_mode = 2
+texture_normal = ExtResource("9_fnsf1")
+
+[node name="TextureRect8" type="TextureButton" parent="Node2D/VBoxContainer"]
+layout_mode = 2
+texture_normal = ExtResource("10_1g7m8")
+
+[node name="Label2" type="Label" parent="Node2D"]
+offset_left = 483.0
+offset_top = 75.0
+offset_right = 493.0
+offset_bottom = 98.0
+text = "3"
+label_settings = SubResource("LabelSettings_mrqlj")
+horizontal_alignment = 1
+
+[node name="Label3" type="Label" parent="Node2D"]
+offset_left = 477.0
+offset_top = 168.0
+offset_right = 521.0
+offset_bottom = 191.0
+text = "EMPTY"
+label_settings = SubResource("LabelSettings_6xci2")
+horizontal_alignment = 1
+
+[connection signal="LEFT" from="." to="Node2D/Robot" method="_turnLeft"]
+[connection signal="RIGHT" from="." to="Node2D/Robot" method="_turnRight"]
+[connection signal="canceled" from="." to="." method="_on_canceled"]
+[connection signal="confirmed" from="." to="." method="_on_confirmed"]
+[connection signal="walk" from="." to="Node2D/Robot" method="_walk"]

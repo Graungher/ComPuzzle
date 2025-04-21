@@ -27,7 +27,8 @@ func unlockButtons():
 	
 	for i in unlock:
 		child = grid.get_child(i)
-		child.disabled = false
+		if child:
+			child.disabled = false
 		pass
 	pass
 

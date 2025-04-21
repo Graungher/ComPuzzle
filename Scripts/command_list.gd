@@ -23,6 +23,8 @@ extends VBoxContainer
 @onready var whiteWalk = "res://ComPuzzle Assets/buttons/WALK/Walk_Button_White.png"
 @onready var whiteLeft = "res://ComPuzzle Assets/buttons/TURNLEFT/Turn_Left_Button_White.png"
 @onready var whiteRight = "res://ComPuzzle Assets/buttons/TURNRIGHT/Turn_Right_Button_White.png"
+@onready var whiteFunc = "res://ComPuzzle Assets/buttons/CUSTOM/Function_Button_White.png"
+
 
 signal walk_signal
 signal turn_left_signal
@@ -171,9 +173,16 @@ func processNode(the_name: String, child: Node, i: int):
 			child.modulate = Color(1, 1, 1)
 	
 	elif the_name == "CUSTOM":
+		var reg = child.texture_normal
+		child.texture_normal = load(whiteFunc)
+		child.get_node("FuncName").add_theme_color_override("font_color", Color.BLACK)
+		child.modulate = Color(0, .36, .85)
 		#await readFunctionList(tempArray)
 		await readFunctionList(child.get_node("FuncName").text)
-		#i += 1
+		if child:
+			child.texture_normal = reg
+			child.get_node("FuncName").add_theme_color_override("font_color", Color.BLACK)
+			child.modulate = Color(1, 1, 1)
 		
 	else:
 		# call dofunc
@@ -225,38 +234,7 @@ func doFunc(the_name: String, child: Node):
 	# (child may be gone if level reset before current action ended)
 	if child:
 		child.modulate = Color(1, 1, 1)
-		
-		
 
-func commandLoops(commands: Array, index: int, count: int) -> int:
-	var retspot = index  # Start return spot as the LOOP node
-	var i = 0
-	var body_start = index + 1 
-	
-
-	if count == 0:
-		return findEndLoop(index)
-
-	while i < count and !cleared:
-		if cleared:
-			return 0
-		i += 1
-
-		var currentIndex = body_start
-		var the_name = ""
-		
-		while currentIndex < commands.size() and the_name != "ENDLOOP" and !cleared:
-			the_name = commands[currentIndex]
-
-			if the_name == "ENDLOOP":
-				retspot = currentIndex + 1
-				break
-			else:
-				# Await your async command processor
-				currentIndex = await processCommands(the_name, commands, currentIndex)
-				#currentIndex += 1
-
-	return retspot
 
 # loop will repeat all nodes between it and it's accociated end loop node
 func realLoop(num: int, button: TextureButton):
@@ -671,7 +649,35 @@ func commandIf(commands: Array, index: int, cond: String):
 	return retSpot
 	
 
+func commandLoops(commands: Array, index: int, count: int) -> int:
+	var retspot = index  # Start return spot as the LOOP node
+	var i = 0
+	var body_start = index + 1 
+	
 
+	if count == 0:
+		return findEndLoop(index)
+
+	while i < count and !cleared:
+		if cleared:
+			return 0
+		i += 1
+
+		var currentIndex = body_start
+		var the_name = ""
+		
+		while currentIndex < commands.size() and the_name != "ENDLOOP" and !cleared:
+			the_name = commands[currentIndex]
+
+			if the_name == "ENDLOOP":
+				retspot = currentIndex + 1
+				break
+			else:
+				# Await your async command processor
+				currentIndex = await processCommands(the_name, commands, currentIndex)
+				#currentIndex += 1
+
+	return retspot
 
 
 func preloadCommands(theWords: Array):

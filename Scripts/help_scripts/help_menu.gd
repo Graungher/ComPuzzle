@@ -4,8 +4,12 @@ extends AcceptDialog
 @onready var walkHelp = preload("res://Scenes/Help_Windows/help_walk.tscn")
 @onready var leftHelp = preload("res://Scenes/Help_Windows/help_left.tscn")
 @onready var rightHelp = preload("res://Scenes/Help_Windows/help_right.tscn")
+@onready var loopHelp = preload("res://Scenes/Help_Windows/help_loop.tscn")
+@onready var ifHelp = preload("res://Scenes/Help_Windows/help_if.tscn")
+@onready var customHelp = preload("res://Scenes/Help_Windows/help_custom.tscn")
 
-var theHelp: AcceptDialog
+
+var theHelp
 
 func _on_buttons_make_node(node: String) -> void:
 	hide()
@@ -17,11 +21,11 @@ func _on_buttons_make_node(node: String) -> void:
 		"RIGHT":
 			theHelp = rightHelp.instantiate()
 		"LOOP":
-			pass
+			theHelp = loopHelp.instantiate()
 		"IF":
-			pass
+			theHelp = ifHelp.instantiate()
 		"CUSTOM":
-			pass
+			theHelp = customHelp.instantiate()
 		
 	get_tree().root.add_child(theHelp)
 	theHelp.connect("Gone", Callable(self, "reshow"))

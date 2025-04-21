@@ -4,6 +4,7 @@ signal select
 signal replay
 
 @onready var instructs_used = $Label
+@onready var bestLabel = $bestLabel
 
 var totalInstructions = 0
 
@@ -56,3 +57,6 @@ func setTotalInst(instructions: int):
 	instructs_used.text = str
 	pass
 	
+func setBest(best: int):
+	bestLabel.text = str(best)
+	pass

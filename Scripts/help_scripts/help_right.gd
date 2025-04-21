@@ -12,8 +12,10 @@ signal Gone
 func _on_confirmed() -> void:
 	emit_signal("RIGHT")
 	var reg = rightpng.texture
+	rightpng.modulate = Color(.2588, .6275, 0)
 	rightpng.texture = load(whiteRight)
 	await wait_frames(40)
+	rightpng.modulate = Color(1,1,1)
 	rightpng.texture = reg
 	resetBot()
 	pass # Replace with function body.

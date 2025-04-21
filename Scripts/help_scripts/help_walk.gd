@@ -11,8 +11,10 @@ signal Gone
 func _on_confirmed() -> void:
 	emit_signal("walk")
 	var reg = walkpng.texture
+	walkpng.modulate = Color(.2588, .6275, 0)
 	walkpng.texture = load(whiteWalk)
 	await wait_frames(40)
+	walkpng.modulate = Color(1,1,1)
 	walkpng.texture = reg
 	resetBot()
 	pass # Replace with function body.

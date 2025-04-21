@@ -12,7 +12,7 @@
 font_color = Color(0, 0, 0, 1)
 
 [node name="Help_Loop" type="AcceptDialog"]
-title = "WALK BUTTON"
+title = "LOOP BUTTON"
 initial_position = 1
 size = Vector2i(600, 650)
 visible = true
@@ -32,7 +32,7 @@ offset_left = 8.0
 offset_top = 8.0
 offset_right = 592.0
 offset_bottom = 601.0
-text = "This is the Walk Button. Click the run button to see how it works."
+text = "This is the LOOP Button. Click the run button to see how it works."
 horizontal_alignment = 1
 
 [node name="Robot" parent="Node2D" instance=ExtResource("3_373ih")]
