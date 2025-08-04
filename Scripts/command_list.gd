@@ -181,7 +181,7 @@ func processNode(the_name: String, child: Node, i: int):
 		await readFunctionList(child.get_node("FuncName").text)
 		if child:
 			child.texture_normal = reg
-			child.get_node("FuncName").add_theme_color_override("font_color", Color.BLACK)
+			child.get_node("FuncName").add_theme_color_override("font_color", Color.WHITE)
 			child.modulate = Color(1, 1, 1)
 		
 	else:

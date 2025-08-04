@@ -35,7 +35,7 @@ func _on_new_game_pressed() -> void:
 	file.close()
 	path = "user://BEST.txt"
 	file = FileAccess.open(path, FileAccess.WRITE)
-	for i in 21:
+	for i in 20:
 		file.store_line("20")
 	file.close()
 	
